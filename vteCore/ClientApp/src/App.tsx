@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import reactLogo from './assets/img/react.svg'
+import './assets/scss/site.scss'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,14 +22,20 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="section">
+      <div className="container">
+        <div className="box container-box">
+          <div className="columns form-columns">
+            <div className="column">
+              <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
+                <img src="/vite.svg" className="logo" alt="Vite logo" />
+              </a>
+              <a href="https://reactjs.org" target="_blank" rel="noreferrer">
+                <img src={reactLogo} className="motion-safe:animate-logo-turn logo react" alt="React logo" />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <h1>Vite + React</h1>
       <div className="card">

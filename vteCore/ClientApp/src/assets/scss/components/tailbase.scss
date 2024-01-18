@@ -1,0 +1,35 @@
+.form-login {
+    @apply mb-4 flex flex-col gap-2;
+}
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    &:hover {
+        filter: drop-shadow(0 0 2em #646cffaa);
+    }
+    &.react:hover {
+        filter: drop-shadow(0 0 2em #61dafbaa);
+    }
+  }
+
+
+.underline-flash:after {
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    margin-bottom: -3px;
+    content: "";
+    display: block;
+    height: 3px;
+    left: 50%;
+    position: absolute;
+    background: #66a80f;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+.underline-flash:hover:after {
+    width: 100%; 
+    left: 0; 
+}
+
