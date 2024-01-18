@@ -1,4 +1,4 @@
-import { DemoFormState, SelectOption } from './views'
+import { DemoFormState, RouteInput, SelectOption } from './views'
 
 export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
   { value: '', label: '(All)' },
@@ -10,3 +10,10 @@ export const DemoFormStateInit: DemoFormState={
     checked: false,
     selectedOption: SELECT_OPTION_TEMPLATE[0]
 }
+
+export const TRANSITION_DEFAULT = {
+    classNames: 'fade',
+    timeout: { enter: 250, exit: 250 }
+  };
+
+  

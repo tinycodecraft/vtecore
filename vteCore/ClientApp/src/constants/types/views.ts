@@ -1,6 +1,9 @@
-import { AnchorHTMLAttributes } from 'react'
+import { AnchorHTMLAttributes, ComponentType } from 'react'
+
 import { SelectItemProps } from '@mantine/core'
 import { ApiStatusEnum } from './enums'
+import { TRANSITION_DEFAULT } from './values'
+import { Params } from 'react-router'
 
 export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
   role: 'button',
@@ -55,7 +58,6 @@ export type WindowSize = Readonly<{
   winHeight: number | undefined
 }>
 
-
 export type UploadedFileState = {
   filePath?: string
   fileDesc?: string
@@ -67,7 +69,6 @@ export type UploadState = {
   progress?: number
   fileResults?: UploadedFileState[]
 }
-
 
 export type DownloadLinkResult = Readonly<{
   status: ApiStatusEnum
@@ -81,7 +82,6 @@ export type FileUploadSummaryState = {
   filePaths: string[]
   fileDescs: string[]
 }
-
 
 export type DataVerseState = {
   status: ApiStatusEnum
@@ -105,4 +105,18 @@ export type DataVerseItem = Readonly<{
 export type ApiError = Readonly<{
   error?: string
   status: ApiStatusEnum
+}>
+
+export type RouteComponent = ComponentType<any>
+
+export type ReactTransition = typeof TRANSITION_DEFAULT
+
+export type RouteInput = Readonly<{
+  name: string
+  path: string
+  popUpOnly: boolean
+  transition: ReactTransition
+  Component: RouteComponent
+  params?: Readonly<Params<string>>
+  iconIndex?: number
 }>
