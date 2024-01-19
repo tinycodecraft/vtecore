@@ -7,6 +7,8 @@ import { fileURLToPath, URL } from 'url'
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   // console.log(JSON.stringify(env))
+  // proxy does not work in production because vite build does not contain the proxy server
+  // https://github.com/vitejs/vite/discussions/8043#discussioncomment-7752428
 
   return {
     server: {
