@@ -1,48 +1,50 @@
 import type { FunctionComponent } from 'react'
-
+import reactLogo from '@/assets/img/react.svg'
 
 const Dashboard: FunctionComponent = () => {
-
   return (
-
-
-    <div className='dashboard-wrapper'>
-      <section className='hero is-dark'>
-        <div className='hero-body'>
-          <div className='is-flex is-horizontal-center'>
-            
+    <div className="dashboard-wrapper">
+      <section className="hero is-dark">
+        <div className="hero-body">
+          <div className="is-flex is-horizontal-center">
+            <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
+              <img src="/vite.svg" className="logo" alt="Vite logo" />
+            </a>
+            <a href="https://reactjs.org" target="_blank" rel="noreferrer">
+              <img src={reactLogo} className="motion-safe:animate-logo-turn logo react" alt="React logo" />
+            </a>
           </div>
         </div>
       </section>
-      <section className='container'>
-        <div className='card'>
-          <div className='card-content'>
-            <div className='column'>
-              <p className='title has-text-centered'>Technology Stack</p>
+      <section className="container">
+        <div className="card">
+          <div className="card-content">
+            <div className="column">
+              <p className="title has-text-centered">Technology Stack</p>
               <hr />
-              <div className='columns is-multiline'>
-                <div className='column dashboard-info is-half'>
-                  <div className='content'>
+              <div className="columns is-multiline">
+                <div className="column dashboard-info is-half">
+                  <div className="content">
                     <ul>
                       <li>
                         <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://reactjs.org/'
-                          className='dashboard-link react'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://reactjs.org/"
+                          className="dashboard-link react"
                         >
                           React
                         </a>
-                        is an open-source JavaScript library that makes no assumptions about the rest
-                        of your technology stack. It allows you to build encapsulated components that
-                        mange their own state using JavaScript, instead of templates.
+                        is an open-source JavaScript library that makes no assumptions about the rest of your technology
+                        stack. It allows you to build encapsulated components that mange their own state using
+                        JavaScript, instead of templates.
                       </li>
                       <li>
                         <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://redux.js.org/'
-                          className='dashboard-link redux'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://redux.js.org/"
+                          className="dashboard-link redux"
                         >
                           Redux
                         </a>
@@ -53,10 +55,10 @@ const Dashboard: FunctionComponent = () => {
                       </li>
                       <li>
                         <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://bulma.io/'
-                          className='dashboard-link bulma'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://bulma.io/"
+                          className="dashboard-link bulma"
                         >
                           Bulma
                         </a>
@@ -65,40 +67,40 @@ const Dashboard: FunctionComponent = () => {
                     </ul>
                   </div>
                 </div>
-                <div className='column dashboard-info is-half'>
-                  <div className='content'>
+                <div className="column dashboard-info is-half">
+                  <div className="content">
                     <ul>
                       <li>
                         <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://www.asp.net/'
-                          className='dashboard-link aspcore'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://www.asp.net/"
+                          className="dashboard-link aspcore"
                         >
                           ASP.NET Core
                         </a>
-                        is an open source web framework for building modern web apps and services with
-                        .NET. Creates websites based on HTML5, CSS, and JavaScript that are simple,
-                        fast, and can scale to millions of users.
+                        is an open source web framework for building modern web apps and services with .NET. Creates
+                        websites based on HTML5, CSS, and JavaScript that are simple, fast, and can scale to millions of
+                        users.
                       </li>
                       <li>
                         <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://sass-lang.com/'
-                          className='dashboard-link sass'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://sass-lang.com/"
+                          className="dashboard-link sass"
                         >
                           SASS
                         </a>
-                        is a CSS pre-processor extension to help provide more flexibility &amp;
-                        maintainability to your style-sheets.
+                        is a CSS pre-processor extension to help provide more flexibility &amp; maintainability to your
+                        style-sheets.
                       </li>
                       <li>
                         <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://www.typescriptlang.org/'
-                          className='dashboard-link typescript'
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://www.typescriptlang.org/"
+                          className="dashboard-link typescript"
                         >
                           TypeScript
                         </a>
@@ -115,8 +117,5 @@ const Dashboard: FunctionComponent = () => {
     </div>
   )
 }
-
-
-
 
 export default Dashboard
