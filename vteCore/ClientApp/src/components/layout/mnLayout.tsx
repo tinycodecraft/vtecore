@@ -1,5 +1,6 @@
-import { MantineProvider } from '@mantine/core'
+import { AppShell, Header, MantineProvider } from '@mantine/core'
 import { FC, Fragment, PropsWithChildren } from 'react'
+import { DyNavBar } from './dyNavBar'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => (
   <Fragment>
@@ -34,7 +35,7 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => (
         },
       }}
     >
-      {children}
+      <AppShell header={<Header height={{base: 50, md: 70}} pt={0} pb={'xs'} pl={0} pr={0}> <DyNavBar /></Header>}>{children}</AppShell>
     </MantineProvider>
   </Fragment>
 )

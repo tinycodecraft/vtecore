@@ -4,6 +4,9 @@ export default {
       "./index.html",
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
+    daisyui: {
+      themes: ['light','dark','lemonade']
+    },
     theme: {
       screens: {
         sm: '480px',
@@ -44,7 +47,7 @@ export default {
         }
       }
     },
-    plugins: [],
+    plugins: [require('daisyui')],
   }
   
   
