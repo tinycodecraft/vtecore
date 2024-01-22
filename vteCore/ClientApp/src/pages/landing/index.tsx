@@ -1,5 +1,6 @@
 import type { FunctionComponent } from 'react'
 import reactLogo from '@/assets/img/react.svg'
+import { FormattedMessage } from 'react-intl'
 
 const Dashboard: FunctionComponent = () => {
   return (
@@ -27,17 +28,7 @@ const Dashboard: FunctionComponent = () => {
                   <div className="content">
                     <ul>
                       <li>
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href="https://reactjs.org/"
-                          className="dashboard-link react"
-                        >
-                          React
-                        </a>
-                        is an open-source JavaScript library that makes no assumptions about the rest of your technology
-                        stack. It allows you to build encapsulated components that mange their own state using
-                        JavaScript, instead of templates.
+                        <FormattedMessage id="pages.home.demotext" values={{ technology: 'React' }} />
                       </li>
                       <li>
                         <a

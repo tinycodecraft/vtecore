@@ -5,7 +5,7 @@ import { store, persistor } from '@/hooks'
 import { PersistGate } from 'redux-persist/integration/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const AppProvider: FC<PropsWithChildren> =({ children }) => {
+const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const query = new QueryClient()
   return (
     <Fragment>

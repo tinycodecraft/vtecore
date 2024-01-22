@@ -1,8 +1,6 @@
+import { LangContextProps } from '@/constants/types'
 import React, { PropsWithChildren, SetStateAction, createContext, useState } from 'react'
-interface LangContextProps {
-  locale: string
-  setLocale: (value: SetStateAction<string>) => void
-}
+
 const LangContext = createContext<Partial<LangContextProps>>({ locale: 'en-US' })
 
 export const LangProvider = ({ children }: PropsWithChildren) => {
@@ -18,3 +16,5 @@ export const LangProvider = ({ children }: PropsWithChildren) => {
     </LangContext.Provider>
   )
 }
+
+export default LangContext

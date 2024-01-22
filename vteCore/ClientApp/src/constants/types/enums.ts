@@ -6,6 +6,7 @@ export const ApiStatusEnum = {
   SUCCESS: 'success',
 } as const
 
+
 export type ApiStatusEnum = (typeof ApiStatusEnum)[keyof typeof ApiStatusEnum]
 
 export const FieldsEnum = {
@@ -14,3 +15,10 @@ export const FieldsEnum = {
   PASSWORD: 'password',
 } as const
 export type FieldsEnum = (typeof FieldsEnum)[keyof typeof FieldsEnum]
+
+
+export const LangEnum = {
+  CHINESE: 'zh-HK',
+  DEFAULT: 'en-US'
+} as const
+export type LangEnum = (typeof LangEnum)[keyof typeof LangEnum]

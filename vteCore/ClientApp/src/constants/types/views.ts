@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes, ComponentType } from 'react'
+import { AnchorHTMLAttributes, ComponentType, SetStateAction } from 'react'
 
 import { SelectItemProps } from '@mantine/core'
 import { ApiStatusEnum } from './enums'
@@ -120,3 +120,8 @@ export type RouteInput = Readonly<{
   params?: Readonly<Params<string>>
   iconIndex?: number
 }>
+
+export interface LangContextProps {
+  locale: string
+  setLocale: (value: SetStateAction<string>) => void
+}

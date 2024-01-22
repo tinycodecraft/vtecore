@@ -1,7 +1,7 @@
 import { MantineProvider } from '@mantine/core'
 import { FC, Fragment, PropsWithChildren } from 'react'
 
-const ManContainer: FC<PropsWithChildren> = ({ children }) => (
+const ManLayout: FC<PropsWithChildren> = ({ children }) => (
   <Fragment>
     <MantineProvider
       withGlobalStyles
@@ -39,4 +39,4 @@ const ManContainer: FC<PropsWithChildren> = ({ children }) => (
   </Fragment>
 )
 
-export default ManContainer
+export default ManLayout
