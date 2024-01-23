@@ -1,7 +1,20 @@
 import { useHover } from '@mantine/hooks'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
-import { Box, Center, HoverCard, Group, Text, Anchor, Divider, SimpleGrid, UnstyledButton, ThemeIcon, rem } from '@mantine/core'
+import {
+  Box,
+  Center,
+  HoverCard,
+  Group,
+  Text,
+  Anchor,
+  Divider,
+  SimpleGrid,
+  UnstyledButton,
+  ThemeIcon,
+  rem,
+  clsx
+} from '@mantine/core'
 import {
   IconChevronDown,
   IconCode,
@@ -12,8 +25,14 @@ import {
   IconNotification,
 } from '@tabler/icons-react'
 
+
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
+  const [openHovered, setOpenHover] = useState(false)
+
+  const openclosehover = useCallback(() => {
+    setOpenHover(!openHovered)
+  }, [openHovered, setOpenHover])
   const mockdata = [
     {
       icon: IconCode,
@@ -58,14 +77,14 @@ export const DyNavBar = () => {
             <a>Link</a>
           </li>
           <li className="underline-flash">
-            <HoverCard width={600} position="bottom" radius={'md'} shadow="md" withinPortal>
+            <HoverCard width={600} position="bottom" radius={'md'} shadow="md" withinPortal onOpen={openclosehover} onClose={openclosehover}>
               <HoverCard.Target>
-                <a href="#">
+                <a href="#" className={menuLinkStyle.menulink}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
                     </Box>
-                    <IconChevronDown size={16} color={theme.fn.primaryColor()} />
+                    <IconChevronDown size={16} color={theme.fn.primaryColor()} className={clsx('arrow',openHovered ? 'active' : '')} />
                   </Center>
                 </a>
               </HoverCard.Target>
@@ -82,7 +101,7 @@ export const DyNavBar = () => {
                     <UnstyledButton className={menuLinkStyle.childLink} key={`${item.title}-${index}`}>
                       <Group noWrap align="flex-start">
                         <ThemeIcon size={34} variant="default" radius="md">
-                          <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
+                          <item.icon size={rem(22)} color={theme.fn.primaryColor()}  />
                         </ThemeIcon>
                         <div>
                           <Text size="sm" fw={500}>

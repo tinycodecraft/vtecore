@@ -11,12 +11,12 @@ export default createStyles((theme) => ({
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     fontWeight: 500,
     fontSize: theme.fontSizes.sm,
-    '& svg': {
+    '& .arrow': {
       transform: 'rotate(0deg)',
       transition: 'all 0.25s ease-in-out',
     },
 
-    '& svg.active': {
+    '& .arrow.active': {
       transform: 'rotate(180deg)',
       transition: 'all 0.25s ease-in-out',
     },
