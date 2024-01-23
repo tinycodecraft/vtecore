@@ -1,8 +1,9 @@
 import { useHover } from '@mantine/hooks'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const DyNavBar = () => {
-  const { hovered, ref } = useHover<HTMLDetailsElement>()
+
+
   return (
     <div className="navbar bg-base-100" data-theme="lemonade">
       <div className="flex-1">
@@ -13,10 +14,10 @@ export const DyNavBar = () => {
           <li className="underline-flash">
             <a>Link</a>
           </li>
-          <li className="underline-flash">
-            <details ref={ref} open={hovered}>
+          <li className="underline-flash" >
+            <details>
               <summary>Parent</summary>
-              <ul className="p-2 bg-base-100 rounded-t-none">
+              <ul className="bg-base-100 rounded-t-none  top-[25px]" >
                 <li>
                   <a>Link 1</a>
                 </li>
