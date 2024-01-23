@@ -24,6 +24,8 @@ import {
   IconChartPie3,
   IconNotification,
 } from '@tabler/icons-react'
+import { NavLink } from 'react-router-dom'
+import { generatePath } from 'react-router'
 
 
 export const DyNavBar = () => {
@@ -74,7 +76,7 @@ export const DyNavBar = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
-            <a>Link</a>
+            <NavLink key={'home'} to={generatePath('/home')} className={({isActive})=> isActive ? 'is-active': ''} >Home</NavLink>
           </li>
           <li className="underline-flash">
             <HoverCard width={600} position="bottom" radius={'md'} shadow="md" withinPortal onOpen={openclosehover} onClose={openclosehover}>
@@ -118,6 +120,9 @@ export const DyNavBar = () => {
               </HoverCard.Dropdown>
             </HoverCard>
           </li>
+          <li className="underline-flash">
+            <NavLink key={'login'} to={generatePath('/login')} className={({isActive})=> isActive ? 'is-active': ''} >Login</NavLink>
+          </li>          
         </ul>
       </div>
     </div>

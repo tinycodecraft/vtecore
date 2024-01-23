@@ -8,7 +8,7 @@ export default createStyles((theme) => ({
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     textDecoration: 'none',
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    color: theme.colorScheme === 'dark' ? theme.colors.brand[6] : theme.colors.brand[0],
     fontWeight: 500,
     fontSize: theme.fontSizes.sm,
     '& .arrow': {

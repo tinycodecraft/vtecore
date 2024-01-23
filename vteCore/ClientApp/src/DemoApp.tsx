@@ -8,15 +8,15 @@ import '@/assets/scss/site.scss'
 
 const DemoApp: FunctionComponent = () => {
   return (
-    <Layout>
+    <AppProvider>
       <LangProvider>
         <IntlProvider>
-          <AppProvider>
+          <Layout>
             <RouterComponent />
-          </AppProvider>
+          </Layout>
         </IntlProvider>
       </LangProvider>
-    </Layout>
+    </AppProvider>
   )
 }
 

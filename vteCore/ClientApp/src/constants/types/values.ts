@@ -1,3 +1,4 @@
+import { IconHome, IconLogin, IconLogout } from '@tabler/icons-react';
 import { DemoFormState, RouteInput, SelectOption } from './views'
 
 export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
@@ -16,4 +17,4 @@ export const TRANSITION_DEFAULT = {
     timeout: { enter: 250, exit: 250 }
   };
 
-  
+export const LINK_ICONS = [ IconHome,IconLogin, IconLogout]
