@@ -125,3 +125,11 @@ export interface LangContextProps {
   locale: string
   setLocale: (value: SetStateAction<string>) => void
 }
+
+export interface LoginProps {
+  UserName: string;
+  Password: string;
+  NewPassword?: string;
+  ConfirmPassword?: string;
+  ForSignup: boolean;
+}

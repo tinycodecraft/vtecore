@@ -35,6 +35,7 @@
     "@mantine/dates": "^6.0.21",
     "@mantine/dropzone": "^6.0.21",
     "@mantine/hooks": "^6.0.21",
+    "@mantine/form": "^6.0.21",
     "@mobily/ts-belt": "^3.13.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@tabler/icons-react": "^2.36.0",
