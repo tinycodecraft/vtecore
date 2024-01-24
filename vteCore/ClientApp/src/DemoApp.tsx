@@ -4,6 +4,7 @@ import RouterComponent from '@/constants/routes'
 import Layout from '@/components/layout/mnLayout'
 import IntlProvider from '@/hooks/context/intl'
 import { LangProvider } from '@/hooks/context/lang'
+import { CtxForLayoutProvider } from '@/components/context/CtxForLayout'
 import '@/assets/scss/site.scss'
 
 const DemoApp: FunctionComponent = () => {
@@ -11,9 +12,11 @@ const DemoApp: FunctionComponent = () => {
     <AppProvider>
       <LangProvider>
         <IntlProvider>
-          <Layout>
-            <RouterComponent />
-          </Layout>
+          <CtxForLayoutProvider>
+            <Layout>
+              <RouterComponent />
+            </Layout>
+          </CtxForLayoutProvider>
         </IntlProvider>
       </LangProvider>
     </AppProvider>

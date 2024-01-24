@@ -1,5 +1,5 @@
 import { useHover, useViewportSize } from '@mantine/hooks'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
 import {
   Box,
@@ -13,7 +13,7 @@ import {
   UnstyledButton,
   ThemeIcon,
   rem,
-  clsx
+  clsx,
 } from '@mantine/core'
 import {
   IconChevronDown,
@@ -31,16 +31,7 @@ import { generatePath } from 'react-router'
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
-  const [drawerTop, setDrawerTop] = useState<number>(0)
-  const { width} = useViewportSize()
-  const headRef = useRef<HTMLDivElement | null>(null)  
-
-  useEffect(()=> {
-    console.log(`rerender happens`)
-
-
-  },[width])
-
+  
   const openclosehover = useCallback(() => {
     setOpenHover(!openHovered)
   }, [openHovered, setOpenHover])
@@ -78,24 +69,42 @@ export const DyNavBar = () => {
   ]
 
   return (
-    <div className="navbar bg-base-100" data-theme="cyberpunk" ref={headRef}>
+    <div className="navbar bg-base-100" data-theme="cyberpunk">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
-            <NavLink key={'home'} to={generatePath('/home')} className={({isActive})=> isActive ? 'is-active': ''} >Home</NavLink>
+            <NavLink
+              key={'home'}
+              to={generatePath('/home')}
+              className={({ isActive }) => (isActive ? 'is-active' : '')}
+            >
+              Home
+            </NavLink>
           </li>
           <li className="underline-flash">
-            <HoverCard width={600} position="bottom" radius={'md'} shadow="md" withinPortal onOpen={openclosehover} onClose={openclosehover}>
+            <HoverCard
+              width={600}
+              position="bottom"
+              radius={'md'}
+              shadow="md"
+              withinPortal
+              onOpen={openclosehover}
+              onClose={openclosehover}
+            >
               <HoverCard.Target>
                 <a href="#" className={menuLinkStyle.menulink}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
                     </Box>
-                    <IconChevronDown size={16} color={theme.fn.primaryColor()} className={clsx('arrow',openHovered ? 'active' : '')} />
+                    <IconChevronDown
+                      size={16}
+                      color={theme.fn.primaryColor()}
+                      className={clsx('arrow', openHovered ? 'active' : '')}
+                    />
                   </Center>
                 </a>
               </HoverCard.Target>
@@ -112,7 +121,7 @@ export const DyNavBar = () => {
                     <UnstyledButton className={menuLinkStyle.childLink} key={`${item.title}-${index}`}>
                       <Group noWrap align="flex-start">
                         <ThemeIcon size={34} variant="default" radius="md">
-                          <item.icon size={rem(22)} color={theme.fn.primaryColor()}  />
+                          <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
                         </ThemeIcon>
                         <div>
                           <Text size="sm" fw={500}>
@@ -130,8 +139,14 @@ export const DyNavBar = () => {
             </HoverCard>
           </li>
           <li className="underline-flash">
-            <NavLink key={'login'} to={generatePath('/login')} className={({isActive})=> isActive ? 'is-active': ''} >Login</NavLink>
-          </li>          
+            <NavLink
+              key={'login'}
+              to={generatePath('/login')}
+              className={({ isActive }) => (isActive ? 'is-active' : '')}
+            >
+              Login
+            </NavLink>
+          </li>
         </ul>
       </div>
     </div>

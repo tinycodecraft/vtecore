@@ -1,11 +1,14 @@
 import { LoginFormInit, LoginProps } from '@/constants/types'
-import { Input, Tooltip } from '@mantine/core'
+import { Container, Input, Tooltip } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconAlertCircle, IconLock, IconUser } from '@tabler/icons-react'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react'
+import CtxForLayout from '@/components/context/CtxForLayout'
+import { clsxm } from '@/utils/methods'
 
 const LoginForm: FunctionComponent = () => {
   const [loginValues, setLoginValues] = useState<LoginProps>()
+  const { navHeight } = useContext(CtxForLayout)
   const loginForm = useForm({
     initialValues: LoginFormInit,
   })
@@ -15,11 +18,25 @@ const LoginForm: FunctionComponent = () => {
   }, [loginValues])
 
   return (
-    <div
-      className="relative flex flex-col items-center justify-center overflow-hidden py-10 rounded-lg"
-      data-theme="coffee"
+    <Container
+      sx={(theme) => ({
+        height: `calc(100vh - ${navHeight! + 40}px)`,
+      })}
+      className={clsxm(
+        'relative',
+        'flex',
+        'flex-col',
+        'items-center',
+        'justify-center',
+        'overflow-hidden',
+        'py-10',
+        'rounded-lg',
+      )}
     >
-      <div className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md lg:max-w-lg">
+      <div
+        className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md lg:max-w-lg"
+        data-theme="coffee"
+      >
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
         <form className="space-y-4 p-5" onSubmit={loginForm.onSubmit((values) => setLoginValues(values))}>
           <Input
@@ -54,7 +71,7 @@ const LoginForm: FunctionComponent = () => {
           </div>
         </form>
       </div>
-    </div>
+    </Container>
   )
 }
 
