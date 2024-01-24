@@ -27,7 +27,7 @@ export const CtxForLayoutProvider: FunctionComponent<PropsWithChildren> = ({ chi
       const { height } = headRef.current.getBoundingClientRect()
       console.log(`the height is ${height}`)
       if (height) {
-        setDrawerTop(height)
+        setDrawerTop(height + 40)
       }
     }
   }, [width])

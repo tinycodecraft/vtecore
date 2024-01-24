@@ -20,7 +20,7 @@ const LoginForm: FunctionComponent = () => {
   return (
     <Container
       sx={(theme) => ({
-        height: `calc(100vh - ${navHeight! + 40}px)`,
+        height: `calc(100vh - ${navHeight}px)`,
       })}
       className={clsxm(
         'relative',
