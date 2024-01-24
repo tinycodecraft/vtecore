@@ -32,10 +32,15 @@
   height: 3px;
   left: 50%;
   position: absolute;
-  background: #66a80f;
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
+  @apply bg-pink-600;
 }
+.underline-flash:has(.is-active):after {
+  width: 100%;
+  left: 0;
+}
+
 .underline-flash:hover:after {
   width: 100%;
   left: 0;

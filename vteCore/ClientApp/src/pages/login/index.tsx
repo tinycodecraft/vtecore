@@ -19,7 +19,7 @@ const LoginForm: FunctionComponent = () => {
       className="relative flex flex-col items-center justify-center overflow-hidden py-10 rounded-lg"
       data-theme="coffee"
     >
-      <div className="w-full p-6 border-t-4 border-pink rounded-md border-b-4 shadow-md lg:max-w-lg">
+      <div className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md lg:max-w-lg">
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
         <form className="space-y-4 p-5" onSubmit={loginForm.onSubmit((values) => setLoginValues(values))}>
           <Input
