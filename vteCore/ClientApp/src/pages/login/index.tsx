@@ -1,5 +1,7 @@
 import { LoginFormInit, LoginProps } from '@/constants/types'
+import { Input, Tooltip } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { IconAlertCircle, IconLock, IconUser } from '@tabler/icons-react'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 
 const LoginForm: FunctionComponent = () => {
@@ -15,36 +17,36 @@ const LoginForm: FunctionComponent = () => {
   return (
     <div
       className="relative flex flex-col items-center justify-center overflow-hidden py-10 rounded-lg"
-      data-theme="dark"
+      data-theme="coffee"
     >
-      <div className="w-full p-6 bg-white border-t-4 border-gray-600 rounded-md shadow-md border-top lg:max-w-lg">
+      <div className="w-full p-6 border-t-4 border-pink rounded-md border-b-4 shadow-md lg:max-w-lg">
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
         <form className="space-y-4 p-5" onSubmit={loginForm.onSubmit((values) => setLoginValues(values))}>
-          <div>
-            <label className="label">
-              <span className="text-base label-text">User Name</span>
-            </label>
-            <input
-              type="text"
-              placeholder="User Name"
-              className="w-full input input-bordered bg-info"
-              {...loginForm.getInputProps('UserName')}
-            />
-          </div>
-          <div>
-            <label className="label">
-              <span className="text-base label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              className="w-full input input-bordered bg-info"
-              {...loginForm.getInputProps('Password')}
-            />
-          </div>
-          <a href="#" className="text-xs text-gray-600 hover:underline hover:text-blue-600">
-            Forget Password?
-          </a>
+          <Input
+            icon={<IconUser size="1rem" />}
+            placeholder="User Name"
+            rightSection={
+              <Tooltip label="Please enter user name" position="top-end" withArrow>
+                <div>
+                  <IconAlertCircle size="1rem" style={{ display: 'block', opacity: 0.5 }} />
+                </div>
+              </Tooltip>
+            }
+            {...loginForm.getInputProps('UserName')}
+          />
+
+          <Input
+            icon={<IconLock size="1rem" />}
+            placeholder="Password"
+            rightSection={
+              <Tooltip label="Please enter password" position="top-end" withArrow>
+                <div>
+                  <IconAlertCircle size="1rem" style={{ display: 'block', opacity: 0.5 }} />
+                </div>
+              </Tooltip>
+            }
+            {...loginForm.getInputProps('Password')}
+          />
           <div>
             <button type="submit" className="btn btn-block">
               Login

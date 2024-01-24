@@ -1,5 +1,5 @@
-import { useHover } from '@mantine/hooks'
-import React, { useCallback, useEffect, useState } from 'react'
+import { useHover, useViewportSize } from '@mantine/hooks'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
 import {
   Box,
@@ -31,6 +31,15 @@ import { generatePath } from 'react-router'
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
+  const [drawerTop, setDrawerTop] = useState<number>(0)
+  const { width} = useViewportSize()
+  const headRef = useRef<HTMLDivElement | null>(null)  
+
+  useEffect(()=> {
+    console.log(`rerender happens`)
+
+
+  },[width])
 
   const openclosehover = useCallback(() => {
     setOpenHover(!openHovered)
@@ -69,7 +78,7 @@ export const DyNavBar = () => {
   ]
 
   return (
-    <div className="navbar bg-base-100" data-theme="lemonade">
+    <div className="navbar bg-base-100" data-theme="cyberpunk" ref={headRef}>
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
