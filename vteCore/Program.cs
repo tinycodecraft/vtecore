@@ -10,6 +10,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+//Try to add session
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.Name = ".vteCore.Session";
+});
+
 // In production, the Vite files will be served from this directory
 builder.Services.AddSpaStaticFiles(configuration =>
 {
@@ -34,7 +46,13 @@ app.UseSpaStaticFiles();
 
 app.UseRouting();
 app.UseAuthorization();
-app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+app.UseSession();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.UseSpa(spa =>
 {
