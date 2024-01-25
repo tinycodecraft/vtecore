@@ -28,10 +28,8 @@ bld/
 
 # Visual Studio 2015 cache/options directory
 .vs/
-/wwwroot/dist/
-/ClientApp/dist/
-/CoreSWork/wwwroot/dist
-/CoreSWork/ClientApp/dist
+/vteCore/wwwroot/dist
+/vteCore/ClientApp/dist
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
