@@ -1,14 +1,14 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
-using vteCore.Abstraction.Models;
+using vteCore.Shared.Models;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using OpenXmlPowerTools;
 using System.Xml.Linq;
-using static vteCore.Abstraction.Interfaces;
+using static vteCore.Shared.Interfaces;
 
-namespace vteCore.Abstraction.Tools
+namespace vteCore.Shared.Tools
 {
     public class FileService : IFileService
     {

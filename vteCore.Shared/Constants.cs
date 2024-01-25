@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace vteCore.Abstraction
+namespace vteCore.Shared
 {
     public static class Constants
     {

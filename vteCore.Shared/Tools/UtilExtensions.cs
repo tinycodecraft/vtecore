@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace vteCore.Abstraction.Tools
+namespace vteCore.Shared.Tools
 {
     public static class IdGenerator
     {

@@ -1,6 +1,6 @@
-﻿using vteCore.Abstraction.Models;
+﻿using vteCore.Shared.Models;
 
-namespace vteCore.Abstraction
+namespace vteCore.Shared
 {
     public class Interfaces
     {

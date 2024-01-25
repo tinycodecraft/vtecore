@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace vteCore.Abstraction.Tools
+namespace vteCore.Shared.Tools
 {
     public sealed class PasswordHasher
     {

@@ -1,4 +1,4 @@
-﻿using vteCore.Abstraction.Models;
+﻿using vteCore.Shared.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -10,9 +10,9 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using static vteCore.Abstraction.Interfaces;
+using static vteCore.Shared.Interfaces;
 
-namespace vteCore.Abstraction.Tools
+namespace vteCore.Shared.Tools
 {
     public class TokenService
     {

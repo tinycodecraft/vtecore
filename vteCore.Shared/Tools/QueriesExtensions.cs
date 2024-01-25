@@ -1,4 +1,4 @@
-﻿using vteCore.Abstraction.Models;
+﻿using vteCore.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualBasic;
@@ -12,9 +12,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using static vteCore.Abstraction.Constants;
+using static vteCore.Shared.Constants;
 
-namespace vteCore.Abstraction.Tools
+namespace vteCore.Shared.Tools
 {
 
     /// <summary>

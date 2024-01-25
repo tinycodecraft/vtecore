@@ -9,11 +9,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using vteCore.Abstraction.Models;
+using vteCore.Shared.Models;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace vteCore.Abstraction.Tools
+namespace vteCore.Shared.Tools
 {
 
 
