@@ -2,9 +2,18 @@
 
 namespace vteCore.Shared
 {
+    public interface IResultGateway<T>: IObservable<KeyValuePair<string, T>>
+    {
+
+    }
+
     public class Interfaces
     {
 
+        public interface ILanguageService
+        {
+            public string LanguageId { get; }
+        }
         public interface IBelongtoTable
         {
             string tablename { get; set; }

@@ -1,0 +1,1 @@
+﻿global using vteCore.Shared.Tools;
