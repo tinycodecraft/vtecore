@@ -25,6 +25,7 @@ namespace vteCore.Shared
 
         public static class Op
         {
+            
             public const string greaterThanOrEqual = "gte";
             public const string lessThanOrEqual = "lte";
             public const string lessThan = "lt";
@@ -54,7 +55,7 @@ namespace vteCore.Shared
             public const string PathSetting = nameof(PathSetting);
 
             public const string CorsPolicySetting = nameof(CorsPolicySetting);
-
+            
         }
     }
 }
