@@ -41,7 +41,7 @@ const LoginForm: FunctionComponent = () => {
         <form className="space-y-4 p-5" onSubmit={loginForm.onSubmit((values) => setLoginValues(values))}>
           <Input
             icon={<IconUser size="1rem" />}
-            placeholder="User Name"
+            placeholder="User Name or Email Address"
             rightSection={
               <Tooltip label="Please enter user name" position="top-end" withArrow>
                 <div>
