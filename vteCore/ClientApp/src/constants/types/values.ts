@@ -1,5 +1,6 @@
 import { IconHome, IconLogin, IconLogout } from '@tabler/icons-react'
-import { DemoFormState, LoginProps, RouteInput, SelectOption, WeatherState } from './views'
+import { DemoFormState, HubState, LoginProps, RouteInput, SelectOption, WeatherState } from './views'
+import { ApiStatusEnum } from './enums'
 
 export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
   { value: '', label: '(All)' },
@@ -28,5 +29,11 @@ export const LoginFormInit: LoginProps = {
 export const WeatherInit: WeatherState = {
   forecasts: [],
   isLoading: true,
-  debug: true
+  debug: true,
+}
+
+export const HubInit: HubState = {
+  userName: '',
+  connectionId: '',
+  status: ApiStatusEnum.NONE,
 }

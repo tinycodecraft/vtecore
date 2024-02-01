@@ -24,7 +24,7 @@ export type WeatherForecast = Readonly<{
 
 export type WeatherState = Readonly<{
   debug?: boolean
-  isLoading: boolean  
+  isLoading: boolean
   forecasts: WeatherForecast[]
 }>
 
@@ -136,10 +136,16 @@ export interface LoginProps {
   ForSignup: boolean
 }
 
+export type HubState = Readonly<{
+  userName: string
+  connectionId: string
+  status: ApiStatusEnum
+}>
+
 export type ErrorDetail = Readonly<{
   code: string
   description: string
-  type: ErrorEnum |number
+  type: ErrorEnum | number
   numericType: number
 }>
 
@@ -149,3 +155,5 @@ export type ErrorOr<T> = Readonly<{
   errors: ErrorDetail[]
   value?: T
 }>
+
+export type UnsubscribeFunc = () => void

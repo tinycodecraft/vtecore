@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import dmFormReducer from './dmFormSlice'
 import dmWeatherReducer from './dmWeatherSlice'
+import dmHubReducer from './dmHubSlice'
 import { createLogger } from 'redux-logger'
 import sessionStorage from 'redux-persist/es/storage/session'
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
@@ -14,7 +15,7 @@ const logger = createLogger()
 const persistConfig = {
   key: 'root',
   storage: sessionStorage,
-  whitelist: [],
+  whitelist: ['dmHub'],
   // hardset can locate the useSelector error if happens in publish
   stateReconciler: hardSet,
 }
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   dmFile: dmFormReducer,
   dmWeather: dmWeatherReducer,
+  dmHub: dmHubReducer
 })
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(persistConfig, rootReducer)
 

@@ -1,7 +1,7 @@
-import { WeatherState } from '@/constants/types';
-import dayjs from 'dayjs';
+import { WeatherState } from '@/constants/types'
+import dayjs from 'dayjs'
 
-type WeatherTableProps = Pick<WeatherState, 'forecasts'>;
+type WeatherTableProps = Pick<WeatherState, 'forecasts'>
 
 const WeatherTable = ({ forecasts }: WeatherTableProps) => (
   <table className="table is-fullwidth">
@@ -16,7 +16,7 @@ const WeatherTable = ({ forecasts }: WeatherTableProps) => (
     <tbody>
       {forecasts.map((f) => (
         <tr key={f.id}>
-          <td>{dayjs( f.recordDate).format('DD/MM/YYYY')}</td>
+          <td>{dayjs(f.recordDate).format('DD/MM/YYYY')}</td>
           <td>{f.temperatureC}</td>
           <td>{f.temperatureF}</td>
           <td>{f.summary}</td>
@@ -24,8 +24,8 @@ const WeatherTable = ({ forecasts }: WeatherTableProps) => (
       ))}
     </tbody>
   </table>
-);
+)
 
-WeatherTable.displayName = 'ForecastTable';
+WeatherTable.displayName = 'ForecastTable'
 
-export default WeatherTable;
+export default WeatherTable
