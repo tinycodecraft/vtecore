@@ -35,16 +35,15 @@ namespace vteCore.Handles
         {
             var connectionid = request.ConnectionId;
 
-            var mylist = await Enumerable.Range(1, 5).Select(index => new RM.WeatherForcast
+            var mylist = Enumerable.Range(1, 5).Select(index => new RM.WeatherForcast
             {
                 Id = index,
                 RecordDate = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            }).ToDynamicArrayAsync<RM.WeatherForcast>();
-            
-
-            gateway.OnDeliverResultAsync(new($"{connectionid}:{HubMethod.weather}", mylist));
+            }).ToList();
+            //even await the observer call onnext has task function inside.  so no waiting at all.
+            await gateway.OnDeliverResultAsync(new($"{connectionid}:{HubMethod.weather}", mylist));
 
             return mylist;
         }

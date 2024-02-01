@@ -11,10 +11,6 @@ namespace Net6_Controller_And_VIte.Controllers
     {
 
         ISender broker;
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
         private readonly ILogger<SampleController> _logger;
 

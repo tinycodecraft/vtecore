@@ -16,46 +16,7 @@ using static vteCore.Shared.Constants;
 
 namespace vteCore.Shared.Tools
 {
-    public class NotInDbSet<T> : IQueryable, IAsyncEnumerable<T>, IEnumerable<T>, IEnumerable
-    {
-        private readonly List<T> _innerCollection;
-        public NotInDbSet(IEnumerable<T> innerCollection)
-        {
-            _innerCollection = innerCollection.ToList();
-        }
-        public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
-        {
-            return new AsyncEnumerator(GetEnumerator());
-        }
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _innerCollection.GetEnumerator();
-        }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-        public class AsyncEnumerator : IAsyncEnumerator<T>
-        {
-            private readonly IEnumerator<T> _enumerator;
-            public AsyncEnumerator(IEnumerator<T> enumerator)
-            {
-                _enumerator = enumerator;
-            }
-            public ValueTask DisposeAsync()
-            {
-                return new ValueTask();
-            }
-            public ValueTask<bool> MoveNextAsync()
-            {
-                return new ValueTask<bool>(_enumerator.MoveNext());
-            }
-            public T Current => _enumerator.Current;
-        }
-        public Type ElementType => typeof(T);
-        public Expression Expression => Expression.Empty();
-        public IQueryProvider Provider => new EnumerableQuery<T>(Expression);
-    }
+    
 
     /// <summary>
     /// </summary>
@@ -130,6 +91,77 @@ namespace vteCore.Shared.Tools
         }
     }
 
+
+
+    internal class AsyncQueryable<T> : IAsyncEnumerable<T>, IQueryable<T>
+    {
+        private IQueryable<T> Source;
+
+        public AsyncQueryable(IQueryable<T> source)
+        {
+            Source = source;
+        }
+
+        public Type ElementType => typeof(T);
+
+        public Expression Expression => Source.Expression;
+
+        public IQueryProvider Provider => new AsyncQueryProvider<T>(Source.Provider);
+
+        public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        {
+            return new AsyncEnumeratorWrapper<T>(Source.GetEnumerator());
+        }
+
+        public IEnumerator<T> GetEnumerator() => Source.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    internal class AsyncQueryProvider<T> : IQueryProvider
+    {
+        private readonly IQueryProvider Source;
+
+        public AsyncQueryProvider(IQueryProvider source)
+        {
+            Source = source;
+        }
+
+        public IQueryable CreateQuery(Expression expression) =>
+            Source.CreateQuery(expression);
+
+        public IQueryable<TElement> CreateQuery<TElement>(Expression expression) =>
+            new AsyncQueryable<TElement>(Source.CreateQuery<TElement>(expression));
+
+        public object Execute(Expression expression) => Execute<T>(expression);
+
+        public TResult Execute<TResult>(Expression expression) =>
+            Source.Execute<TResult>(expression);
+    }
+
+
+
+    internal class AsyncEnumeratorWrapper<T> : IAsyncEnumerator<T>
+    {
+        private readonly IEnumerator<T> Source;
+
+        public AsyncEnumeratorWrapper(IEnumerator<T> source)
+        {
+            Source = source;
+        }
+
+        public T Current => Source.Current;
+
+        public ValueTask DisposeAsync()
+        {
+            return new ValueTask(Task.CompletedTask);
+        }
+
+        public ValueTask<bool> MoveNextAsync()
+        {
+            return new ValueTask<bool>(Source.MoveNext());
+        }
+    }
+
     public static class QueriesExtensions
 
     {
@@ -142,10 +174,9 @@ namespace vteCore.Shared.Tools
 
         //public static readonly MethodInfo LikeMethod = typeof(DbFunctionsExtensions).GetMethod("Like", new[] { typeof(DbFunctions), typeof(string), typeof(string) });
 
-        public static IQueryable AsAsyncQueryable<T>(this IEnumerable<T> input)
-        {
-            return new NotInDbSet<T>(input);
-        }
+        public static IQueryable<T> AsAsyncQueryable<T>(this ICollection<T> source) =>
+            new AsyncQueryable<T>(source.AsQueryable());
+
         public static MethodInfo MethodsOf<E,T>(Expression<Func<E,T>> method)
         {
             MethodCallExpression mce = (MethodCallExpression)method.Body;
