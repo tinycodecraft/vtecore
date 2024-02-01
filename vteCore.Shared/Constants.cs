@@ -22,7 +22,14 @@ namespace vteCore.Shared
             OrderBy,
             ThenBy,
         }
+        public static class HubMethod
+        {
+            public const string login = nameof(login);
+            public const string weather = nameof(weather);
+            public const string register =nameof(register);
+            public const string pwdchange = nameof(pwdchange);
 
+        }
         public static class Op
         {
             
@@ -42,10 +49,11 @@ namespace vteCore.Shared
             public const string success = nameof(success);
             public const string failure = nameof(failure);  
         }
-        public static class Session
+        public static class Sessions
         {
             public const string REFRESHTOKEN = nameof(REFRESHTOKEN);
             public const string USERID=nameof(USERID);
+            public const string CONNECTIONID=nameof(CONNECTIONID);
             
         }
 

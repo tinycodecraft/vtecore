@@ -1,5 +1,5 @@
 import { IconHome, IconLogin, IconLogout } from '@tabler/icons-react'
-import { DemoFormState, LoginProps, RouteInput, SelectOption } from './views'
+import { DemoFormState, LoginProps, RouteInput, SelectOption, WeatherState } from './views'
 
 export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
   { value: '', label: '(All)' },
@@ -23,4 +23,10 @@ export const LoginFormInit: LoginProps = {
   UserName: '',
   ForSignup: false,
   Password: '',
+}
+
+export const WeatherInit: WeatherState = {
+  forecasts: [],
+  isLoading: true,
+  debug: true
 }

@@ -1,14 +1,23 @@
-﻿using vteCore.Shared.Models;
+﻿using MediatR;
+using vteCore.ErrorOr;
+using vteCore.Shared.Models;
 
 namespace vteCore.Shared
 {
-    public interface IResultGateway<T>: IObservable<KeyValuePair<string, T>>
+    public interface IResultGateway<T>: IObservable<KeyValuePair<string,T>> 
     {
-
+        Task OnDeliverResultAsync(KeyValuePair<string, T> result);
     }
 
     public class Interfaces
     {
+        public interface IRqWeatherForcast: IRequest<ErrorOr<IEnumerable<RM.WeatherForcast>>>
+        {
+            string ConnectionId { get; set; }
+        }
+
+        
+        
 
         public interface ILanguageService
         {

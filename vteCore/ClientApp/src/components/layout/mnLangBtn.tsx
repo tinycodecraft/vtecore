@@ -1,13 +1,11 @@
 import React, { useCallback, useContext, useState } from 'react'
-
-import { IconLanguage, IconLanguageOff } from '@tabler/icons-react'
 import { ManControlBtn } from './mnControlBtn'
-import { rem } from '@mantine/core'
+import { DefaultProps, rem } from '@mantine/core'
 import LanguageContext from '@/hooks/context/lang'
 import { LangEnum } from '@/constants/types/enums'
-import { useEventListener } from '@mantine/hooks'
+import { DyLangicon } from '@/components/dyLangicon'
 
-export function LanguageControl() {
+export function LanguageControl({ className }: DefaultProps) {
   const [isAlternate, setIsAlternate] = useState(false)
   const { locale, setLocale } = useContext(LanguageContext)
 
@@ -20,11 +18,9 @@ export function LanguageControl() {
     setIsAlternate(!isAlternate)
   }, [locale, isAlternate])
 
-  const langbtnRef = useEventListener('click', langbtnClick)
-
   return (
-    <ManControlBtn ref={langbtnRef} tooltip={`${isAlternate ? `Chinese` : `English`} mode`}>
-      {isAlternate ? <IconLanguageOff size={rem(22)} stroke={1.5} /> : <IconLanguage size={rem(22)} stroke={1.5} />}
+    <ManControlBtn onClick={langbtnClick} tooltip={`${isAlternate ? `Chinese` : `English`} mode`} className={className}>
+      <DyLangicon isTranslate={isAlternate} />
     </ManControlBtn>
   )
 }

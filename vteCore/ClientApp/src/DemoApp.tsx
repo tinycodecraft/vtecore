@@ -6,6 +6,7 @@ import IntlProvider from '@/hooks/context/intl'
 import { LangProvider } from '@/hooks/context/lang'
 import { CtxForLayoutProvider } from '@/components/context/CtxForLayout'
 import '@/assets/scss/site.scss'
+import { ToastContainer } from 'react-toastify'
 
 const DemoApp: FunctionComponent = () => {
   return (

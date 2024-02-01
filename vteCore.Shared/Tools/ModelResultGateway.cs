@@ -48,6 +48,8 @@ namespace vteCore.Shared.Tools
             return Task.CompletedTask;
         }
 
+        
+
         public IDisposable Subscribe(IObserver<KeyValuePair<string, T>> observer)
         {
 
@@ -60,7 +62,5 @@ namespace vteCore.Shared.Tools
         }
 
 
-
-        
     }
 }

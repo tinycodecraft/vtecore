@@ -2,9 +2,11 @@ import { AppShell, Container, Header, MantineProvider, clsx, rem } from '@mantin
 import { FC, Fragment, PropsWithChildren, useContext } from 'react'
 import { DyNavBar } from './dyNavBar'
 import CtxForLayout from '@/components/context/CtxForLayout'
+import { Bounce, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
-  const {  navBarRef } = useContext(CtxForLayout)
+  const { navBarRef } = useContext(CtxForLayout)
   return (
     <Fragment>
       <MantineProvider
@@ -46,6 +48,19 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
             </Header>
           }
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+          />
           {children}
         </AppShell>
       </MantineProvider>

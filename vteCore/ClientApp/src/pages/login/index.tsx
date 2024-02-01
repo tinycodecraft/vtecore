@@ -2,19 +2,27 @@ import { LoginFormInit, LoginProps } from '@/constants/types'
 import { Container, Input, Tooltip } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconAlertCircle, IconLock, IconUser } from '@tabler/icons-react'
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react'
+import React, { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import CtxForLayout from '@/components/context/CtxForLayout'
 import { clsxm } from '@/utils/methods'
+import { toast } from 'react-toastify'
 
 const LoginForm: FunctionComponent = () => {
   const [loginValues, setLoginValues] = useState<LoginProps>()
+  const toastId = useRef<string | number | null>(null)
   const { navHeight } = useContext(CtxForLayout)
   const loginForm = useForm({
     initialValues: LoginFormInit,
   })
+  const toastHandler = useCallback((message: string) => {
+    if (!toastId || !toastId.current) {
+      toastId.current = toast(message, { position: 'top-center' })
+    }
+  }, [])
 
   useEffect(() => {
     console.log(`the values submitted: `, loginValues)
+    toastHandler('Hi! Thank you using vite for login')
   }, [loginValues])
 
   return (

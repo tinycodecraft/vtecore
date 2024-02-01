@@ -1,6 +1,7 @@
 import { useHover, useViewportSize } from '@mantine/hooks'
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
+import { LanguageControl } from '@/components/layout/mnLangBtn'
 import {
   Box,
   Center,
@@ -26,12 +27,13 @@ import {
 } from '@tabler/icons-react'
 import { NavLink } from 'react-router-dom'
 import { generatePath } from 'react-router'
-
+import routes from '@/constants/routes/config'
+import { MenuPositionEnum } from '@/constants/types'
 
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
-  
+
   const openclosehover = useCallback(() => {
     setOpenHover(!openHovered)
   }, [openHovered, setOpenHover])
@@ -70,20 +72,27 @@ export const DyNavBar = () => {
 
   return (
     <div className="navbar bg-base-100" data-theme="cyberpunk">
-      <div className="flex-1">
+      <div className="flex-none">
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
-      <div className="flex-none">
+      <div className="flex-grow justify-center">
         <ul className="menu menu-horizontal px-1">
-          <li className="underline-flash">
-            <NavLink
-              key={'home'}
-              to={generatePath('/home')}
-              className={({ isActive }) => (isActive ? 'is-active' : '')}
-            >
-              Home
-            </NavLink>
-          </li>
+          {
+            routes.filter(e=> e.position === MenuPositionEnum.center).map((route,index)=> {
+              return (
+                <li className="underline-flash" key={`${route.name}-${index}`}>
+                <NavLink
+                  key={route.name}
+                  to={generatePath(route.path,route.params)}
+                  className={({ isActive }) => (isActive ? 'is-active' : '')}
+                >
+                  {route.name}
+                </NavLink>
+              </li>                
+              )
+            })
+          }
+
           <li className="underline-flash">
             <HoverCard
               width={600}
@@ -138,6 +147,11 @@ export const DyNavBar = () => {
               </HoverCard.Dropdown>
             </HoverCard>
           </li>
+        </ul>
+      </div>
+      <div className="flex-none">
+      <LanguageControl />
+        <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
             <NavLink
               key={'login'}
@@ -148,6 +162,7 @@ export const DyNavBar = () => {
             </NavLink>
           </li>
         </ul>
+        
       </div>
     </div>
   )

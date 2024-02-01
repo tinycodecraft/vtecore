@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
+using static vteCore.Extensions.SessionExtensions;
+
 
 namespace vteCore.Woker
 {
@@ -7,21 +9,33 @@ namespace vteCore.Woker
     {
         private readonly ConcurrentDictionary<string, IDisposable> _observerList = new();
 
-        protected abstract IDisposable OnSubscribe(ISingleClientProxy client, string connectionid);
+        protected abstract IDisposable? OnSubscribe(ISingleClientProxy client, string connectionid,string method);
 
-        public Task Subscribe()
+        public Task<string> Subscribe(string method)
         {
             var id = Context.ConnectionId;
-            if(_observerList.ContainsKey(id))
+            if(!_observerList.ContainsKey(id))
             {
                 var client = Clients.Client(id);
                 if(client != null) {
 
-                    var subscription = OnSubscribe(client, id);
-                    _observerList[id] = subscription;
+                    var subscription = OnSubscribe(client, id,method);
+                    if(subscription != null)
+                    {
+                        _observerList[id] = subscription;
+                    }
+                    
                 }
             }
-            return Task.CompletedTask;
+            lock (_observerList)
+            {
+                var httpcontext = Context.GetHttpContext();
+                if(httpcontext != null)
+                {
+                    httpcontext.Session.Set(Sessions.CONNECTIONID, id);
+                }
+            }
+            return Task.FromResult(id);
         }
 
 

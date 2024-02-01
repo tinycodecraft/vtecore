@@ -1,7 +1,7 @@
 import { AnchorHTMLAttributes, ComponentType, SetStateAction } from 'react'
 
 import { SelectItemProps } from '@mantine/core'
-import { ApiStatusEnum } from './enums'
+import { ApiStatusEnum, ErrorEnum, MenuPositionEnum } from './enums'
 import { TRANSITION_DEFAULT } from './values'
 import { Params } from 'react-router'
 
@@ -19,15 +19,16 @@ export type WeatherForecast = Readonly<{
   temperatureC: number
   temperatureF: number
   dateFormatted: string
+  recordDate: Date
 }>
 
 export type WeatherState = Readonly<{
-  isLoading: boolean
-  startDateIndex: number
+  debug?: boolean
+  isLoading: boolean  
   forecasts: WeatherForecast[]
 }>
 
-export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts' | 'startDateIndex'>
+export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts'>
 
 export type DemoFormState = Readonly<{
   count: number
@@ -119,6 +120,7 @@ export type RouteInput = Readonly<{
   Component: RouteComponent
   params?: Readonly<Params<string>>
   iconIndex?: number
+  position: MenuPositionEnum
 }>
 
 export interface LangContextProps {
@@ -127,9 +129,23 @@ export interface LangContextProps {
 }
 
 export interface LoginProps {
-  UserName: string;
-  Password: string;
-  NewPassword?: string;
-  ConfirmPassword?: string;
-  ForSignup: boolean;
+  UserName: string
+  Password: string
+  NewPassword?: string
+  ConfirmPassword?: string
+  ForSignup: boolean
 }
+
+export type ErrorDetail = Readonly<{
+  code: string
+  description: string
+  type: ErrorEnum |number
+  numericType: number
+}>
+
+export type ErrorOr<T> = Readonly<{
+  status?: ApiStatusEnum
+  isError: boolean
+  errors: ErrorDetail[]
+  value?: T
+}>

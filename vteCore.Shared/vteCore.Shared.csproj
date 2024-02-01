@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="ErrorOr\" />
-    <Folder Include="Handles\" />
   </ItemGroup>
 
 </Project>
