@@ -11,12 +11,7 @@ class SignalRService {
   private _hubConnection: HubConnection
   private _connectionId: string | undefined
   private constructor() {
-    waitForHubInfo()
     this._hubConnection = getSignalRConnection(`${RESULT_BROKER_URL}`)
-    if (this._hubConnection && this._hubConnection.connectionId) {
-      this._connectionId = this._hubConnection.connectionId
-      receiveHubInfo(this._connectionId)
-    }
   }
   get signalrState(): HubConnectionState {
     return this._hubConnection.state
@@ -25,7 +20,14 @@ class SignalRService {
     console.assert(this._connectionId !== undefined)
     return this._connectionId
   }
-
+  private async getConnectionId(): Promise<void> {
+    try {
+      this._connectionId = await this._hubConnection?.invoke<string>(HubMethodEnum.getId)
+      console.log(`the connection id is received : ${this.connectionId}`)
+    } catch (e) {
+      console.error(e)
+    }
+  }
   public static get Instance(): SignalRService {
     return this._signalRService || (this._signalRService = new this())
   }
@@ -34,7 +36,7 @@ class SignalRService {
       if (this._hubConnection.state !== HubConnectionState.Connected) {
         await startSignalRConnection(this._hubConnection)
       }
-      console.log(`the hubconnection`, this._hubConnection)
+      await this.getConnectionId()
     } catch (e) {
       console.error(e)
     }

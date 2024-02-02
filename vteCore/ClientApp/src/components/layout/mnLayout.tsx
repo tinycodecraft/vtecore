@@ -1,4 +1,4 @@
-import { AppShell, Container, Header, MantineProvider, clsx, rem } from '@mantine/core'
+import { AppShell, Header, MantineProvider } from '@mantine/core'
 import { FC, Fragment, PropsWithChildren, useContext } from 'react'
 import { DyNavBar } from './dyNavBar'
 import CtxForLayout from '@/components/context/CtxForLayout'
@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
   const { navBarRef } = useContext(CtxForLayout)
+
   return (
     <Fragment>
       <MantineProvider

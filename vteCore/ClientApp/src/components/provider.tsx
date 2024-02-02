@@ -1,9 +1,6 @@
 import {
-  ComponentProps,
   FC,
   Fragment,
-  FunctionComponent,
-  StrictMode,
   PropsWithChildren,
   useEffect,
   useRef,
@@ -19,6 +16,7 @@ import { HubConnectionState } from '@microsoft/signalr'
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const query = new QueryClient()
+
   const signalrState = useRef<HubConnectionState>()
   useEffect(() => {
     const connect = async () => {

@@ -1,24 +1,21 @@
 import Spinner from '@/components/layout/mnSpinner'
-import { HubMethodEnum, WeatherInit, WeatherState } from '@/constants/types'
+import { HubInit, HubMethodEnum, HubState, WeatherInit, WeatherState } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import WeatherTable from './WeatherTable'
 import { getWeatherAsync } from '@/hooks/store/dmWeatherSlice'
 import { SignalRApi } from '@/api/signalr.service'
-import { canWait } from '@/utils/methods'
 
 const WeatherForm = () => {
   const dispatch = useAppDispatch()
   const { isLoading, forecasts } = useAppSelector<WeatherState>((state) => state.dmWeather ?? WeatherInit)
+  const [connectionId, setConnectionId] = useState<string>('')
 
   useEffect(() => {
-    async function invokeMe() {
-      console.log(`the dispatch happens!`)
-      SignalRApi.subscribe(HubMethodEnum.weather, true)
-      await canWait(1000)
-      dispatch(getWeatherAsync(true))
+    dispatch(getWeatherAsync(true))
+    if (SignalRApi.connectionId) {
+      setConnectionId(SignalRApi.connectionId)
     }
-    invokeMe()
   }, [dispatch])
 
   return (
@@ -29,6 +26,7 @@ const WeatherForm = () => {
           <h3 className="title is-4">Weather Data</h3>
           <h5 className="subtitle is-5">
             This component demonstrates fetching data from the server and working with URL parameters.
+            {connectionId && ` by connection ${connectionId}`}
           </h5>
           <Spinner isLoading={isLoading ?? true} />
           <WeatherTable forecasts={forecasts} />

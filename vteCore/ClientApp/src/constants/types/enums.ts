@@ -36,6 +36,7 @@ export const HubMethodEnum = {
   weather: 'weather',
   register: 'register',
   pwdchange: 'pwdchange',
+  getId: 'GetId',
 } as const
 
 export type HubMethodEnum = (typeof HubMethodEnum)[keyof typeof HubMethodEnum]

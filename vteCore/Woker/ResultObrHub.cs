@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
+using System.Reflection.Metadata.Ecma335;
 using static vteCore.Extensions.SessionExtensions;
 
 
@@ -9,6 +10,8 @@ namespace vteCore.Woker
     {
         public static readonly ConcurrentDictionary<string, string> InterChangeSessionWithConn = new();
         private readonly ConcurrentDictionary<string, IDisposable> _observerList = new();
+
+        public Task<string> GetId() => Task.FromResult(Context.ConnectionId);
 
         protected abstract IDisposable? OnSubscribe(ISingleClientProxy client, string connectionid,string method);
 
