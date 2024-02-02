@@ -33,10 +33,14 @@ import { MenuPositionEnum } from '@/constants/types'
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
-
-  const openclosehover = useCallback(() => {
-    setOpenHover(!openHovered)
+  //the following setOpenHover cause problem to any setState function
+  //timeout is only method found to work without problem
+  const openclose = useCallback(async () => {
+    setTimeout(() => {
+      setOpenHover(!openHovered)
+    }, 1000)
   }, [openHovered, setOpenHover])
+
   const mockdata = [
     {
       icon: IconCode,
@@ -94,7 +98,16 @@ export const DyNavBar = () => {
             })}
 
           <li className="underline-flash">
-            <HoverCard width={600} position="bottom" radius={'md'} shadow="md" withinPortal>
+            <HoverCard
+              width={600}
+              position="bottom"
+              radius={'md'}
+              shadow="md"
+              withinPortal
+              // setstate problem
+              // onOpen={openclose}
+              // onClose={openclose}
+            >
               <HoverCard.Target>
                 <a href="#" className={menuLinkStyle.menulink}>
                   <Center inline>
