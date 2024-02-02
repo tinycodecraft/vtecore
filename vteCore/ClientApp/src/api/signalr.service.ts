@@ -1,4 +1,11 @@
-import { ErrorOr, HubMethodEnum, RESULT_BROKER_URL, UnsubscribeFunc, WeatherForecast } from '@/constants/types'
+import {
+  ErrorOr,
+  HubMethodEnum,
+  RESULT_BROKER_URL,
+  UnsubscribeFunc,
+  WeatherForecast,
+  receiveHandlerType,
+} from '@/constants/types'
 import { getSignalRConnection, startSignalRConnection } from '@/utils/signalr'
 import { HubConnection, HubConnectionState } from '@microsoft/signalr'
 import { waitForHubInfo, receiveHubInfo } from '@/hooks/store/dmHubSlice'
@@ -41,7 +48,11 @@ class SignalRService {
       console.error(e)
     }
   }
-  public async subscribe(method: string, debug?: boolean): Promise<UnsubscribeFunc> {
+  public async subscribe(
+    method: string,
+    debug?: boolean,
+    receiveHandler?: receiveHandlerType<any>,
+  ): Promise<UnsubscribeFunc> {
     const conn = this._hubConnection
 
     if (conn.state !== HubConnectionState.Connected) {
@@ -63,7 +74,9 @@ class SignalRService {
           if (debug) {
             console.log(`weather method call`, data)
           }
-          receiveWeather(data as ErrorOr<WeatherForecast[]>)
+          if (receiveHandler) {
+            receiveHandler(data)
+          }
           break
         default:
           console.log(`${method} is not on the list for subscription`)

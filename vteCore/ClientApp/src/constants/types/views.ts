@@ -4,6 +4,7 @@ import { SelectItemProps } from '@mantine/core'
 import { ApiStatusEnum, ErrorEnum, MenuPositionEnum } from './enums'
 import { TRANSITION_DEFAULT } from './values'
 import { Params } from 'react-router'
+import { useAppDispatch } from '@/hooks'
 
 export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
   role: 'button',
@@ -157,3 +158,4 @@ export type ErrorOr<T> = Readonly<{
 }>
 
 export type UnsubscribeFunc = () => void
+export type receiveHandlerType<T> = (data: ErrorOr<T>) => void
