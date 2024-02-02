@@ -7,6 +7,7 @@ namespace vteCore.Woker
 {
     public abstract class ResultObrHub: Hub
     {
+        public static readonly ConcurrentDictionary<string, string> InterChangeSessionWithConn = new();
         private readonly ConcurrentDictionary<string, IDisposable> _observerList = new();
 
         protected abstract IDisposable? OnSubscribe(ISingleClientProxy client, string connectionid,string method);
@@ -14,6 +15,11 @@ namespace vteCore.Woker
         public Task<string> Subscribe(string method)
         {
             var id = Context.ConnectionId;
+            var sessionId = Context.GetHttpContext()?.Connection.Id;
+            if(!string.IsNullOrEmpty(sessionId))
+            {
+                InterChangeSessionWithConn[sessionId] = id;
+            }
             if(!_observerList.ContainsKey(id))
             {
                 var client = Clients.Client(id);

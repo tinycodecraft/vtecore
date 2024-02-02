@@ -16,6 +16,7 @@ namespace vteCore.Woker
         {
             provider = serviceProvider;
             log = logger;
+            
         }
         private IDisposable? TrySend<T>(ISingleClientProxy proxy, string connectionid,string method)
         {

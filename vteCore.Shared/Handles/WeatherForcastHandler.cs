@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using vteCore.ErrorOr;
 using vteCore.Shared;
 using static vteCore.Shared.Constants;
-using static vteCore.Shared.Tools.QueriesExtensions;
+
 
 namespace vteCore.Handles
 {

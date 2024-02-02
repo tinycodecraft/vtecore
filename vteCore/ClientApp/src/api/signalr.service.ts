@@ -4,6 +4,7 @@ import { HubConnection, HubConnectionState } from '@microsoft/signalr'
 import { waitForHubInfo, receiveHubInfo } from '@/hooks/store/dmHubSlice'
 import { receiveWeather } from '@/hooks/store/dmWeatherSlice'
 import { toast } from 'react-toastify'
+import { canWait } from '@/utils/methods'
 
 class SignalRService {
   private static _signalRService: SignalRService
@@ -33,19 +34,27 @@ class SignalRService {
       if (this._hubConnection.state !== HubConnectionState.Connected) {
         await startSignalRConnection(this._hubConnection)
       }
-      console.log(`the hubconnection`,this._hubConnection)
+      console.log(`the hubconnection`, this._hubConnection)
     } catch (e) {
       console.error(e)
     }
   }
   public async subscribe(method: string, debug?: boolean): Promise<UnsubscribeFunc> {
     const conn = this._hubConnection
+
+    if (conn.state !== HubConnectionState.Connected) {
+      await conn.start()
+      await canWait(2000)
+    }
+
+    conn.off('subscribed')
     conn.on('subscribed', (response: string) => {
       console.log(response)
       if (debug) {
         toast.success(response)
       }
     })
+    conn.off(method)
     conn.on(method, (data: ErrorOr<any>) => {
       switch (method) {
         case HubMethodEnum.weather:
