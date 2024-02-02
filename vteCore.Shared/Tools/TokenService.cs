@@ -1,16 +1,11 @@
-﻿using vteCore.Shared.Models;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using static vteCore.Shared.Interfaces;
+using vteCore.Shared.Models;
 
 namespace vteCore.Shared.Tools
 {

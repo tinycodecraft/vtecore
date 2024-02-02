@@ -1,12 +1,33 @@
 import { AppShell, Header, MantineProvider } from '@mantine/core'
-import { FC, Fragment, PropsWithChildren, useContext } from 'react'
+import { FC, Fragment, PropsWithChildren, useContext, useEffect } from 'react'
 import { DyNavBar } from './dyNavBar'
 import CtxForLayout from '@/components/context/CtxForLayout'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { SignalRApi } from '@/api/signalr.service'
+import { receiveHubInfo } from '@/hooks/store/dmHubSlice'
+import { useAppDispatch } from '@/hooks'
+import { canWait } from '@/utils/methods'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
   const { navBarRef } = useContext(CtxForLayout)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    const handle = async () => {
+      let check = true
+      let count = 0
+      while (check || count < 3) {
+        if (SignalRApi.connectionId) {
+          check = false
+          dispatch(receiveHubInfo(SignalRApi.connectionId))
+        } else {
+          await canWait(1000)
+        }
+        count++
+      }
+    }
+    handle()
+  }, [])
 
   return (
     <Fragment>

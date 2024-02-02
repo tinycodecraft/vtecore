@@ -1,5 +1,13 @@
 import Spinner from '@/components/layout/mnSpinner'
-import { ErrorOr, HubMethodEnum, WeatherForecast, WeatherInit, WeatherState } from '@/constants/types'
+import {
+  ErrorOr,
+  HubInit,
+  HubMethodEnum,
+  HubState,
+  WeatherForecast,
+  WeatherInit,
+  WeatherState,
+} from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import React, { useEffect, useState } from 'react'
 import WeatherTable from './WeatherTable'
@@ -9,17 +17,9 @@ import { SignalRApi } from '@/api/signalr.service'
 const WeatherForm = () => {
   const dispatch = useAppDispatch()
   const { isLoading, forecasts } = useAppSelector<WeatherState>((state) => state.dmWeather ?? WeatherInit)
-  const [connectionId, setConnectionId] = useState<string>('')
+  const { connectionId } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
 
   useEffect(() => {
-    if (SignalRApi.connectionId) {
-      setConnectionId(SignalRApi.connectionId)
-      // Example to subscribe a method
-      // SignalRApi.subscribe(HubMethodEnum.weather, true, (data) => {
-      //   console.log(`the data receive:`, data)
-      //   dispatch(receiveWeather(data as ErrorOr<WeatherForecast[]>))
-      // })
-    }
     dispatch(getWeatherAsync(true))
   }, [dispatch])
 
