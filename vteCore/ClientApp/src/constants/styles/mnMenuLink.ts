@@ -16,7 +16,7 @@ export default createStyles((theme) => ({
       transition: 'all 0.25s ease-in-out',
     },
 
-    '& .arrow.active': {
+    '&[aria-expanded="true"] .arrow': {
       transform: 'rotate(180deg)',
       transition: 'all 0.25s ease-in-out',
     },
@@ -32,10 +32,8 @@ export default createStyles((theme) => ({
 
     ...theme.fn.hover({
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.brand[7] : theme.colors.brand[0],
-
     }),
 
     '&:active': theme.activeStyles,
-
-  },  
+  },
 }))

@@ -77,43 +77,31 @@ export const DyNavBar = () => {
       </div>
       <div className="flex-grow justify-center">
         <ul className="menu menu-horizontal px-1">
-          {
-            routes.filter(e=> e.position === MenuPositionEnum.center).map((route,index)=> {
+          {routes
+            .filter((e) => e.position === MenuPositionEnum.center)
+            .map((route, index) => {
               return (
                 <li className="underline-flash" key={`${route.name}-${index}`}>
-                <NavLink
-                  key={route.name}
-                  to={generatePath(route.path,route.params)}
-                  className={({ isActive }) => (isActive ? 'is-active' : '')}
-                >
-                  {route.name}
-                </NavLink>
-              </li>                
+                  <NavLink
+                    key={route.name}
+                    to={generatePath(route.path, route.params)}
+                    className={({ isActive }) => (isActive ? 'is-active' : '')}
+                  >
+                    {route.name}
+                  </NavLink>
+                </li>
               )
-            })
-          }
+            })}
 
           <li className="underline-flash">
-            <HoverCard
-              width={600}
-              position="bottom"
-              radius={'md'}
-              shadow="md"
-              withinPortal
-              onOpen={openclosehover}
-              onClose={openclosehover}
-            >
+            <HoverCard width={600} position="bottom" radius={'md'} shadow="md" withinPortal>
               <HoverCard.Target>
                 <a href="#" className={menuLinkStyle.menulink}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
                     </Box>
-                    <IconChevronDown
-                      size={16}
-                      color={theme.fn.primaryColor()}
-                      className={clsx('arrow', openHovered ? 'active' : '')}
-                    />
+                    <IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />
                   </Center>
                 </a>
               </HoverCard.Target>
@@ -150,7 +138,7 @@ export const DyNavBar = () => {
         </ul>
       </div>
       <div className="flex-none">
-      <LanguageControl />
+        <LanguageControl />
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
             <NavLink
@@ -162,7 +150,6 @@ export const DyNavBar = () => {
             </NavLink>
           </li>
         </ul>
-        
       </div>
     </div>
   )
