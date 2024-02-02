@@ -64,6 +64,9 @@ class SignalRService {
             console.log(`weather method call`, data)
           }
           receiveWeather(data as ErrorOr<WeatherForecast[]>)
+          break
+        default:
+          console.log(`${method} is not on the list for subscription`)
       }
     })
     await conn.invoke('subscribe', method)
