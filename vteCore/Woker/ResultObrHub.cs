@@ -27,14 +27,7 @@ namespace vteCore.Woker
                     
                 }
             }
-            lock (_observerList)
-            {
-                var httpcontext = Context.GetHttpContext();
-                if(httpcontext != null)
-                {
-                    httpcontext.Session.Set(Sessions.CONNECTIONID, id);
-                }
-            }
+
             return Task.FromResult(id);
         }
 

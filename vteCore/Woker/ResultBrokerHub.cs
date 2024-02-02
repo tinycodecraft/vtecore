@@ -19,11 +19,12 @@ namespace vteCore.Woker
         }
         private IDisposable? TrySend<T>(ISingleClientProxy proxy, string connectionid,string method)
         {
-            var gateway = gatewaylist[connectionid];
+            var gateway = gatewaylist.ContainsKey(method) ? gatewaylist[method] : null;
+
             var wrsubscriber = new ModelResultObr<ErrorOr<T>>(proxy, connectionid);
             if (!gatewaylist.ContainsKey(method) || gatewaylist[method] == null)
             {
-                var mygateway = provider.GetService<ModelResultGateway<ErrorOr<T>>>();
+                var mygateway = provider.GetService<IResultGateway<ErrorOr<T>>>();
                 gateway = mygateway;
                 if (gateway != null)
                 {

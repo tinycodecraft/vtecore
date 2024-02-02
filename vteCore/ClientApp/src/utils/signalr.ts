@@ -43,7 +43,7 @@ export const startSignalRConnection = async (connection: HubConnection) => {
       await connection.start()
     }
 
-    canWait(1000)
+    await canWait(1000)
     if (connection.state === HubConnectionState.Connected) {
       setupStateListeners(connection)
     }

@@ -1,17 +1,24 @@
 import Spinner from '@/components/layout/mnSpinner'
-import { WeatherInit, WeatherState } from '@/constants/types'
+import { HubMethodEnum, WeatherInit, WeatherState } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import React, { useEffect } from 'react'
 import WeatherTable from './WeatherTable'
 import { getWeatherAsync } from '@/hooks/store/dmWeatherSlice'
+import { SignalRApi } from '@/api/signalr.service'
+import { canWait } from '@/utils/methods'
 
 const WeatherForm = () => {
   const dispatch = useAppDispatch()
   const { isLoading, forecasts } = useAppSelector<WeatherState>((state) => state.dmWeather ?? WeatherInit)
 
   useEffect(() => {
-    console.log(`the dispatch happens!`)
-    dispatch(getWeatherAsync(true))
+    async function invokeMe() {
+      console.log(`the dispatch happens!`)
+      SignalRApi.subscribe(HubMethodEnum.weather, true)
+      await canWait(1000)
+      dispatch(getWeatherAsync(true))
+    }
+    invokeMe()
   }, [dispatch])
 
   return (
