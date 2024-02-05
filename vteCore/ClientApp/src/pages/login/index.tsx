@@ -60,10 +60,31 @@ const LoginForm: FunctionComponent = () => {
       >
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
         <form className="space-y-4 p-5" onSubmit={loginForm.onSubmit((values) => setLoginValues(values))}>
-          <Input icon={<IconUser size="1rem" />} placeholder="User Name or Email Address" />
+          <Input
+            styles={(theme) => ({
+              icon: {
+                pointerEvents: 'auto',
+              },
+            })}
+            icon={
+              <div className="tooltip tooltip-top" data-tip="Please enter user name or email addres">
+                <IconUser size="1rem" />
+              </div>
+            }
+            placeholder="User Name or Email Address"
+          />
 
           <Input
-            icon={<IconLock size="1rem" />}
+            styles={(theme) => ({
+              icon: {
+                pointerEvents: 'auto',
+              },
+            })}
+            icon={
+              <div className="tooltip tooltip-top" data-tip="Please enter password">
+                <IconLock size="1rem" />
+              </div>
+            }
             className={classes.hidepwdicon}
             placeholder="Password"
             type={visible ? 'text' : 'password'}
