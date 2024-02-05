@@ -15,7 +15,15 @@ export default createStyles((theme) => ({
 
     '&:hover': {
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.gray[3] : theme.colors.yellow[0],
-      border: `${rem(0.5)} solid ${theme.colorScheme === 'dark' ? theme.colors.indigo[5] : theme.colors.brand[0]}`,      
+      border: `${rem(0.5)} solid ${theme.colorScheme === 'dark' ? theme.colors.indigo[5] : theme.colors.brand[0]}`,
+    },
+  },
+  hidepwdicon: {
+    '::-ms-reveal': {
+      display: 'none',
+    },
+    '::-ms-clear': {
+      display: 'none',
     },
   },
 }))

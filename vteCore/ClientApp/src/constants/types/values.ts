@@ -21,9 +21,9 @@ export const TRANSITION_DEFAULT = {
 export const LINK_ICONS = [IconHome, IconLogin, IconLogout]
 
 export const LoginFormInit: LoginProps = {
-  UserName: '',
-  ForSignup: false,
-  Password: '',
+  userName: '',
+  forSignup: false,
+  password: '',
 }
 
 export const WeatherInit: WeatherState = {

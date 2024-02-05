@@ -130,11 +130,11 @@ export interface LangContextProps {
 }
 
 export interface LoginProps {
-  UserName: string
-  Password: string
-  NewPassword?: string
-  ConfirmPassword?: string
-  ForSignup: boolean
+  userName: string
+  password: string
+  newPassword?: string
+  confirmPassword?: string
+  forSignup: boolean
 }
 
 export type HubState = Readonly<{
