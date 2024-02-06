@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using Mapster;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using vteCore.ErrorOr;
+using vteCore.Mappers;
 
 namespace vteCore.Controllers
 {
@@ -10,17 +13,23 @@ namespace vteCore.Controllers
     {
         private readonly ILogger<AuthController> logger;
         private readonly ISender sender;
-        public AuthController(ILogger<AuthController> log, ISender send) { 
+        private readonly TokenService tokenService;
+        public AuthController(ILogger<AuthController> log, ISender send, TokenService tkserv) { 
 
             logger = log;
             sender = send;
+            tokenService = tkserv;
         }
 
         [HttpPost]
         public IActionResult Login(QM.LoginProps login)
         {
+            var user = UserMap.FromModel(login);
+            var token = tokenService.CreateToken(user);
 
-            return Ok(login);
+            var result = (ErrorOr<RM.UserResult>) new RM.UserResult(user.UserName, token, null);
+
+            return Ok(result);
         }
     }
 }

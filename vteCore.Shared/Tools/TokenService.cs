@@ -66,7 +66,7 @@ namespace vteCore.Shared.Tools
                     new Claim(JwtRegisteredClaimNames.Sub, "TokenForBuckleJwtAuth"),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId ?? user.UserName.ToLower().Replace(" ","")),
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Email, user.Email ?? $"{user.UserId}@unknown.com")
                 };

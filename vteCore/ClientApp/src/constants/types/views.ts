@@ -139,9 +139,13 @@ export interface LoginProps {
 
 export type HubState = Readonly<{
   userName: string
+  token?: string
+  refreshToken?: string
   connectionId: string
   status: ApiStatusEnum
 }>
+
+export type UserState = Pick<HubState, 'refreshToken' | 'token' | 'userName'>
 
 export type ErrorDetail = Readonly<{
   code: string

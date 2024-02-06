@@ -1,4 +1,4 @@
-import { LoginFormInit, LoginProps } from '@/constants/types'
+import { HubInit, HubState, LoginFormInit, LoginProps } from '@/constants/types'
 import { Container, Input, Tooltip } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconAlertCircle, IconEye, IconEyeClosed, IconLock, IconUser } from '@tabler/icons-react'
@@ -8,11 +8,14 @@ import { clsxm } from '@/utils/methods'
 import { toast } from 'react-toastify'
 import { LoginApi } from '@/api/login.service'
 import useControlStyles from '@/constants/styles/mnControlBtn'
+import { getAuthAsync } from '@/hooks/store/dmHubSlice'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 
 const LoginForm: FunctionComponent = () => {
   const [loginValues, setLoginValues] = useState<LoginProps>()
   const [visible, setVisible] = useState<boolean>(false)
-  const { classes } = useControlStyles()
+  const { token, refreshToken, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
+  const dispatch = useAppDispatch()
   const toastId = useRef<string | number | null>(null)
   const { navHeight } = useContext(CtxForLayout)
   const loginForm = useForm({
@@ -24,19 +27,24 @@ const LoginForm: FunctionComponent = () => {
     }
   }, [])
   const effectHandler = useCallback(
-    async (query: LoginProps) => {
-      const result = await LoginApi.loginAsync(query)
+    (query: LoginProps) => {
+      dispatch(getAuthAsync(query))
     },
     [loginValues],
   )
-
+  const submitHandler = useCallback(
+    loginForm.onSubmit((values) => {
+      console.log(`the form values are : `, values)
+      setLoginValues(values)
+      dispatch(getAuthAsync(values))
+    }),
+    [loginValues, loginForm],
+  )
   useEffect(() => {
-    console.log(`the values submitted: `, loginValues)
-    if (loginValues) {
-      toastHandler('Hi! Thank you using vite for login')
-      effectHandler(loginValues)
-    }
-  }, [loginValues])
+    console.log(`the token value received: ${token} with user name ${userName}`)
+  }, [token])
+
+
 
   return (
     <Container
@@ -59,7 +67,7 @@ const LoginForm: FunctionComponent = () => {
         data-theme="coffee"
       >
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
-        <form className="space-y-4 p-5" onSubmit={loginForm.onSubmit((values) => setLoginValues(values))}>
+        <form className="space-y-4 p-5" onSubmit={submitHandler}>
           <Input
             styles={(theme) => ({
               icon: {
@@ -72,6 +80,7 @@ const LoginForm: FunctionComponent = () => {
               </div>
             }
             placeholder="User Name or Email Address"
+            {...loginForm.getInputProps('userName')}
           />
 
           <Input

@@ -11,6 +11,7 @@ namespace vteCore.Handles
 {
     public static class Models
     {
+        public record UserResult(string UserName, string Token, string RefreshToken);
         public class LoginResult
         {
             public string UserName { get; set; }
