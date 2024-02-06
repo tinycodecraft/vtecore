@@ -38,10 +38,19 @@ export const dmWeatherSlice = createSlice({
 export const getWeatherAsync = createAsyncThunk(
   'dmWeather/getAsync',
   async (debug: boolean, { dispatch, getState }) => {
-    console.log(`weather async thunk!`)
+    const {
+      dmHub: { token: accessToken, refreshToken: renewToken },
+    } = (getState as () => RootState)()
+    console.log(`weather async thunk! with token ${accessToken} + renew ${renewToken}`)
 
     console.log(`starting the get weather thunk with debug =  ${debug}`)
     try {
+      if (accessToken) {
+        WeatherApi.token = accessToken
+      }
+      if (renewToken) {
+        WeatherApi.refreshToken = renewToken
+      }
       dispatch(requestWeather(WeatherInit))
       const payload = await WeatherApi.getWeatherAsync()
 

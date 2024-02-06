@@ -1,6 +1,9 @@
 import axios, { type AxiosInstance } from 'axios'
 import type { ApiStatusEnum } from '@/constants/types/enums'
 import { BASE_URL } from '@/constants/types/strings'
+import { LoginApi } from './login.service'
+import { TokenProps } from '@/constants/types'
+import { post } from '@/utils/http'
 
 /**
  * Service API base class - configures default settings/error handling for inheriting class
@@ -69,14 +72,15 @@ export abstract class BaseService {
         }
         try {
           if (this.refreshToken) {
-            // const tokenstate = {Token: this.refreshToken} as TokenState;
-
-            // const response = await AuthApi.getNewTokenAsync(tokenstate);
+            const tokenstate = {token: this.refreshToken} as TokenProps;
+            const response =  await post<TokenProps>('/api/Auth/Token',tokenstate)
+            // const response = await LoginApi.refreshTokenAsync(tokenstate);
             // console.log(`the response from refresh ${response}`)
-            //   if(response && response.status!=ApiStatusEnum.FAILURE)
-            //   {
-            //     this.token = response.newToken  ?? this.token
-            //   }
+            if(!response.isError && response.value?.token)
+            {
+              this.token = response.value?.token
+
+            }
 
             if (this.token) {
               requestConfig.headers.Authorization = `Bearer ${this.token}`

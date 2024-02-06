@@ -122,13 +122,17 @@ export type RouteInput = Readonly<{
   params?: Readonly<Params<string>>
   iconIndex?: number
   position: MenuPositionEnum
+  locked: boolean
 }>
 
 export interface LangContextProps {
   locale: string
   setLocale: (value: SetStateAction<string>) => void
 }
-
+export interface TokenProps {
+  token: string
+  refreshToken?: string
+}
 export interface LoginProps {
   userName: string
   password: string

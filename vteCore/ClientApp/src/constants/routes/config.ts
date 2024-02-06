@@ -12,6 +12,7 @@ const routes: RouteInput[] = [
     iconIndex: 0,
     popUpOnly: false,
     position: MenuPositionEnum.center,
+    locked: false,
   },
   {
     path: '/forecast',
@@ -21,8 +22,8 @@ const routes: RouteInput[] = [
     iconIndex: 2,
     popUpOnly: false,
     position: MenuPositionEnum.center,
-  }
-  ,
+    locked: true,
+  },
   {
     path: '/login',
     name: 'Login',
@@ -31,8 +32,8 @@ const routes: RouteInput[] = [
     iconIndex: 1,
     popUpOnly: false,
     position: MenuPositionEnum.right,
-
-  }
+    locked: false,
+  },
 ]
 
 export default routes

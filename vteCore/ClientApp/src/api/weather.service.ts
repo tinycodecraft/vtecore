@@ -15,7 +15,7 @@ class WeatherService extends BaseService {
     public async getWeatherAsync(): Promise<ErrorOr<WeatherForecast[]>> {
         const url = `GetWeathers`;
         
-        const { data} = await this.$http.get<ErrorOr<WeatherForecast[]>>(url)
+        const { data} = await this.$wAuthHttp.get<ErrorOr<WeatherForecast[]>>(url)
         return data;
     }
 }

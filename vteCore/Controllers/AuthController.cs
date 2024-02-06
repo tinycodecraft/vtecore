@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using vteCore.ErrorOr;
+using vteCore.Extensions;
 using vteCore.Mappers;
 
 namespace vteCore.Controllers
@@ -22,12 +23,30 @@ namespace vteCore.Controllers
         }
 
         [HttpPost]
+        public IActionResult Token(QM.TokenProps input)
+        {
+            var userid = HttpContext.Session.Get<string>(Sessions.USERID);
+            var refresh = HttpContext.Session.Get<string>(Sessions.REFRESHTOKEN);
+            if(refresh == input.Token && !string.IsNullOrEmpty(input.Token))
+            {
+                var user = UserMap.FromModel(new QM.LoginProps { UserName = userid });
+                input.Token = tokenService.CreateToken(user);
+                input.RefreshToken = TokenService.GenerateRefreshToken();
+                return Ok((ErrorOr<QM.TokenProps>)input);
+            }
+            return Ok((ErrorOr<QM.TokenProps>) Error.Failure(description:"Token does not match!!"));
+        }
+
+        [HttpPost]
         public IActionResult Login(QM.LoginProps login)
         {
             var user = UserMap.FromModel(login);
             var token = tokenService.CreateToken(user);
+            var refresh = TokenService.GenerateRefreshToken();
+            HttpContext.Session.SetString(Sessions.USERID, user.UserId);
+            HttpContext.Session.SetString(Sessions.REFRESHTOKEN, refresh);
 
-            var result = (ErrorOr<RM.UserResult>) new RM.UserResult(user.UserName, token, null);
+            var result = (ErrorOr<RM.UserResult>) new RM.UserResult(user.UserName, token, refresh);
 
             return Ok(result);
         }

@@ -1,4 +1,4 @@
-import { ErrorOr, LoginProps, UserState, WeatherForecast } from '@/constants/types'
+import { ErrorOr, LoginProps, TokenProps, UserState, WeatherForecast } from '@/constants/types'
 import { BaseService } from './base.service'
 
 class LoginService extends BaseService {
@@ -12,6 +12,11 @@ class LoginService extends BaseService {
     return this._loginService || (this._loginService = new this(this._controller))
   }
 
+  public async refreshTokenAsync(query: TokenProps): Promise<ErrorOr<TokenProps>> {
+    const url = 'Token'
+    const { data } = await this.$http.post<ErrorOr<TokenProps>>(url, query)
+    return data
+  }
   public async loginAsync(query: LoginProps): Promise<ErrorOr<UserState>> {
     const url = `Login`
 

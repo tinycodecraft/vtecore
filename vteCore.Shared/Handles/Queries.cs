@@ -9,7 +9,15 @@ namespace vteCore.Handles
 {
     public static class Queries
     {
-        
+
+        public class TokenProps
+        {
+            [JsonPropertyName("token")]
+            public string Token { get; set; }
+            [JsonPropertyName("refreshToken")]
+            public string RefreshToken { get; set; }
+        }
+
         public class LoginProps
         {
 

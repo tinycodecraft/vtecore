@@ -28,11 +28,13 @@ import {
 import { NavLink } from 'react-router-dom'
 import { generatePath } from 'react-router'
 import routes from '@/constants/routes/config'
-import { MenuPositionEnum } from '@/constants/types'
+import { HubInit, HubState, MenuPositionEnum } from '@/constants/types'
+import { useAppSelector } from '@/hooks'
 
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
+  const { token} = useAppSelector<HubState>((state)=> state.dmHub ?? HubInit)
   //the following setOpenHover cause problem to any setState function
   //timeout is only method found to work without problem
   const openclose = useCallback(async () => {
@@ -82,7 +84,7 @@ export const DyNavBar = () => {
       <div className="flex-grow justify-center">
         <ul className="menu menu-horizontal px-1">
           {routes
-            .filter((e) => e.position === MenuPositionEnum.center)
+            .filter((e) => e.position === MenuPositionEnum.center && (!e.locked || token))
             .map((route, index) => {
               return (
                 <li className="underline-flash" key={`${route.name}-${index}`}>
