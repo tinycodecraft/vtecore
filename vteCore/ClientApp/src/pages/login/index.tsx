@@ -10,6 +10,7 @@ import { LoginApi } from '@/api/login.service'
 import useControlStyles from '@/constants/styles/mnControlBtn'
 import { getAuthAsync } from '@/hooks/store/dmHubSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useNavigate } from 'react-router'
 
 const LoginForm: FunctionComponent = () => {
   const [loginValues, setLoginValues] = useState<LoginProps>()
@@ -18,6 +19,7 @@ const LoginForm: FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const toastId = useRef<string | number | null>(null)
   const { navHeight } = useContext(CtxForLayout)
+  const navigate = useNavigate()
   const loginForm = useForm({
     initialValues: LoginFormInit,
   })
@@ -35,6 +37,12 @@ const LoginForm: FunctionComponent = () => {
     }),
     [loginValues, loginForm],
   )
+  useEffect(()=> {
+    if(token && userName)
+    {
+      navigate('/home')
+    }
+  },[token])
 
   return (
     <Container
