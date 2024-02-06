@@ -26,12 +26,7 @@ const LoginForm: FunctionComponent = () => {
       toastId.current = toast(message, { position: 'top-center' })
     }
   }, [])
-  const effectHandler = useCallback(
-    (query: LoginProps) => {
-      dispatch(getAuthAsync(query))
-    },
-    [loginValues],
-  )
+
   const submitHandler = useCallback(
     loginForm.onSubmit((values) => {
       console.log(`the form values are : `, values)
@@ -40,11 +35,6 @@ const LoginForm: FunctionComponent = () => {
     }),
     [loginValues, loginForm],
   )
-  useEffect(() => {
-    console.log(`the token value received: ${token} with user name ${userName}`)
-  }, [token])
-
-
 
   return (
     <Container
