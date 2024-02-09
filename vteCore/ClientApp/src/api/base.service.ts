@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios'
 import type { ApiStatusEnum } from '@/constants/types/enums'
-import { BASE_URL } from '@/constants/types/strings'
+import { BASE_URL, REFRESH_URL } from '@/constants/types/strings'
 import { LoginApi } from './login.service'
 import { TokenProps } from '@/constants/types'
 import { post } from '@/utils/http'
@@ -72,8 +72,8 @@ export abstract class BaseService {
         }
         try {
           if (this.refreshToken) {
-            const tokenstate = {token: this.refreshToken} as TokenProps;
-            const response =  await post<TokenProps>('/api/Auth/Token',tokenstate)
+            const tokenstate = {refreshToken: this.refreshToken} as TokenProps;
+            const response =  await post<TokenProps>(REFRESH_URL,tokenstate)
             // const response = await LoginApi.refreshTokenAsync(tokenstate);
             // console.log(`the response from refresh ${response}`)
             if(!response.isError && response.value?.token)

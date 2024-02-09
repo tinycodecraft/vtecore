@@ -37,12 +37,11 @@ const LoginForm: FunctionComponent = () => {
     }),
     [loginValues, loginForm],
   )
-  useEffect(()=> {
-    if(token && userName)
-    {
+  useEffect(() => {
+    if (token && userName) {
       navigate('/home')
     }
-  },[token])
+  }, [token])
 
   return (
     <Container
@@ -72,6 +71,7 @@ const LoginForm: FunctionComponent = () => {
                 pointerEvents: 'auto',
               },
             })}
+            autoComplete="off"
             icon={
               <div className="tooltip tooltip-top" data-tip="Please enter user name or email addres">
                 <IconUser size="1rem" />
@@ -100,6 +100,7 @@ const LoginForm: FunctionComponent = () => {
                 <IconLock size="1rem" />
               </div>
             }
+            autoComplete="off"
             placeholder="Password"
             type={visible ? 'text' : 'password'}
             rightSection={

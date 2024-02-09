@@ -1,6 +1,7 @@
 // Commons
 export const BASE_URL = window.location.origin
 export const RESULT_BROKER_URL = '/signalr/resultbroker'
+export const REFRESH_URL = '/api/Auth/Token'
 
 // landsd api constants
 export const HKBaseMapVTUrl = 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/vt/basemap/HK80'

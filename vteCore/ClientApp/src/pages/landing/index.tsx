@@ -1,8 +1,23 @@
-import type { FunctionComponent } from 'react'
+import { useCallback, useEffect, type FunctionComponent } from 'react'
 import reactLogo from '@/assets/img/react.svg'
 import { FormattedMessage } from 'react-intl'
+// import { useAppDispatch, useAppSelector } from '@/hooks'
+// import { HubInit, HubState, REFRESH_URL, TokenProps } from '@/constants/types'
+// import { post } from '@/utils/http'
 
 const Dashboard: FunctionComponent = () => {
+  // const dispatch = useAppDispatch()
+  // const { token, refreshToken } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
+  // const effectHandler = useCallback(async () => {
+  //   if (refreshToken) {
+  //     const repsonse = await post<TokenProps>(REFRESH_URL, { refreshToken })
+  //     console.log(`try to refresh the token:`, repsonse)
+  //   }
+  // }, [refreshToken])
+  // useEffect(() => {
+  //   effectHandler()
+  // }, [refreshToken])
+
   return (
     <div className="dashboard-wrapper">
       <section className="hero is-dark">
