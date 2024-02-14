@@ -25,8 +25,8 @@ namespace vteCore.Controllers
         [HttpPost]
         public IActionResult Token(QM.TokenProps input)
         {
-            var userid = HttpContext.Session.Get<String>(Sessions.USERID);
-            var refresh = HttpContext.Session.Get<String>(Sessions.REFRESHTOKEN);
+            var userid = HttpContext.Session.GetStr(Sessions.USERID);
+            var refresh = HttpContext.Session.GetStr(Sessions.REFRESHTOKEN);
             if(refresh == input.RefreshToken && !string.IsNullOrEmpty(input.RefreshToken))
             {
                 var user = UserMap.FromModel(new QM.LoginProps { UserName = userid });
@@ -43,8 +43,8 @@ namespace vteCore.Controllers
             var user = UserMap.FromModel(login);
             var token = tokenService.CreateToken(user);
             var refresh = TokenService.GenerateRefreshToken();
-            HttpContext.Session.Set<String>(Sessions.USERID, user.UserId);
-            HttpContext.Session.Set<String>(Sessions.REFRESHTOKEN, refresh);
+            HttpContext.Session.SetStr(Sessions.USERID, user.UserId);
+            HttpContext.Session.SetStr(Sessions.REFRESHTOKEN, refresh);
 
             var result = (ErrorOr<RM.UserResult>) new RM.UserResult(user.UserName, token, refresh);
 

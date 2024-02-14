@@ -16,5 +16,17 @@ namespace vteCore.Extensions
 
             return value == null ? default : JsonSerializer.Deserialize<T>(value);
         }
+
+        public static void SetStr(this ISession session, string key, string value)
+        {
+            session.SetString(key, value ?? "");
+        }
+
+        public static string GetStr(this ISession session,string key)
+        {
+            var value = session.GetString(key);
+            return value ?? "";
+
+        }
     }
 }
