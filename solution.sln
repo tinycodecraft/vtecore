@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenXmlPowerTools", "OpenXm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.Shared", "vteCore.Shared\vteCore.Shared.csproj", "{B46AF568-82C9-48EF-88B5-CAF77E921F20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vteCore.dbBFA", "vteCore.dbBFA\vteCore.dbBFA.csproj", "{CF5BD075-AA52-4CBA-ABBD-FD310018620A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B46AF568-82C9-48EF-88B5-CAF77E921F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B46AF568-82C9-48EF-88B5-CAF77E921F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B46AF568-82C9-48EF-88B5-CAF77E921F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

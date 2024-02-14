@@ -1,0 +1,93 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "BFAContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "vteCore.dbBFA",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[DFADocs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DFAMessage]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DFASetting]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DFAUser]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DFAUserConfig]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WalkwayBFAExit]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WalkwayBFARecord]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WalkwayBFAVerify]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WalkwayPicRecord]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[dfa_view]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[dfarecord_view]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[dfarecordsnap_view]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[setting_view]",
+         "ObjectType": 3
+      }
+   ],
+   "UiHint": "bns-app1.DFAHYDTST.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
