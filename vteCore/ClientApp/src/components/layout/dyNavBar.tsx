@@ -25,7 +25,7 @@ import {
   IconChartPie3,
   IconNotification,
 } from '@tabler/icons-react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath } from 'react-router'
 import routes from '@/constants/routes/config'
 import { HubInit, HubState, MenuPositionEnum } from '@/constants/types'
@@ -159,7 +159,10 @@ export const DyNavBar = () => {
             {token && (
               <NavLink
                 key={'logout'}
-                to={{ pathname: '/logout' }}
+                to={{ pathname: '/logout'
+                // or using createsearchparams if not using state
+                // , search: createSearchParams({mode: 'exit'}).toString()
+               }}
                 state={{ mode: 'exit' }}
                 className={({ isActive }) => (isActive ? 'is-active' : '')}
               >
