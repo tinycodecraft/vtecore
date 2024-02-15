@@ -3,13 +3,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace vteCore.dbBFA.Models;
 
+public partial class DFAUser: IUser
+{
+    [NotMapped]
+    public string Email { get
+        {
 
+            return $"{this.UserName}@unknown.com";
+        } 
+    }
+}
 public partial class BFAContext
 {
     IHostEnvironment _env;

@@ -34,7 +34,15 @@ namespace vteCore.Shared
             Task<FileUploadSummary> UploadFileAsync(Stream fileStream, string contentType, string type);
         }
 
+        public interface IUserService
+        {
+            //username can be id or name 
+            bool HasUser(string username);
+            //change password by admin without oldpassword
+            bool ChangePassword(string username, string password, string byusername, string oldpassword = null);
 
+            IUser? Login(string username, string password);
+        }
 
         public interface IUser
         {
