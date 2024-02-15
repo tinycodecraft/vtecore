@@ -15,12 +15,15 @@ import { FunctionComponent, useCallback, useContext, useEffect, useRef, useState
 import CtxForLayout from '@/components/context/CtxForLayout'
 import { clsxm } from '@/utils/methods'
 import { toast } from 'react-toastify'
-import { getAuthAsync } from '@/hooks/store/dmHubSlice'
+import { getAuthAsync, removeToken } from '@/hooks/store/dmHubSlice'
+
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { clearError } from '@/hooks/store/dmFieldSlice'
 
 const LoginForm: FunctionComponent = () => {
   const [loginValues, setLoginValues] = useState<LoginProps>()
+  const loc = useLocation()
   const [visible, setVisible] = useState<boolean>(false)
   const { token, refreshToken, userName, status } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
@@ -37,6 +40,7 @@ const LoginForm: FunctionComponent = () => {
     }
   }, [])
 
+  console.log(`rerender again! ${loc.pathname}`, loc.state)
   const submitHandler = useCallback(
     loginForm.onSubmit((values) => {
       console.log(`the form values are : `, values)
@@ -46,12 +50,22 @@ const LoginForm: FunctionComponent = () => {
     [loginValues, loginForm],
   )
   useEffect(() => {
+    console.log(`try to redirect to /home with type`, loc.state)
+  }, [])
+  useEffect(() => {
     if (token && userName) {
-      console.log(`try to redirect to /home`)
-      navigate('/home')
+      if (!loc.state || !loc.state.mode) {
+        navigate('/home')
+        return
+      }
+      dispatch(removeToken())
+      dispatch(clearError())
+      if (loc.state.mode) {
+        navigate('/login', { replace: true })
+      }
     }
     console.log(`error happens`, fields[ApiFieldEnum.UserName])
-  }, [token, fields, status])
+  }, [token, fields, status, loc])
 
   return (
     <Container

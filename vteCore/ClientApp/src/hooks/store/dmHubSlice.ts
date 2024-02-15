@@ -8,6 +8,12 @@ export const dmHubState = createSlice({
   name: 'dmHub',
   initialState: HubInit,
   reducers: {
+    removeToken: (state) => {
+      state.token = undefined
+      state.refreshToken = undefined
+      state.userName = ''
+      state.status = ApiStatusEnum.PROCESS
+    },
     waitForHubInfo: (state) => {
       state.status = ApiStatusEnum.PROCESS
     },
@@ -52,6 +58,6 @@ export const getAuthAsync = createAsyncThunk(
   },
 )
 
-export const { receiveHubInfo, waitForHubInfo, receiveAuthInfo } = dmHubState.actions
+export const { receiveHubInfo, waitForHubInfo, receiveAuthInfo, removeToken } = dmHubState.actions
 
 export default dmHubState.reducer

@@ -34,6 +34,16 @@ const routes: RouteInput[] = [
     position: MenuPositionEnum.right,
     locked: false,
   },
+  {
+    path: '/logout',
+    name: 'Logout',
+    Component: LoginFormComponent,
+    transition: TRANSITION_DEFAULT,
+    iconIndex: 1,
+    popUpOnly: false,
+    position: MenuPositionEnum.right,
+    locked: true,
+  },  
 ]
 
 export default routes
