@@ -41,10 +41,9 @@ export const getAuthAsync = createAsyncThunk(
     try {
       dispatch(waitForHubInfo())
       const response = await LoginApi.loginAsync(login)
+      dispatch(clearError())
       if (response.isError) {
         dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
-      } else {
-        dispatch(clearError())
       }
       dispatch(receiveAuthInfo(response))
     } catch (e) {
