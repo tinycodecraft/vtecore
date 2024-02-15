@@ -8,7 +8,7 @@ import {
   LoginFormInit,
   LoginProps,
 } from '@/constants/types'
-import { Container, Input } from '@mantine/core'
+import { Container, Input, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconEye, IconEyeClosed, IconLock, IconUser } from '@tabler/icons-react'
 import { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react'
@@ -47,6 +47,7 @@ const LoginForm: FunctionComponent = () => {
   )
   useEffect(() => {
     if (token && userName) {
+      console.log(`try to redirect to /home`)
       navigate('/home')
     }
     console.log(`error happens`, fields[ApiFieldEnum.UserName])
@@ -74,55 +75,66 @@ const LoginForm: FunctionComponent = () => {
       >
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
         <form className="space-y-4 p-5" onSubmit={submitHandler}>
-          <Input
+          <Input.Wrapper
             error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserName] : ''}
-            styles={(theme) => ({
-              icon: {
-                pointerEvents: 'auto',
-              },
-            })}
-            autoComplete="off"
-            icon={
-              <div className="tooltip tooltip-top" data-tip="Please enter user name or email addres">
-                <IconUser size="1rem" />
-              </div>
-            }
-            placeholder="User Name or Email Address"
-            {...loginForm.getInputProps('userName')}
-          />
-
-          <Input
+            id={`${ApiFieldEnum.UserName}-input`}
+          >
+            <Input
+              id={`${ApiFieldEnum.UserName}-input`}
+              styles={(theme) => ({
+                icon: {
+                  pointerEvents: 'auto',
+                },
+              })}
+              autoComplete="off"
+              icon={
+                <div className="tooltip tooltip-top" data-tip="Please enter user name or email addres">
+                  <IconUser size="1rem" />
+                </div>
+              }
+              placeholder="User Name or Email Address"
+              {...loginForm.getInputProps('userName')}
+            />
+          </Input.Wrapper>
+          <Input.Wrapper
+            id={`${ApiFieldEnum.Password}-input`}
             error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Password] : ''}
-            styles={(theme) => ({
-              icon: {
-                pointerEvents: 'auto',
-              },
-              input: {
-                '::-ms-reveal': {
-                  display: 'none',
+          >
+            <Input
+              id={`${ApiFieldEnum.Password}-input`}
+              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Password] : ''}
+              styles={(theme) => ({
+                icon: {
+                  pointerEvents: 'auto',
                 },
-                '::-ms-clear': {
-                  display: 'none',
+                input: {
+                  '::-ms-reveal': {
+                    display: 'none',
+                  },
+                  '::-ms-clear': {
+                    display: 'none',
+                  },
                 },
-              },
-            })}
-            icon={
-              <div className="tooltip tooltip-top" data-tip="Please enter password">
-                <IconLock size="1rem" />
-              </div>
-            }
-            autoComplete="off"
-            placeholder="Password"
-            type={visible ? 'text' : 'password'}
-            rightSection={
-              visible ? (
-                <IconEye onClick={() => setVisible(false)} />
-              ) : (
-                <IconEyeClosed onClick={() => setVisible(true)} />
-              )
-            }
-            {...loginForm.getInputProps('password')}
-          />
+              })}
+              icon={
+                <div className="tooltip tooltip-top" data-tip="Please enter password">
+                  <IconLock size="1rem" />
+                </div>
+              }
+              autoComplete="off"
+              placeholder="Password"
+              type={visible ? 'text' : 'password'}
+              rightSection={
+                visible ? (
+                  <IconEye onClick={() => setVisible(false)} />
+                ) : (
+                  <IconEyeClosed onClick={() => setVisible(true)} />
+                )
+              }
+              {...loginForm.getInputProps('password')}
+            />
+          </Input.Wrapper>
+
           <div>
             <button type="submit" className="btn btn-block">
               Login
