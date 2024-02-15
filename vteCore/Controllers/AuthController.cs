@@ -15,11 +15,13 @@ namespace vteCore.Controllers
         private readonly ILogger<AuthController> logger;
         private readonly ISender sender;
         private readonly TokenService tokenService;
-        public AuthController(ILogger<AuthController> log, ISender send, TokenService tkserv) { 
+        private readonly IUserService userService;
+        public AuthController(ILogger<AuthController> log, ISender send, TokenService tkserv,IUserService usrmgr) { 
 
             logger = log;
             sender = send;
             tokenService = tkserv;
+            userService = usrmgr;
         }
 
         [HttpPost]
@@ -40,15 +42,26 @@ namespace vteCore.Controllers
         [HttpPost]
         public IActionResult Login(QM.LoginProps login)
         {
-            var user = UserMap.FromModel(login);
-            var token = tokenService.CreateToken(user);
-            var refresh = TokenService.GenerateRefreshToken();
-            HttpContext.Session.SetStr(Sessions.USERID, user.UserId);
-            HttpContext.Session.SetStr(Sessions.REFRESHTOKEN, refresh);
+            var hasUser = userService.HasUser(login.UserName);
+            if (!hasUser)
+            {                
+                return Ok(Error.Failure(code: nameof(FieldType.userName),description: $"No such user {login.UserName} exist").ToErrorOr<RM.UserResult>());
 
-            var result = (ErrorOr<RM.UserResult>) new RM.UserResult(user.UserName, token, refresh);
-
-            return Ok(result);
+            }
+            var user = userService.Login(login.UserName, login.Password);
+            if(user!=null)
+            {
+                var token = tokenService.CreateToken(user);
+                var refresh = TokenService.GenerateRefreshToken();
+                HttpContext.Session.SetStr(Sessions.USERID, user.UserId);
+                HttpContext.Session.SetStr(Sessions.REFRESHTOKEN, refresh);
+                var result = (ErrorOr<RM.UserResult>)new RM.UserResult(user.UserName, token, refresh);
+                return Ok(result);
+            }
+            else
+            {
+                return Ok(Error.Failure(code: nameof(FieldType.password), description: $"the password is invalid!").ToErrorOr<RM.UserResult>());
+            }
         }
     }
 }

@@ -8,6 +8,11 @@ namespace vteCore.Shared
 {
     public static class Constants
     {
+        public enum FieldType
+        {
+            userName,
+            password,
+        }
         public enum QueryOpType
         {
             StartsWith,

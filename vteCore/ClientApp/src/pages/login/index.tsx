@@ -1,13 +1,20 @@
-import { HubInit, HubState, LoginFormInit, LoginProps } from '@/constants/types'
-import { Container, Input, Tooltip } from '@mantine/core'
+import {
+  ApiErrorInit,
+  ApiErrorState,
+  ApiFieldEnum,
+  ApiStatusEnum,
+  HubInit,
+  HubState,
+  LoginFormInit,
+  LoginProps,
+} from '@/constants/types'
+import { Container, Input } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconAlertCircle, IconEye, IconEyeClosed, IconLock, IconUser } from '@tabler/icons-react'
-import React, { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { IconEye, IconEyeClosed, IconLock, IconUser } from '@tabler/icons-react'
+import { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import CtxForLayout from '@/components/context/CtxForLayout'
 import { clsxm } from '@/utils/methods'
 import { toast } from 'react-toastify'
-import { LoginApi } from '@/api/login.service'
-import useControlStyles from '@/constants/styles/mnControlBtn'
 import { getAuthAsync } from '@/hooks/store/dmHubSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { useNavigate } from 'react-router'
@@ -15,7 +22,8 @@ import { useNavigate } from 'react-router'
 const LoginForm: FunctionComponent = () => {
   const [loginValues, setLoginValues] = useState<LoginProps>()
   const [visible, setVisible] = useState<boolean>(false)
-  const { token, refreshToken, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
+  const { token, refreshToken, userName, status } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
+  const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
   const dispatch = useAppDispatch()
   const toastId = useRef<string | number | null>(null)
   const { navHeight } = useContext(CtxForLayout)
@@ -41,7 +49,8 @@ const LoginForm: FunctionComponent = () => {
     if (token && userName) {
       navigate('/home')
     }
-  }, [token])
+    console.log(`error happens`, fields[ApiFieldEnum.UserName])
+  }, [token, fields, status])
 
   return (
     <Container
@@ -66,6 +75,7 @@ const LoginForm: FunctionComponent = () => {
         <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
         <form className="space-y-4 p-5" onSubmit={submitHandler}>
           <Input
+            error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserName] : ''}
             styles={(theme) => ({
               icon: {
                 pointerEvents: 'auto',
@@ -82,6 +92,7 @@ const LoginForm: FunctionComponent = () => {
           />
 
           <Input
+            error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Password] : ''}
             styles={(theme) => ({
               icon: {
                 pointerEvents: 'auto',

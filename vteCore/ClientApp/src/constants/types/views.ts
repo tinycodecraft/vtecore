@@ -104,10 +104,7 @@ export type DataVerseItem = Readonly<{
   size_in_bytes: string
   published_at: Date
 }>
-export type ApiError = Readonly<{
-  error?: string
-  status: ApiStatusEnum
-}>
+export type ApiErrorState = Readonly<Record<string,string>>
 
 export type RouteComponent = ComponentType<any>
 

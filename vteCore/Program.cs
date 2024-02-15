@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Net6_Controller_And_VIte;
 using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
+using vteCore.dbService;
 using vteCore.Extensions;
 using vteCore.Middleware;
 using vteCore.Shared;
@@ -60,6 +62,10 @@ builder.Services.Configure<IISServerOptions>(opt =>
 
 });
 
+//Setup DB Context
+builder.Services.AddDbContext<BFAContext>();
+
+
 builder.Services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
 
 builder.Host.UseSerilog((ctx, srv, cfg) =>
@@ -73,8 +79,11 @@ builder.Host.UseSerilog((ctx, srv, cfg) =>
 });
 
 builder.Services.AddMapster();
+
 builder.Services.AddScoped<TokenService, TokenService>();
 builder.Services.AddScoped<IFileService, FileService>();
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddHostedService<TracerService>();
 

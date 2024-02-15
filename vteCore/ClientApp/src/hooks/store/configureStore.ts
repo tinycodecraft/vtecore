@@ -3,12 +3,13 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import dmFormReducer from './dmFormSlice'
 import dmWeatherReducer from './dmWeatherSlice'
 import dmHubReducer from './dmHubSlice'
+import dmFieldReducer from './dmFieldSlice'
 import { createLogger } from 'redux-logger'
 import sessionStorage from 'redux-persist/es/storage/session'
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import persistStore from 'redux-persist/es/persistStore'
 import hardSet from 'redux-persist/es/stateReconciler/hardSet'
-import { useDispatch, useSelector, type TypedUseSelectorHook } from 'react-redux';
+import { useDispatch, useSelector, type TypedUseSelectorHook } from 'react-redux'
 
 const logger = createLogger()
 
@@ -23,7 +24,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   dmFile: dmFormReducer,
   dmWeather: dmWeatherReducer,
-  dmHub: dmHubReducer
+  dmHub: dmHubReducer,
+  dmField: dmFieldReducer,
 })
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(persistConfig, rootReducer)
 
@@ -46,5 +48,5 @@ export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {auth: AuthState, form: FormState, weather: WeatherState}
 export type AppDispatch = typeof store.dispatch
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.Shared", "vteCore.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vteCore.dbBFA", "vteCore.dbBFA\vteCore.dbBFA.csproj", "{CF5BD075-AA52-4CBA-ABBD-FD310018620A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vteCore.dbService", "vteCore.dbService\vteCore.dbService.csproj", "{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF5BD075-AA52-4CBA-ABBD-FD310018620A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

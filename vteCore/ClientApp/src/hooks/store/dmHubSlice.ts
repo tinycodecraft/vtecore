@@ -1,7 +1,8 @@
 import { LoginApi } from '@/api/login.service'
 import { SignalRApi } from '@/api/signalr.service'
-import { ApiStatusEnum, HubInit, HubState, ErrorOr, UserState, LoginProps } from '@/constants/types'
+import { ApiStatusEnum, HubInit, HubState, ErrorOr, UserState, LoginProps, ApiErrorState } from '@/constants/types'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { clearError, receiveError } from './dmFieldSlice'
 
 export const dmHubState = createSlice({
   name: 'dmHub',
@@ -21,8 +22,8 @@ export const dmHubState = createSlice({
     receiveAuthInfo: (state, action: PayloadAction<ErrorOr<UserState>>) => {
       if (action.payload) {
         if (action.payload.isError || !action.payload.value) {
+          console.log(`error`)
           state.status = ApiStatusEnum.FAILURE
-          
         } else {
           state.status = ApiStatusEnum.SUCCESS
           state.refreshToken = action.payload.value.refreshToken
@@ -40,6 +41,11 @@ export const getAuthAsync = createAsyncThunk(
     try {
       dispatch(waitForHubInfo())
       const response = await LoginApi.loginAsync(login)
+      if (response.isError) {
+        dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
+      } else {
+        dispatch(clearError())
+      }
       dispatch(receiveAuthInfo(response))
     } catch (e) {
       console.error(e)

@@ -21,6 +21,13 @@ export const LangEnum = {
 } as const
 export type LangEnum = (typeof LangEnum)[keyof typeof LangEnum]
 
+export const ApiFieldEnum = {
+  UserName: 'userName',
+  Password: 'password'
+
+} as const 
+export type ApiFieldEnum = (typeof ApiFieldEnum)[keyof typeof ApiFieldEnum]
+
 export const ErrorEnum = {
   Failure: 'Failure',
   Unexpected: 'Unexpected',

@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace vteCore.ErrorOr;
 
 /// <summary>
@@ -125,4 +127,6 @@ public readonly record struct Error
         NumericType = (int)type;
         Metadata = metadata;
     }
+
+
 }
