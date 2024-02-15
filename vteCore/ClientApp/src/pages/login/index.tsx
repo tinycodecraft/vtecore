@@ -10,7 +10,7 @@ import {
 } from '@/constants/types'
 import { Container, Input, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconEye, IconEyeClosed, IconLock, IconUser } from '@tabler/icons-react'
+import { IconEye, IconEyeClosed, IconLoader2, IconLock, IconUser } from '@tabler/icons-react'
 import { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import CtxForLayout from '@/components/context/CtxForLayout'
 import { clsxm } from '@/utils/methods'
@@ -40,7 +40,7 @@ const LoginForm: FunctionComponent = () => {
     }
   }, [])
 
-  console.log(`rerender again! ${loc.pathname}`, loc.state)
+  
   const submitHandler = useCallback(
     loginForm.onSubmit((values) => {
       console.log(`the form values are : `, values)
@@ -49,9 +49,7 @@ const LoginForm: FunctionComponent = () => {
     }),
     [loginValues, loginForm],
   )
-  useEffect(() => {
-    console.log(`try to redirect to /home with type`, loc.state)
-  }, [])
+
   useEffect(() => {
     if (token && userName) {
       if (!loc.state || !loc.state.mode) {
@@ -151,7 +149,7 @@ const LoginForm: FunctionComponent = () => {
 
           <div>
             <button type="submit" className="btn btn-block">
-              Login
+              Login { status === ApiStatusEnum.PROCESS && <IconLoader2 className='motion-safe:animate-load-turn' />}
             </button>
           </div>
         </form>

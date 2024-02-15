@@ -92,6 +92,7 @@ export default {
       },
       animation: {
         'logo-turn': 'logo-spin infinite 20s linear',
+        'load-turn': 'logo-spin infinite 1s linear',
       },
       borderRadius: {
         '4xl': '2rem',
