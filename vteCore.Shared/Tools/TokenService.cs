@@ -22,7 +22,7 @@ namespace vteCore.Shared.Tools
             _audience = option.Value.Audience;
 
         }
-        private const int ExpirationMinutes = 30;
+        private const int ExpirationMinutes = Constants.Setting.JWTExpirationInMins;
         public string CreateToken(IUser user)
         {
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);

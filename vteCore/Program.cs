@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -176,6 +177,12 @@ builder.Services
 
             OnAuthenticationFailed = (context) =>
             {
+                if(context.Exception.GetType()== typeof(SecurityTokenExpiredException))
+                {
+                    var broker= context.HttpContext.RequestServices.GetRequiredService<ISender>();
+                    
+                }
+                
                 var requestContent = new StringBuilder();
                 requestContent.AppendLine("=== Error happens to Request Info ===");
                 requestContent.AppendLine($"method = {context.Request.Method.ToUpper()}");

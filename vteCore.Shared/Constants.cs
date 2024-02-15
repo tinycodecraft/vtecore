@@ -68,6 +68,8 @@ namespace vteCore.Shared
             public const string PathSetting = nameof(PathSetting);
 
             public const string CorsPolicySetting = nameof(CorsPolicySetting);
+
+            public const int JWTExpirationInMins = 8 * 30 * 2;
             
         }
     }
