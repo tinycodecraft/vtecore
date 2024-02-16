@@ -50,6 +50,18 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
               '#6A1B9A',
               '#4A148C',
             ],
+            sharp: [
+              '#FDE7F3',
+              '#FBBCDC',
+              '#F891C6',
+              '#F566AF',
+              '#F23B99',
+              '#EF1082',
+              '#BF0D68',
+              '#8F0A4E',
+              '#600634',
+              '#30031A',
+            ],
           },
 
           breakpoints: {

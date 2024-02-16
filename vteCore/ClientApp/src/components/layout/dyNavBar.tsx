@@ -121,7 +121,7 @@ export const DyNavBar = () => {
               // onClose={openclose}
             >
               <HoverCard.Target>
-                <a href="#" className={menuLinkStyle.menulink}>
+                <a className={menuLinkStyle.menulink}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
@@ -167,24 +167,45 @@ export const DyNavBar = () => {
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
             {token && (
-              <Menu shadow="md" width={200} position="bottom-end" withinPortal >
+              <Menu
+                shadow="md"
+                width={200}
+                position="bottom-end"
+                withinPortal
+                trigger="hover"
+                styles={(theme) => ({
+                  item: {
+                    '&:hover': {
+                      color: theme.colorScheme == 'dark' ? `${theme.colors.sharp[5]}` : `${theme.colors.sharp[8]}`,
+                    },
+                    '&:hover a': {
+                      color: theme.colorScheme == 'dark' ? `${theme.colors.sharp[5]}` : `${theme.colors.sharp[8]}`,
+                    },
+                  },
+                })}
+              >
                 <Menu.Target>
-                  <a href="#" className={menuLinkStyle.menulink}>
+                  <a className={menuLinkStyle.menulink}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                        <IconUser className='h-[18px] w-[18px] inline' /> {userName}
+                        <IconUser className="h-[18px] w-[18px] inline" /> {userName}
                       </Box>
                       <IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />
                     </Center>
                   </a>
                 </Menu.Target>
-                <Menu.Dropdown className='px-1 mx-1 w-full'>
+                <Menu.Dropdown className="px-1 mx-1 w-full">
                   {controlAdminEnabled && (
-                    <Menu.Item icon={<IconPasswordUser />} className='w-full'>
-                      <a href="#">Change Password</a>
+                    <Menu.Item icon={<IconPasswordUser />} className="text-gray-50">
+                      <a href="#" className="text-gray-50">
+                        Change Password
+                      </a>
                     </Menu.Item>
                   )}
-                  <Menu.Item icon={React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}>
+                  <Menu.Item
+                    icon={React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}
+                    className="text-gray-50"
+                  >
                     <NavLink
                       key={'logout'}
                       to={{
@@ -193,7 +214,7 @@ export const DyNavBar = () => {
                         // , search: createSearchParams({mode: 'exit'}).toString()
                       }}
                       state={{ mode: 'exit' }}
-                      className={({ isActive }) => (isActive ? 'is-active' : '')}
+                      className={({ isActive }) => (isActive ? 'is-active text-gray-50' : 'text-gray-50 ')}
                     >
                       Logout
                     </NavLink>

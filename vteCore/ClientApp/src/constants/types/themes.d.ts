@@ -2,7 +2,7 @@ import '@emotion/react'
 
 import { type MantineTheme, type DefaultMantineColor, type Tuple } from '@mantine/core'
 
-type MoreColors = 'brand' | DefaultMantineColor
+type MoreColors = 'brand' | 'sharp' | DefaultMantineColor
 
 declare module '@emotion/react' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
