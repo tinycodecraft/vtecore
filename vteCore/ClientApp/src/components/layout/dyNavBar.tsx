@@ -15,6 +15,7 @@ import {
   ThemeIcon,
   rem,
   clsx,
+  Menu,
 } from '@mantine/core'
 import {
   IconChevronDown,
@@ -29,6 +30,8 @@ import {
   IconCloudCog,
   IconLogout,
   IconCloudFog,
+  IconUser,
+  IconPasswordUser,
 } from '@tabler/icons-react'
 import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath } from 'react-router'
@@ -39,14 +42,14 @@ import { useAppSelector } from '@/hooks'
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
-  const { token } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
+  const { token, controlAdminEnabled, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   //the following setOpenHover cause problem to any setState function
   //timeout is only method found to work without problem
-  const openclose = useCallback(async () => {
-    setTimeout(() => {
-      setOpenHover(!openHovered)
-    }, 1000)
-  }, [openHovered, setOpenHover])
+  // const openclose = useCallback(async () => {
+  //   setTimeout(() => {
+  //     setOpenHover(!openHovered)
+  //   }, 1000)
+  // }, [openHovered, setOpenHover])
   const icons = [IconHome, IconLock, IconCloudFog, IconLogout]
 
   const mockdata = [
@@ -164,18 +167,39 @@ export const DyNavBar = () => {
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
             {token && (
-              <NavLink
-                key={'logout'}
-                to={{
-                  pathname: '/logout',
-                  // or using createsearchparams if not using state
-                  // , search: createSearchParams({mode: 'exit'}).toString()
-                }}
-                state={{ mode: 'exit' }}
-                className={({ isActive }) => (isActive ? 'is-active' : '')}
-              >
-                {React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}Logout
-              </NavLink>
+              <Menu shadow="md" width={200} position="bottom-end" withinPortal >
+                <Menu.Target>
+                  <a href="#" className={menuLinkStyle.menulink}>
+                    <Center inline>
+                      <Box component="span" mr={5}>
+                        <IconUser className='h-[18px] w-[18px] inline' /> {userName}
+                      </Box>
+                      <IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />
+                    </Center>
+                  </a>
+                </Menu.Target>
+                <Menu.Dropdown className='px-1 mx-1 w-full'>
+                  {controlAdminEnabled && (
+                    <Menu.Item icon={<IconPasswordUser />} className='w-full'>
+                      <a href="#">Change Password</a>
+                    </Menu.Item>
+                  )}
+                  <Menu.Item icon={React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}>
+                    <NavLink
+                      key={'logout'}
+                      to={{
+                        pathname: '/logout',
+                        // or using createsearchparams if not using state
+                        // , search: createSearchParams({mode: 'exit'}).toString()
+                      }}
+                      state={{ mode: 'exit' }}
+                      className={({ isActive }) => (isActive ? 'is-active' : '')}
+                    >
+                      Logout
+                    </NavLink>
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
             )}
             {!token && (
               <NavLink

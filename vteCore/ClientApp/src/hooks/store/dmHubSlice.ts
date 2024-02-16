@@ -3,6 +3,7 @@ import { SignalRApi } from '@/api/signalr.service'
 import { ApiStatusEnum, HubInit, HubState, ErrorOr, UserState, LoginProps, ApiErrorState } from '@/constants/types'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearError, receiveError } from './dmFieldSlice'
+import { stat } from 'fs'
 
 export const dmHubState = createSlice({
   name: 'dmHub',
@@ -13,6 +14,9 @@ export const dmHubState = createSlice({
       state.refreshToken = undefined
       state.userName = ''
       state.status = ApiStatusEnum.NONE
+      state.dataAdminEnabled = false
+      state.controlAdminEnabled = false
+      state.divisionAdminEnabled = false
     },
     waitForHubInfo: (state) => {
       state.status = ApiStatusEnum.PROCESS
@@ -35,6 +39,9 @@ export const dmHubState = createSlice({
           state.refreshToken = action.payload.value.refreshToken
           state.token = action.payload.value.token
           state.userName = action.payload.value.userName
+          state.controlAdminEnabled = action.payload.value.controlAdminEnabled
+          state.dataAdminEnabled =action.payload.value.dataAdminEnabled
+          state.divisionAdminEnabled = action.payload.value.divisionAdminEnabled
         }
       }
     },

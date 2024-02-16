@@ -36,8 +36,9 @@ export const HubInit: HubState = {
   userName: '',
   connectionId: '',
   status: ApiStatusEnum.NONE,
+  controlAdminEnabled: false,
+  dataAdminEnabled: false,
+  divisionAdminEnabled: false,
 }
 
-export const ApiErrorInit: ApiErrorState = {
-  
-}
+export const ApiErrorInit: ApiErrorState = {}

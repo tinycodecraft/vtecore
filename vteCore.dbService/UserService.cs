@@ -59,7 +59,7 @@ namespace vteCore.dbService
             return false;
         }
 
-        public IUser? Login(string username, string password)
+        public IAuthResult? Login(string username, string password)
         {
             var user = db.DFAUsers.FirstOrDefault(e=> e.UserName == username || e.UserId == username);
             var ph = new PasswordHasher();

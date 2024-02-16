@@ -11,7 +11,7 @@ namespace vteCore.Handles
 {
     public static class Models
     {
-        public record UserResult(string UserName, string Token, string RefreshToken);
+        public record UserResult(string UserName, string Token, string RefreshToken,bool DataAdminEnabled,bool DivisionAdminEnabled,bool ControlAdminEnabled);
         public class LoginResult
         {
             public string UserName { get; set; }
@@ -19,6 +19,10 @@ namespace vteCore.Handles
             public bool? IsNew { get; set; }
         }
 
+        public class ExpireResult
+        {
+
+        }
         public class WeatherForcast
         {
             public int Id { get; set; }

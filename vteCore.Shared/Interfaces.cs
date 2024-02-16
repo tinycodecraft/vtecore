@@ -11,9 +11,14 @@ namespace vteCore.Shared
 
     public class Interfaces
     {
-        public interface IRqWeatherForcast: IRequest<ErrorOr<IEnumerable<RM.WeatherForcast>>>
+        public interface IRqBase<T>: IRequest<ErrorOr<T>>
         {
             string ConnectionId { get; set; }
+        }
+
+        public interface IRqWeatherForcast: IRqBase<IEnumerable<RM.WeatherForcast>>
+        {
+            
         }
 
         
@@ -41,7 +46,7 @@ namespace vteCore.Shared
             //change password by admin without oldpassword
             bool ChangePassword(string username, string password, string byusername, string oldpassword = null);
 
-            IUser? Login(string username, string password);
+            IAuthResult? Login(string username, string password);
         }
 
         public interface IUser
@@ -52,6 +57,22 @@ namespace vteCore.Shared
 
         }
 
+        public interface IAuthResult
+        {
+            bool IsDivisionAdmin { get;  }
+            bool IsDataAdmin { get; }
+            bool IsControlAdmin { get; }
+
+            public string UserName { get; }
+            public string Email { get; }
+            public string UserId { get; }
+
+        }
+
+        public interface IAuthExpire
+        {
+
+        }
 
     }
 

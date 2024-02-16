@@ -8,6 +8,12 @@ namespace vteCore.Shared
 {
     public static class Constants
     {
+        public enum AdminScopeType
+        {
+            Division,
+            Archive,
+            Full
+        }
         public enum FieldType
         {
             userName,
@@ -30,6 +36,7 @@ namespace vteCore.Shared
         public static class HubMethod
         {
             public const string login = nameof(login);
+            public const string expire = nameof(expire);
             public const string weather = nameof(weather);
             public const string register =nameof(register);
             public const string pwdchange = nameof(pwdchange);
@@ -60,6 +67,13 @@ namespace vteCore.Shared
             public const string USERID=nameof(USERID);
             public const string CONNECTIONID=nameof(CONNECTIONID);
             
+        }
+
+        public static class AuthClaims
+        {
+            public const string ControlAdminEnabled = nameof(ControlAdminEnabled);
+            public const string DataAdminEnabled = nameof(DataAdminEnabled);    
+            public const string DivisionAdminEnabled = nameof(DivisionAdminEnabled);
         }
 
         public static class Setting

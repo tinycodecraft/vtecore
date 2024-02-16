@@ -1,10 +1,4 @@
-import {
-  FC,
-  Fragment,
-  PropsWithChildren,
-  useEffect,
-  useRef,
-} from 'react'
+import { FC, Fragment, PropsWithChildren, useEffect, useRef } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store, persistor } from '@/hooks'
@@ -26,6 +20,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
         console.log(`the hub state ${SignalRApi.signalrState}`)
         if (SignalRApi.signalrState !== HubConnectionState.Connected) {
           await SignalRApi.initConnection()
+
           signalrState.current = SignalRApi.signalrState
         }
       }

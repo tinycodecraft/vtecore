@@ -23,7 +23,7 @@ namespace vteCore.Shared.Tools
 
         }
         private const int ExpirationMinutes = Constants.Setting.JWTExpirationInMins;
-        public string CreateToken(IUser user)
+        public string CreateToken(IAuthResult user)
         {
             var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
             var userClaims = CreateClaims(user);
@@ -57,7 +57,7 @@ namespace vteCore.Shared.Tools
             }
         }
 
-        private List<Claim> CreateClaims(IUser user)
+        private List<Claim> CreateClaims(IAuthResult user)
         {
             try
             {
@@ -66,9 +66,12 @@ namespace vteCore.Shared.Tools
                     new Claim(JwtRegisteredClaimNames.Sub, "TokenForBuckleJwtAuth"),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId ?? user.UserName.ToLower().Replace(" ","")),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId),
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email ?? $"{user.UserId}@unknown.com")
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(AuthClaims.DivisionAdminEnabled, user.IsDivisionAdmin.ToString()),
+                    new Claim(AuthClaims.DataAdminEnabled, user.IsDataAdmin.ToString()),
+                    new Claim(AuthClaims.ControlAdminEnabled, user.IsControlAdmin.ToString()),
                 };
                 return claims;
             }

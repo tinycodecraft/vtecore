@@ -7,10 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static vteCore.Shared.Constants;
 
 namespace vteCore.dbBFA.Models;
 
-public partial class DFAUser: IUser
+public partial class DFAUser: IAuthResult
 {
     [NotMapped]
     public string Email { get
@@ -19,6 +20,36 @@ public partial class DFAUser: IUser
             return $"{this.UserName}@unknown.com";
         } 
     }
+    [NotMapped]
+    public bool IsDivisionAdmin
+    {
+        get
+        {
+            return this.AdminScope ==nameof(AdminScopeType.Division);
+        }
+    }
+
+    [NotMapped]
+    public bool IsDataAdmin
+    {
+        get
+        {
+            return this.AdminScope == nameof(AdminScopeType.Archive);
+        }
+    }
+
+    [NotMapped]
+
+    public bool IsControlAdmin
+    {
+        get
+        {
+            return this.AdminScope == nameof(AdminScopeType.Full);
+        }
+    }
+
+    
+
 }
 public partial class BFAContext
 {

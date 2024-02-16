@@ -143,10 +143,13 @@ export type HubState = Readonly<{
   token?: string
   refreshToken?: string
   connectionId: string
+  controlAdminEnabled: boolean
+  divisionAdminEnabled: boolean
+  dataAdminEnabled: boolean
   status: ApiStatusEnum
 }>
 
-export type UserState = Pick<HubState, 'refreshToken' | 'token' | 'userName'>
+export type UserState = Omit<HubState, 'connectionId'>
 
 export type ErrorDetail = Readonly<{
   code: string
