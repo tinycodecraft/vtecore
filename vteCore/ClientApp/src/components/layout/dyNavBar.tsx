@@ -199,7 +199,7 @@ export const DyNavBar = () => {
                   {controlAdminEnabled && (
                     <Menu.Item icon={<IconPasswordUser />} className="text-gray-50">
                       <a href="#" className="text-gray-50">
-                        Change Password
+                        User List
                       </a>
                     </Menu.Item>
                   )}
