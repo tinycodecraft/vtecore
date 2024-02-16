@@ -28,6 +28,7 @@ import {
   IconLock,
   IconCloudCog,
   IconLogout,
+  IconCloudFog,
 } from '@tabler/icons-react'
 import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath } from 'react-router'
@@ -46,7 +47,7 @@ export const DyNavBar = () => {
       setOpenHover(!openHovered)
     }, 1000)
   }, [openHovered, setOpenHover])
-  const icons = [IconHome, IconLock, IconCloudCog, IconLogout]
+  const icons = [IconHome, IconLock, IconCloudFog, IconLogout]
 
   const mockdata = [
     {
