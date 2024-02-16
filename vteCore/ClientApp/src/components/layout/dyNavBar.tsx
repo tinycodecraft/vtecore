@@ -34,7 +34,7 @@ import {
   IconPasswordUser,
 } from '@tabler/icons-react'
 import { NavLink, createSearchParams } from 'react-router-dom'
-import { generatePath } from 'react-router'
+import { generatePath, useNavigate } from 'react-router'
 import routes from '@/constants/routes/config'
 import { HubInit, HubState, MenuPositionEnum } from '@/constants/types'
 import { useAppSelector } from '@/hooks'
@@ -51,6 +51,7 @@ export const DyNavBar = () => {
   //   }, 1000)
   // }, [openHovered, setOpenHover])
   const icons = [IconHome, IconLock, IconCloudFog, IconLogout]
+  const navigate = useNavigate()
 
   const mockdata = [
     {
@@ -205,6 +206,7 @@ export const DyNavBar = () => {
                   <Menu.Item
                     icon={React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}
                     className="text-gray-50"
+                    onClick={() => navigate('/logout', { state: { mode: 'exit' } })}
                   >
                     <NavLink
                       key={'logout'}
