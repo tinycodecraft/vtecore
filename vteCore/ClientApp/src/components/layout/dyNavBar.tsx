@@ -32,6 +32,7 @@ import {
   IconCloudFog,
   IconUser,
   IconPasswordUser,
+  IconList,
 } from '@tabler/icons-react'
 import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath, useNavigate } from 'react-router'
@@ -197,7 +198,7 @@ export const DyNavBar = () => {
                 </Menu.Target>
                 <Menu.Dropdown className="px-1 mx-1 w-full">
                   {controlAdminEnabled && (
-                    <Menu.Item icon={<IconPasswordUser />} className="text-gray-50">
+                    <Menu.Item icon={<IconList />} className="text-gray-50">
                       <a href="#" className="text-gray-50">
                         User List
                       </a>
