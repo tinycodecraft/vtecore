@@ -24,6 +24,10 @@ import {
   IconFingerprint,
   IconChartPie3,
   IconNotification,
+  IconHome,
+  IconLock,
+  IconCloudCog,
+  IconLogout,
 } from '@tabler/icons-react'
 import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath } from 'react-router'
@@ -42,6 +46,7 @@ export const DyNavBar = () => {
       setOpenHover(!openHovered)
     }, 1000)
   }, [openHovered, setOpenHover])
+  const icons = [IconHome, IconLock, IconCloudCog, IconLogout]
 
   const mockdata = [
     {
@@ -93,6 +98,7 @@ export const DyNavBar = () => {
                     to={generatePath(route.path, route.params)}
                     className={({ isActive }) => (isActive ? 'is-active' : '')}
                   >
+                    {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
                     {route.name}
                   </NavLink>
                 </li>
@@ -159,14 +165,15 @@ export const DyNavBar = () => {
             {token && (
               <NavLink
                 key={'logout'}
-                to={{ pathname: '/logout'
-                // or using createsearchparams if not using state
-                // , search: createSearchParams({mode: 'exit'}).toString()
-               }}
+                to={{
+                  pathname: '/logout',
+                  // or using createsearchparams if not using state
+                  // , search: createSearchParams({mode: 'exit'}).toString()
+                }}
                 state={{ mode: 'exit' }}
                 className={({ isActive }) => (isActive ? 'is-active' : '')}
               >
-                Logout
+                {React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}Logout
               </NavLink>
             )}
             {!token && (
@@ -175,7 +182,7 @@ export const DyNavBar = () => {
                 to={generatePath('/login')}
                 className={({ isActive }) => (isActive ? 'is-active' : '')}
               >
-                Login
+                {React.createElement(icons[1], { className: 'h-[18px] w-[18px] inline' })}Login
               </NavLink>
             )}
           </li>

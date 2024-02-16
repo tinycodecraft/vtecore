@@ -39,7 +39,7 @@ const routes: RouteInput[] = [
     name: 'Logout',
     Component: LoginFormComponent,
     transition: TRANSITION_DEFAULT,
-    iconIndex: 1,
+    iconIndex: 3,
     popUpOnly: false,
     position: MenuPositionEnum.right,
     locked: true,

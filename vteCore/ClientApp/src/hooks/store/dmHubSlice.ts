@@ -12,7 +12,7 @@ export const dmHubState = createSlice({
       state.token = undefined
       state.refreshToken = undefined
       state.userName = ''
-      state.status = ApiStatusEnum.PROCESS
+      state.status = ApiStatusEnum.NONE
     },
     waitForHubInfo: (state) => {
       state.status = ApiStatusEnum.PROCESS
