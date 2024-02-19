@@ -15,15 +15,16 @@ import { changePsswdAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, Input } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconLoader2, IconPassword, IconUser } from '@tabler/icons-react'
+import { IconEye, IconEyeClosed, IconLoader2, IconPassword, IconUser } from '@tabler/icons-react'
 import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 
 export const ChangePasswordComponent: FunctionComponent = () => {
   const [psswdValues, setPsswdValues] = useState<LoginProps>()
+  const [visible, setVisible] = useState(false)
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
-  const { status } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
+  const { status,userName:returnUserName } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
   const { token, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -106,6 +107,14 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                 icon: {
                   pointerEvents: 'auto',
                 },
+                input: {
+                  '::-ms-reveal': {
+                    display: 'none',
+                  },
+                  '::-ms-clear': {
+                    display: 'none',
+                  },
+                },
               })}
               
               autoComplete="off"
@@ -114,10 +123,98 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   <IconPassword size="1rem" />
                 </div>
               }
+
+              rightSection={
+                visible ? (
+                    <IconEye onClick={() => setVisible(false)} />
+                  ) : (
+                    <IconEyeClosed onClick={() => setVisible(true)} />
+                  )
+              }
+
               placeholder="Old Password"
               {...psswdForm.getInputProps('password')}
             />
-          </Input.Wrapper>       
+          </Input.Wrapper>   
+
+          <Input.Wrapper
+            error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.NewPassword] : ''}
+            id={`${ApiFieldEnum.NewPassword}-input`}
+          >
+            <Input
+              id={`${ApiFieldEnum.NewPassword}-input`}
+              styles={(theme) => ({
+                icon: {
+                  pointerEvents: 'auto',
+                },
+                input: {
+                  '::-ms-reveal': {
+                    display: 'none',
+                  },
+                  '::-ms-clear': {
+                    display: 'none',
+                  },
+                },
+              })}
+              
+              autoComplete="off"
+              icon={
+                <div className="tooltip tooltip-top" data-tip="New password">
+                  <IconPassword size="1rem" />
+                </div>
+              }
+
+              rightSection={
+                visible ? (
+                    <IconEye onClick={() => setVisible(false)} />
+                  ) : (
+                    <IconEyeClosed onClick={() => setVisible(true)} />
+                  )
+              }
+
+              placeholder="New Password"
+              {...psswdForm.getInputProps('newPassword')}
+            />
+          </Input.Wrapper>  
+          <Input.Wrapper
+            error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.ConfirmPassword] : ''}
+            id={`${ApiFieldEnum.ConfirmPassword}-input`}
+          >
+            <Input
+              id={`${ApiFieldEnum.ConfirmPassword}-input`}
+              styles={(theme) => ({
+                icon: {
+                  pointerEvents: 'auto',
+                },
+                input: {
+                  '::-ms-reveal': {
+                    display: 'none',
+                  },
+                  '::-ms-clear': {
+                    display: 'none',
+                  },
+                },
+              })}
+              
+              autoComplete="off"
+              icon={
+                <div className="tooltip tooltip-top" data-tip="Confirm password">
+                  <IconPassword size="1rem" />
+                </div>
+              }
+
+              rightSection={
+                visible ? (
+                    <IconEye onClick={() => setVisible(false)} />
+                  ) : (
+                    <IconEyeClosed onClick={() => setVisible(true)} />
+                  )
+              }
+
+              placeholder="Confirm Password"
+              {...psswdForm.getInputProps('confirmPassword')}
+            />
+          </Input.Wrapper>                           
           <div>
             <button type='submit' className='btn btn-block bg-green-300 hover:bg-blue-400'>
                 Change { status === ApiStatusEnum.PROCESS && <IconLoader2  className='motion-safe:animate-load-turn' />}
