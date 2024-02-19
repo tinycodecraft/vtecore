@@ -2,7 +2,7 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   daisyui: {
-    themes: ['coffee', 'night', 'cyberpunk', 'valentine','lemonade','retro','bumblebee','cupcake'],
+    themes: ['coffee', 'night', 'cyberpunk', 'lemonade'],
   },
   theme: {
     screens: {
