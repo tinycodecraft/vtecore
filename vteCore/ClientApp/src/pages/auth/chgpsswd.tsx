@@ -116,7 +116,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   },
                 },
               })}
-              
+              type={visible ? 'text' : 'password'}
               autoComplete="off"
               icon={
                 <div className="tooltip tooltip-top" data-tip="Old password">
@@ -126,9 +126,9 @@ export const ChangePasswordComponent: FunctionComponent = () => {
 
               rightSection={
                 visible ? (
-                    <IconEye onClick={() => setVisible(false)} />
+                    <IconEye onClick={() => setVisible(false)} className='text-green-300' />
                   ) : (
-                    <IconEyeClosed onClick={() => setVisible(true)} />
+                    <IconEyeClosed onClick={() => setVisible(true)} className='text-green-300' />
                   )
               }
 
@@ -156,7 +156,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   },
                 },
               })}
-              
+              type={visible ? 'text' : 'password'}
               autoComplete="off"
               icon={
                 <div className="tooltip tooltip-top" data-tip="New password">
@@ -166,9 +166,9 @@ export const ChangePasswordComponent: FunctionComponent = () => {
 
               rightSection={
                 visible ? (
-                    <IconEye onClick={() => setVisible(false)} />
+                    <IconEye onClick={() => setVisible(false)} className='text-green-300' />
                   ) : (
-                    <IconEyeClosed onClick={() => setVisible(true)} />
+                    <IconEyeClosed onClick={() => setVisible(true)} className='text-green-300' />
                   )
               }
 
@@ -195,7 +195,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   },
                 },
               })}
-              
+              type={visible ? 'text' : 'password'}
               autoComplete="off"
               icon={
                 <div className="tooltip tooltip-top" data-tip="Confirm password">
@@ -205,9 +205,9 @@ export const ChangePasswordComponent: FunctionComponent = () => {
 
               rightSection={
                 visible ? (
-                    <IconEye onClick={() => setVisible(false)} />
+                    <IconEye onClick={() => setVisible(false)} className='text-green-300' />
                   ) : (
-                    <IconEyeClosed onClick={() => setVisible(true)} />
+                    <IconEyeClosed onClick={() => setVisible(true)} className='text-green-300' />
                   )
               }
 
