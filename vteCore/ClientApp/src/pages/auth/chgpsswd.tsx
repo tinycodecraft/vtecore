@@ -15,7 +15,7 @@ import { changePsswdAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, Input } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconUser } from '@tabler/icons-react'
+import { IconLoader2, IconPassword, IconUser } from '@tabler/icons-react'
 import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
@@ -70,7 +70,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
     >
       <div
         className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md lg:max-w-lg"
-        data-theme="coffee"
+        data-theme="lemonade"
       >
         <h1 className="text-3xl font-semibold text-center text-gray-700">Change Password</h1>
         <form className="space-y-4 p-5" onSubmit={submitHandler}>
@@ -96,6 +96,33 @@ export const ChangePasswordComponent: FunctionComponent = () => {
               {...psswdForm.getInputProps('userName')}
             />
           </Input.Wrapper>
+          <Input.Wrapper
+            error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Password] : ''}
+            id={`${ApiFieldEnum.Password}-input`}
+          >
+            <Input
+              id={`${ApiFieldEnum.Password}-input`}
+              styles={(theme) => ({
+                icon: {
+                  pointerEvents: 'auto',
+                },
+              })}
+              
+              autoComplete="off"
+              icon={
+                <div className="tooltip tooltip-top" data-tip="Old password">
+                  <IconPassword size="1rem" />
+                </div>
+              }
+              placeholder="Old Password"
+              {...psswdForm.getInputProps('password')}
+            />
+          </Input.Wrapper>       
+          <div>
+            <button type='submit' className='btn btn-block bg-green-300 hover:bg-blue-400'>
+                Change { status === ApiStatusEnum.PROCESS && <IconLoader2  className='motion-safe:animate-load-turn' />}
+            </button>
+        </div>   
         </form>
       </div>
     </Container>
