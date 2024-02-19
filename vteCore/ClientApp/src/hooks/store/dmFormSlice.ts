@@ -4,6 +4,7 @@ import { ApiErrorState, ErrorOr, FormPostState, LoginProps, SelectOption } from 
 import { ApiStatusEnum } from '@/constants/types'
 import { LoginApi } from '@/api/login.service'
 import { clearError, receiveError } from './dmFieldSlice'
+import { RootState } from '@/hooks'
 
 export const dmFormSlice = createSlice({
   name: 'dmForm',
@@ -29,9 +30,21 @@ export const dmFormSlice = createSlice({
 export const changePsswdAsync = createAsyncThunk(
   'dmForm/changePsswdAsync',
   async (login: LoginProps, { dispatch, getState }) => {
+    const {
+      dmHub: { token: accessToken, refreshToken: renewToken },
+    } = (getState as () => RootState)()
+    console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
+
     try {
+      if (accessToken) {
+        LoginApi.token = accessToken
+      }
+      if (renewToken) {
+        LoginApi.refreshToken = renewToken
+      }
       dispatch(waitFormState(login.userName))
       const response = await LoginApi.changePasswdAsync(login)
+      console.log(`the response from change password:`,response)
       dispatch(clearError())
       if (response.isError) {
         dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))

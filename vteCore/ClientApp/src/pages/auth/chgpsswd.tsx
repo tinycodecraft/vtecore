@@ -24,7 +24,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
   const [psswdValues, setPsswdValues] = useState<LoginProps>()
   const [visible, setVisible] = useState(false)
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
-  const { status,userName:returnUserName } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
+  const { status, userName: returnUserName } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
   const { token, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -34,6 +34,8 @@ export const ChangePasswordComponent: FunctionComponent = () => {
       userName: userName,
       password: '',
       forSignup: false,
+      newPassword: '',
+      confirmPassword: '',
     },
   })
   const toastHandler = useCallback((message: string) => {
@@ -51,8 +53,12 @@ export const ChangePasswordComponent: FunctionComponent = () => {
   )
 
   useEffect(() => {
+    console.log(`the status: `,status,fields )
     if (!token) {
       navigate('/login')
+    }
+    if (status === ApiStatusEnum.SUCCESS) {
+      navigate('/home')
     }
   }, [status, fields, token])
 
@@ -123,19 +129,17 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   <IconPassword size="1rem" />
                 </div>
               }
-
               rightSection={
                 visible ? (
-                    <IconEye onClick={() => setVisible(false)} className='text-green-300' />
-                  ) : (
-                    <IconEyeClosed onClick={() => setVisible(true)} className='text-green-300' />
-                  )
+                  <IconEye onClick={() => setVisible(false)} className="text-green-300" />
+                ) : (
+                  <IconEyeClosed onClick={() => setVisible(true)} className="text-green-300" />
+                )
               }
-
               placeholder="Old Password"
               {...psswdForm.getInputProps('password')}
             />
-          </Input.Wrapper>   
+          </Input.Wrapper>
 
           <Input.Wrapper
             error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.NewPassword] : ''}
@@ -163,19 +167,17 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   <IconPassword size="1rem" />
                 </div>
               }
-
               rightSection={
                 visible ? (
-                    <IconEye onClick={() => setVisible(false)} className='text-green-300' />
-                  ) : (
-                    <IconEyeClosed onClick={() => setVisible(true)} className='text-green-300' />
-                  )
+                  <IconEye onClick={() => setVisible(false)} className="text-green-300" />
+                ) : (
+                  <IconEyeClosed onClick={() => setVisible(true)} className="text-green-300" />
+                )
               }
-
               placeholder="New Password"
               {...psswdForm.getInputProps('newPassword')}
             />
-          </Input.Wrapper>  
+          </Input.Wrapper>
           <Input.Wrapper
             error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.ConfirmPassword] : ''}
             id={`${ApiFieldEnum.ConfirmPassword}-input`}
@@ -202,24 +204,22 @@ export const ChangePasswordComponent: FunctionComponent = () => {
                   <IconPassword size="1rem" />
                 </div>
               }
-
               rightSection={
                 visible ? (
-                    <IconEye onClick={() => setVisible(false)} className='text-green-300' />
-                  ) : (
-                    <IconEyeClosed onClick={() => setVisible(true)} className='text-green-300' />
-                  )
+                  <IconEye onClick={() => setVisible(false)} className="text-green-300" />
+                ) : (
+                  <IconEyeClosed onClick={() => setVisible(true)} className="text-green-300" />
+                )
               }
-
               placeholder="Confirm Password"
               {...psswdForm.getInputProps('confirmPassword')}
             />
-          </Input.Wrapper>                           
+          </Input.Wrapper>
           <div>
-            <button type='submit' className='btn btn-block bg-green-300 hover:bg-blue-400'>
-                Change { status === ApiStatusEnum.PROCESS && <IconLoader2  className='motion-safe:animate-load-turn' />}
+            <button type="submit" className="btn btn-block bg-green-300 hover:bg-blue-400">
+              Change {status === ApiStatusEnum.PROCESS && <IconLoader2 className="motion-safe:animate-load-turn" />}
             </button>
-        </div>   
+          </div>
         </form>
       </div>
     </Container>

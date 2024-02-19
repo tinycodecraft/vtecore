@@ -18,6 +18,12 @@ export const dmFieldState = createSlice({
             case ApiFieldEnum.Password:
               state[ApiFieldEnum.Password] = value
               break
+            case ApiFieldEnum.ConfirmPassword:
+              state[ApiFieldEnum.ConfirmPassword] = value
+              break
+            case ApiFieldEnum.NewPassword:
+              state[ApiFieldEnum.NewPassword] = value
+              break
           }
         })
       }
