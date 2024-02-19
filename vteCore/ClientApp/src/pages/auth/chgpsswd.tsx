@@ -34,6 +34,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
       userName: userName,
       password: '',
       forSignup: false,
+      //undefined value in the form state can cause error in debug console.
       newPassword: '',
       confirmPassword: '',
     },
