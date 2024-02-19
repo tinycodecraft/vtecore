@@ -1,5 +1,5 @@
 import { IconHome, IconLogin, IconLogout } from '@tabler/icons-react'
-import { ApiErrorState, DemoFormState, HubState, LoginProps, RouteInput, SelectOption, WeatherState } from './views'
+import { ApiErrorState,  FormPostState,  HubState, LoginProps, RouteInput, SelectOption, WeatherState } from './views'
 import { ApiStatusEnum } from './enums'
 
 export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
@@ -7,11 +7,7 @@ export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
   { value: '', label: '(Any)' },
 ]
 
-export const DemoFormStateInit: DemoFormState = {
-  count: 0,
-  checked: false,
-  selectedOption: SELECT_OPTION_TEMPLATE[0],
-}
+
 
 export const TRANSITION_DEFAULT = {
   classNames: 'fade',
@@ -24,12 +20,18 @@ export const LoginFormInit: LoginProps = {
   userName: '',
   forSignup: false,
   password: '',
+  
 }
 
 export const WeatherInit: WeatherState = {
   forecasts: [],
   isLoading: true,
   debug: true,
+}
+
+export const FormPostInit : FormPostState= {
+  userName: '',
+  status: ApiStatusEnum.NONE
 }
 
 export const HubInit: HubState = {

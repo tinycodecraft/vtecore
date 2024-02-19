@@ -2,6 +2,8 @@ import { type RouteInput, TRANSITION_DEFAULT, MenuPositionEnum } from '@/constan
 import HomeComponent from '@/pages/landing'
 import WeatherComponent from '@/pages/weather'
 import LoginFormComponent from '@/pages/login'
+import { ChangePasswordComponent } from '@/pages/auth/chgpsswd'
+import SetPasswordComponent from '@/pages/auth/setpsswd'
 
 const routes: RouteInput[] = [
   {
@@ -24,6 +26,29 @@ const routes: RouteInput[] = [
     position: MenuPositionEnum.center,
     locked: true,
   },
+  {
+    path: '/chgpsswd',
+    name: 'Change Password',
+    Component: ChangePasswordComponent,
+    transition: TRANSITION_DEFAULT,
+    iconIndex: 4,
+    popUpOnly: false,
+    position: MenuPositionEnum.right,
+    locked: true
+
+  },
+  {
+    path: '/setpsswd',
+    name: 'Set Password',
+    Component: SetPasswordComponent,
+    transition: TRANSITION_DEFAULT,
+    iconIndex: 5,
+    popUpOnly: false,
+    position: MenuPositionEnum.right,
+    locked: true
+
+  },  
+
   {
     path: '/login',
     name: 'Login',

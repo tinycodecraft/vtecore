@@ -33,6 +33,7 @@ import {
   IconUser,
   IconPasswordUser,
   IconList,
+  IconSwitch3,
 } from '@tabler/icons-react'
 import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath, useNavigate } from 'react-router'
@@ -51,7 +52,7 @@ export const DyNavBar = () => {
   //     setOpenHover(!openHovered)
   //   }, 1000)
   // }, [openHovered, setOpenHover])
-  const icons = [IconHome, IconLock, IconCloudFog, IconLogout]
+  const icons = [IconHome, IconLock, IconCloudFog, IconLogout,IconSwitch3]
   const navigate = useNavigate()
 
   const mockdata = [
@@ -204,6 +205,23 @@ export const DyNavBar = () => {
                       </a>
                     </Menu.Item>
                   )}
+                  <Menu.Item
+                    icon={React.createElement(icons[4], { className: 'h-[18px] w-[18px] inline' })}
+                    className="text-gray-50"
+                    onClick={() => navigate('/chgpsswd')}
+                  >
+                    <NavLink
+                      key={'chgpsswd'}
+                      to={{
+                        pathname: '/chgpsswd',
+                        // or using createsearchparams if not using state
+                        // , search: createSearchParams({mode: 'exit'}).toString()
+                      }}                      
+                      className={({ isActive }) => (isActive ? 'is-active text-gray-50' : 'text-gray-50 ')}
+                    >
+                      Change Password
+                    </NavLink>
+                  </Menu.Item>                  
                   <Menu.Item
                     icon={React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}
                     className="text-gray-50"

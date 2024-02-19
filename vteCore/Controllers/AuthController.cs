@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using vteCore.ErrorOr;
@@ -37,6 +38,23 @@ namespace vteCore.Controllers
                 return Ok((ErrorOr<QM.TokenProps>)input);
             }
             return Ok((ErrorOr<QM.TokenProps>) Error.Failure(description:"Token does not match!!"));
+        }
+        [Authorize]
+        [HttpPost]
+        public IActionResult ChangePassword(QM.LoginProps login)
+        {
+            if(login.NewPassword!=login.ConfirmPassword)
+            {
+                return Ok(Error.Failure(code: nameof(FieldType.confirmPassword), description: $"the retyped new password not matched").ToErrorOr<RM.ChangePasswordResult>());
+
+            }
+            var byuser = HttpContext.Session.GetStr(Sessions.USERID);
+            var changed = userService.ChangePassword(login.UserName, login.NewPassword, byuser, login.Password);
+            if(!changed)
+            {
+                return Ok(Error.Failure(code: nameof(FieldType.newPassword), description: $"the old password not matched ").ToErrorOr<RM.ChangePasswordResult>());
+            }
+            return Ok((ErrorOr<RM.ChangePasswordResult>)new RM.ChangePasswordResult(login.UserName));
         }
 
         [HttpPost]

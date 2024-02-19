@@ -22,10 +22,11 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  dmFile: dmFormReducer,
+  dmForm: dmFormReducer,
   dmWeather: dmWeatherReducer,
   dmHub: dmHubReducer,
   dmField: dmFieldReducer,
+  
 })
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(persistConfig, rootReducer)
 

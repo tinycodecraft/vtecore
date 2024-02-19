@@ -31,11 +31,7 @@ export type WeatherState = Readonly<{
 
 export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts'>
 
-export type DemoFormState = Readonly<{
-  count: number
-  checked: boolean
-  selectedOption: SelectOption
-}>
+
 
 export type MapItemSuggestion = Readonly<{
   addressZH: string
@@ -137,7 +133,10 @@ export interface LoginProps {
   confirmPassword?: string
   forSignup: boolean
 }
-
+export type FormPostState = Readonly<{
+  userName: string
+  status: ApiStatusEnum
+}>;
 export type HubState = Readonly<{
   userName: string
   token?: string
