@@ -26,13 +26,25 @@ namespace vteCore.dbService
                     var valuedict = filter.GetValue();
                     if (valuedict.Keys.Count == 0)
                         continue;
+                    var values = valuedict.Values.ToArray();
+                    bool boolvalue = false;
+
+                    foreach(var v in values)
+                    {
+                        if(v!=null && bool.TryParse(v.ToString(),out boolvalue))
+                        {
+                            
+                        }
+
+                    }
                     switch( filter.Id)
                     {
                         case nameof(DFAUser.UserName):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName,(string) filter.Value);
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName, values[0].ToString());
                             break;
-                        case nameof(DFAUser.Disabled):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.Disabled, $"{filter.Value}",Op.equal);
+                        case nameof(DFAUser.IsControlAdmin):
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.IsAdmin, values[0].ToString() ,Op.equal);
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.AdminScope, "Full", Op.equal);
                             break;
 
                     }
