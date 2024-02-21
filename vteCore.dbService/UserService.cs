@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using System.Collections.Specialized;
+using vteCore.Shared.Models;
 using vteCore.Shared.Tools;
 
 namespace vteCore.dbService
@@ -13,6 +15,59 @@ namespace vteCore.dbService
             db = ctx;
         }
 
+        public RM.UserListResult List(EM.MantineTableProps query)
+        {
+            try
+            {
+                var nv = new NameValueCollection();
+                
+                foreach(var filter in  query.Filtering)
+                {
+                    var valuedict = filter.GetValue();
+                    if (valuedict.Keys.Count == 0)
+                        continue;
+                    switch( filter.Id)
+                    {
+                        case nameof(DFAUser.UserName):
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName,(string) filter.Value);
+                            break;
+                        case nameof(DFAUser.Disabled):
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.Disabled, $"{filter.Value}",Op.equal);
+                            break;
+
+                    }
+
+                }
+
+                var result = db.GetSearch<DFAUser>(nv);
+                var sorter = new SortDescription[] { }.ToList();
+                foreach(var sort in query.Sorting)
+                {
+                    var sortby = new SortDescription { PropertyName = sort.Id, Direction = sort.Desc ? System.ComponentModel.ListSortDirection.Descending : System.ComponentModel.ListSortDirection.Ascending };
+                    sorter.Add(sortby);
+                }
+
+                if(sorter.Count > 0)
+                {
+                    result= result.BuildOrder(sorter.ToArray());
+                }
+                var total_count = result.Count();
+                var new_start = query.Start + query.Size;
+                return
+                    new RM.UserListResult
+                    {
+                        data = result.Skip(query.Start).Take(query.Size).ToList().Select(e => (IUser)e).ToArray(),
+                        total_count = total_count,
+                        start = total_count > new_start ? new_start : total_count
+                    };
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+            return new RM.UserListResult {  total_count = 0, data = null, start = 0};
+
+        }
         public bool ChangePassword(string username, string password, string byusername, string oldpassword = null)
         {
             try

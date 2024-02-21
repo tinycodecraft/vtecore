@@ -25,6 +25,20 @@ namespace vteCore.Controllers
             userService = usrmgr;
         }
 
+        [Authorize]
+        [HttpPost]
+        public IActionResult List(EM.MantineTableProps query)
+        {
+            var result = userService.List(query);
+
+            if(result.data==null)
+            {
+                return Ok((ErrorOr<RM.UserListResult>)Error.Failure(code: "UserList",description: "user list could not be generated!"));
+            }
+            var errwrapresult = (ErrorOr<RM.UserListResult>)result;
+            return Ok(errwrapresult);
+        }
+
         [HttpPost]
         public IActionResult Token(QM.TokenProps input)
         {

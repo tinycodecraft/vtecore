@@ -2,7 +2,7 @@
 //return (from broker)
 global using RM = vteCore.Handles.Models;
 //request (to broker)
-global using SM = vteCore.Handles.Requests;
+global using UM = vteCore.Handles.Requests;
 global using static vteCore.Shared.Interfaces;
 global using static vteCore.Shared.Constants;
 //shared

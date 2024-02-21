@@ -11,7 +11,7 @@ using static vteCore.Shared.Constants;
 
 namespace vteCore.dbBFA.Models;
 
-public partial class DFAUser: IAuthResult
+public partial class DFAUser: IUser,IAuthAuditResult,IAuthResult
 {
     [NotMapped]
     public string Email { get

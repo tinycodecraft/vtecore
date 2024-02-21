@@ -1,106 +1,16 @@
 import { AnchorHTMLAttributes, ComponentType, SetStateAction } from 'react'
-
 import { SelectItemProps } from '@mantine/core'
 import { ApiStatusEnum, ErrorEnum, MenuPositionEnum } from './enums'
 import { TRANSITION_DEFAULT } from './values'
 import { Params } from 'react-router'
-import { useAppDispatch } from '@/hooks'
+import { ListResult } from './inouts'
 
-export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
-  role: 'button',
-  target: '_blank',
-  rel: 'noopener noreferrer',
-}
-
-export type SelectOption = Readonly<Pick<SelectItemProps, 'value' | 'label'>>
-
-export type WeatherForecast = Readonly<{
-  id: number
-  summary: string
-  temperatureC: number
-  temperatureF: number
-  dateFormatted: string
-  recordDate: Date
-}>
-
-export type WeatherState = Readonly<{
-  debug?: boolean
-  isLoading: boolean
-  forecasts: WeatherForecast[]
-}>
-
-export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts'>
-
-
-
-export type MapItemSuggestion = Readonly<{
-  addressZH: string
-  nameZH: string
-  x: number
-  y: number
-  nameEN: string
-  addressEN: string
-}>
-
-export type MapNearBySuggestion = Readonly<{
-  address?: string
-  additionalInfoValue?: string[]
-  name?: string
-  x: number
-  y: number
-  additionalInfoKey?: string[]
-}>
+// view help types
 
 export type WindowSize = Readonly<{
   winWidth: number | undefined
   winHeight: number | undefined
 }>
-
-export type UploadedFileState = {
-  filePath?: string
-  fileDesc?: string
-}
-
-export type UploadState = {
-  connectionId: string
-  status: ApiStatusEnum
-  progress?: number
-  fileResults?: UploadedFileState[]
-}
-
-export type DownloadLinkResult = Readonly<{
-  status: ApiStatusEnum
-  downloadLink: string
-  type: string
-}>
-
-export type FileUploadSummaryState = {
-  totalFilesUploaded: number
-  totalSizeUploaded: string
-  filePaths: string[]
-  fileDescs: string[]
-}
-
-export type DataVerseState = {
-  status: ApiStatusEnum
-  total_count: number
-  start: number
-  data: DataVerseItem[]
-  error: string
-}
-export type DataVerseItem = Readonly<{
-  name: string
-  description?: string
-  type: string
-  url?: string
-  dataset_name: string
-  file_id: string
-  file_type: string
-  file_content_type: string
-  size_in_bytes: string
-  published_at: Date
-}>
-export type ApiErrorState = Readonly<Record<string,string>>
 
 export type RouteComponent = ComponentType<any>
 
@@ -118,6 +28,8 @@ export type RouteInput = Readonly<{
   locked: boolean
 }>
 
+// AUTH HELP TYPES
+
 export interface LangContextProps {
   locale: string
   setLocale: (value: SetStateAction<string>) => void
@@ -133,10 +45,13 @@ export interface LoginProps {
   confirmPassword?: string
   forSignup: boolean
 }
+
+export type ApiErrorState = Readonly<Record<string, string>>
+
 export type FormPostState = Readonly<{
   userName: string
   status: ApiStatusEnum
-}>;
+}>
 export type HubState = Readonly<{
   userName: string
   token?: string
@@ -166,3 +81,55 @@ export type ErrorOr<T> = Readonly<{
 
 export type UnsubscribeFunc = () => void
 export type receiveHandlerType<T> = (data: ErrorOr<T>) => void
+
+// FORM HELP TYPES
+
+export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
+  role: 'button',
+  target: '_blank',
+  rel: 'noopener noreferrer',
+}
+
+export type SelectOption = Readonly<Pick<SelectItemProps, 'value' | 'label'>>
+
+export type WeatherForecast = Readonly<{
+  id: number
+  summary: string
+  temperatureC: number
+  temperatureF: number
+  dateFormatted: string
+  recordDate: Date
+}>
+
+export type WeatherState = Readonly<{
+  debug?: boolean
+  isLoading: boolean
+  forecasts: WeatherForecast[]
+}>
+
+
+export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts'>
+
+
+//User List Result 
+export type UserData = Readonly<{
+  loginedAt?: Date
+  isReset: boolean
+  updatedAt: Date
+  updatedBy: string
+  post: string
+  disabled: boolean
+  level: number
+  division: string
+  isDivisionAdmin: boolean
+  isDataAdmin: boolean
+  isControlAdmin: boolean
+  userName: string
+  userId: string
+}>
+export type UserListResult = ListResult<UserData>
+
+export type UserListState = Readonly<{
+  status: ApiStatusEnum
+  result: UserListResult
+}>

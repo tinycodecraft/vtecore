@@ -22,6 +22,17 @@ namespace vteCore.Shared.Tools
     public static class SubStringExtensions
     {
 
+        public static Dictionary<String, Object> Dyn2Dict(dynamic dynObj)
+        {
+            var dictionary = new Dictionary<string, object>();
+            foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(dynObj))
+            {
+                object obj = propertyDescriptor.GetValue(dynObj);
+                dictionary.Add(propertyDescriptor.Name, obj);
+            }
+            return dictionary;
+        }
+
         public static Dictionary<string, string> ZipStrPair(string values, string fields, string sep = "!")
         {
             if (string.IsNullOrEmpty(values) || string.IsNullOrEmpty(fields))

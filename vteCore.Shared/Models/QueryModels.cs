@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using vteCore.Shared.Tools;
 
 namespace vteCore.Shared.Models
 {
-    public class ItSort
+    public class SortProps
     {
         public bool Desc { get; set; }
 
@@ -14,13 +15,20 @@ namespace vteCore.Shared.Models
 
     }
 
-    public class ItFilter
+    public class FilterProps
     {
         public string Id { get; set; }  
         public dynamic Value { get; set; }
+
+        public Dictionary<string,object> GetValue()
+        {
+            return SubStringExtensions.Dyn2Dict(this.Value);
+        }
     }
 
-    public class ItMantineQuery
+
+
+    public class MantineTableProps
     {
         public string Type { get; set; }
 
@@ -30,11 +38,11 @@ namespace vteCore.Shared.Models
         //page size
         public int Size { get; set; }
 
-        public ItFilter[] Filtering { get; set; }
+        public FilterProps[] Filtering { get; set; }
 
         public string GlobalFilter { get; set; }
 
-        public ItSort[] Sorting { get; set; }
+        public SortProps[] Sorting { get; set; }
     }
     
 

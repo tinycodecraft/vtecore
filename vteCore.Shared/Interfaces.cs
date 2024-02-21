@@ -47,13 +47,42 @@ namespace vteCore.Shared
             bool ChangePassword(string username, string password, string byusername, string oldpassword = null);
 
             IAuthResult? Login(string username, string password);
+
+            RM.UserListResult List(EM.MantineTableProps query);
         }
 
         public interface IUser
         {
-            public string UserName { get; }
-            public string Email { get; }
-            public string UserId { get; }
+            DateTime? loginedAt { get; }
+            bool IsReset { get; }
+            DateTime updatedAt { get; }
+            string updatedBy { get; }
+            string post { get; }
+            bool Disabled { get; }
+            int level { get; }
+            string Division { get; }
+
+            bool IsDivisionAdmin { get; }
+            bool IsDataAdmin { get; }
+            bool IsControlAdmin { get; }
+
+            string UserName { get; }
+            string Email { get; }
+            string UserId { get; }
+
+
+        }
+
+        public interface IAuthAuditResult
+        {
+            DateTime? loginedAt { get; }
+            bool IsReset { get; }
+            DateTime updatedAt { get; }
+            string updatedBy { get; }
+            string post { get; }
+            bool Disabled { get; }
+            int level { get; }
+            string Division { get; }
 
         }
 
@@ -63,9 +92,9 @@ namespace vteCore.Shared
             bool IsDataAdmin { get; }
             bool IsControlAdmin { get; }
 
-            public string UserName { get; }
-            public string Email { get; }
-            public string UserId { get; }
+            string UserName { get; }
+            string Email { get; }
+            string UserId { get; }
 
         }
 

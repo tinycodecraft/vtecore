@@ -15,7 +15,7 @@ using static vteCore.Shared.Constants;
 
 namespace vteCore.Handles
 {
-    public class WeatherForcastHandler : IRequestHandler<SM.RqWeatherForcast, ErrorOr<IEnumerable<RM.WeatherForcast>>>
+    public class WeatherForcastHandler : IRequestHandler<UM.RqWeatherForcast, ErrorOr<IEnumerable<RM.WeatherForcast>>>
     {
         IResultGateway<ErrorOr<IEnumerable<RM.WeatherForcast>>> gateway;
         ILogger<WeatherForcastHandler> logger;
@@ -31,7 +31,7 @@ namespace vteCore.Handles
 
         }
 
-        public async Task<ErrorOr<IEnumerable<RM.WeatherForcast>>> Handle(SM.RqWeatherForcast request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<IEnumerable<RM.WeatherForcast>>> Handle(UM.RqWeatherForcast request, CancellationToken cancellationToken)
         {
             var connectionid = request.ConnectionId;
 

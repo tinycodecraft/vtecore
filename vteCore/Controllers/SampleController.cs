@@ -33,7 +33,7 @@ namespace Net6_Controller_And_VIte.Controllers
 
             _logger.LogInformation($"connection {connectionid} is received for Getting Weather Forecast!");
             
-            var result= await broker.Send(new SM.RqWeatherForcast { ConnectionId = connectionid });
+            var result= await broker.Send(new UM.RqWeatherForcast { ConnectionId = connectionid });
 
             _logger.LogInformation($"connection {connectionid} has got result from broker");
 

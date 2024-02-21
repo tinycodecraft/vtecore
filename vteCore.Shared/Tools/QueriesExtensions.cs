@@ -203,13 +203,13 @@ namespace vteCore.Shared.Tools
                 return nv;
             string value1 = value;
             string value2 = string.Empty;
-            if(value.Contains(sep) && op=="bw")
+            if(value.Contains(sep) && op==Op.Between)
             {
                 value2 = value.Substring(value.IndexOf(sep)+1);
                 value1 = value.Substring(0,value.IndexOf(sep));
 
             }
-            else if(value.Contains(sep) && op=="in")
+            else if(value.Contains(sep) && op==Op.Within)
             {
                 value = string.Join("||", value.ItSplit(sep));
             }
@@ -250,6 +250,7 @@ namespace vteCore.Shared.Tools
                     nv.Add($"__{nameof(QueryOpType.InListOp)}__{MemberName}", value);
                     break;
                 default:
+                    nv.Add($"{MemberName}", value);
                     break;
 
             }

@@ -4,6 +4,7 @@ import WeatherComponent from '@/pages/weather'
 import LoginFormComponent from '@/pages/login'
 import { ChangePasswordComponent } from '@/pages/auth/chgpsswd'
 import SetPasswordComponent from '@/pages/auth/setpsswd'
+import { UserListComponent } from '@/pages/auth/userlist'
 
 const routes: RouteInput[] = [
   {
@@ -34,8 +35,17 @@ const routes: RouteInput[] = [
     iconIndex: 4,
     popUpOnly: false,
     position: MenuPositionEnum.right,
-    locked: true
-
+    locked: true,
+  },
+  {
+    path: '/userlist',
+    name: 'User List',
+    Component: UserListComponent,
+    transition: TRANSITION_DEFAULT,
+    iconIndex: 6,
+    popUpOnly: false,
+    position: MenuPositionEnum.right,
+    locked: true,
   },
   {
     path: '/setpsswd',
@@ -45,9 +55,8 @@ const routes: RouteInput[] = [
     iconIndex: 5,
     popUpOnly: false,
     position: MenuPositionEnum.right,
-    locked: true
-
-  },  
+    locked: true,
+  },
 
   {
     path: '/login',
@@ -68,7 +77,7 @@ const routes: RouteInput[] = [
     popUpOnly: false,
     position: MenuPositionEnum.right,
     locked: true,
-  },  
+  },
 ]
 
 export default routes

@@ -11,6 +11,19 @@ namespace vteCore.Handles
 {
     public static class Models
     {
+
+        public class UserListResult
+        {
+            public int total_count { get; set; }
+
+            public IEnumerable<IUser> data { get; set; }
+
+            public int start { get; set; }
+
+
+        }
+
+
         public record UserResult(string UserName, string Token, string RefreshToken,bool DataAdminEnabled,bool DivisionAdminEnabled,bool ControlAdminEnabled);
 
         public record ChangePasswordResult(string UserName);

@@ -52,7 +52,7 @@ export const DyNavBar = () => {
   //     setOpenHover(!openHovered)
   //   }, 1000)
   // }, [openHovered, setOpenHover])
-  const icons = [IconHome, IconLock, IconCloudFog, IconLogout,IconSwitch3]
+  const icons = [IconHome, IconLock, IconCloudFog, IconLogout,IconSwitch3,IconList]
   const navigate = useNavigate()
 
   const mockdata = [
@@ -199,10 +199,22 @@ export const DyNavBar = () => {
                 </Menu.Target>
                 <Menu.Dropdown className="px-1 mx-1 w-full">
                   {controlAdminEnabled && (
-                    <Menu.Item icon={<IconList />} className="text-gray-50">
-                      <a href="#" className="text-gray-50">
-                        User List
-                      </a>
+                    <Menu.Item 
+                    icon={React.createElement(icons[5], { className: 'h-[18px] w-[18px] inline' })}
+                    className="text-gray-50"
+                    onClick={() => navigate('/userlist')}                    
+                    >
+                    <NavLink
+                      key={'userlist'}
+                      to={{
+                        pathname: '/userlist',
+                        // or using createsearchparams if not using state
+                        // , search: createSearchParams({mode: 'exit'}).toString()
+                      }}                      
+                      className={({ isActive }) => (isActive ? 'is-active text-gray-50' : 'text-gray-50 ')}
+                    >
+                      User List
+                    </NavLink>
                     </Menu.Item>
                   )}
                   <Menu.Item
