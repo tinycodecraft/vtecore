@@ -3,6 +3,7 @@ import UserTableContext from '@/components/context/CtxForUserTable'
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { UserDataColumns } from './userDataColumns'
 import { Text } from '@mantine/core'
+import { IconEdit, IconRowRemove } from '@tabler/icons-react'
 
 const UserDataTable = () => {
   const {
@@ -65,11 +66,18 @@ const UserDataTable = () => {
     initialState: {
       density: 'xs'  
     },
+    enableRowActions:true,
+    positionActionsColumn: 'last',
+    renderRowActions: ({row})=> <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '2px'}}>
+       <button className='btn btn-xs  btn-info'><IconEdit className='size-3' />Edit</button> 
+       <button className='btn btn-xs  btn-error'><IconRowRemove className='size-3' /> Delete</button> 
+    </div>,
     columns: UserDataColumns,
     data: flatData,
+    
     enableDensityToggle: false,
     enablePagination: false,
-    enableRowNumbers: true,
+    enableRowNumbers: false,
     enableFullScreenToggle: false,
     enableHiding: false,
     enableRowVirtualization: true, // optional, but recommended if it is likely going to be more than 100 rows
