@@ -2,8 +2,17 @@ import React, { UIEvent, useCallback, useContext, useEffect, useMemo } from 'rea
 import UserTableContext from '@/components/context/CtxForUserTable'
 import { MRT_SelectCheckbox, MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { UserDataColumns } from './userDataColumns'
-import { Button, Flex, Text } from '@mantine/core'
-import { IconCross, IconEdit, IconEraser, IconFileExport, IconRowRemove, IconTrash, IconX } from '@tabler/icons-react'
+import { ActionIcon, Button, Flex, Text, Tooltip } from '@mantine/core'
+import {
+  IconCross,
+  IconEdit,
+  IconEraser,
+  IconFileExport,
+  IconPlus,
+  IconRowRemove,
+  IconTrash,
+  IconX,
+} from '@tabler/icons-react'
 
 const UserDataTable = () => {
   const {
@@ -65,14 +74,21 @@ const UserDataTable = () => {
 
   const table = useMantineReactTable({
     initialState: {
-      density: 'xs'  
+      density: 'xs',
     },
-    enableRowActions:true,
+    enableRowActions: true,
     positionActionsColumn: 'last',
-    renderRowActions: ({row})=> <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '2px'}}>
-       <button className='btn btn-xs  btn-info'><IconEdit className='size-3' />Edit</button> 
-       <button className='btn btn-xs  btn-error'><IconRowRemove className='size-3' /> Delete</button> 
-    </div>,
+    renderRowActions: ({ row }) => (
+      <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '2px' }}>
+        <button className="btn btn-xs  btn-info">
+          <IconEdit className="size-3" />
+          Edit
+        </button>
+        <button className="btn btn-xs  btn-error">
+          <IconRowRemove className="size-3" /> Delete
+        </button>
+      </div>
+    ),
     columns: UserDataColumns,
     data: flatData,
     enableRowSelection: true,
@@ -86,14 +102,29 @@ const UserDataTable = () => {
     manualFiltering: true,
     manualSorting: true,
     positionToolbarAlertBanner: 'head-overlay',
-
-    renderToolbarAlertBannerContent : ({selectedAlert,table})=> <Flex justify="space-between">
-        <Flex p="6px" gap="xl"><MRT_SelectCheckbox selectAll table={table} />{selectedAlert}{' '} </Flex>
-        <Flex gap="md">
-            <Button leftIcon={<IconFileExport />} color='lime' className='text-blue-700 bg-green-100 hover:bg-green-200'>Export Selected</Button>
-            <Button leftIcon={<IconTrash />} color='lime' className='text-pink-400 bg-gray-100 hover:bg-gray-200'>Remove Selected</Button>
+    renderTopToolbarCustomActions: () => (
+      <Tooltip label="Create New User">
+        <ActionIcon>
+          <IconPlus />
+        </ActionIcon>
+      </Tooltip>
+    ),
+    renderToolbarAlertBannerContent: ({ selectedAlert, table }) => (
+      <Flex justify="space-between">
+        <Flex p="6px" gap="xl">
+          <MRT_SelectCheckbox selectAll table={table} />
+          {selectedAlert}{' '}
         </Flex>
-    </Flex>,
+        <Flex gap="md">
+          <Button leftIcon={<IconFileExport />} color="lime" className="text-blue-700 bg-green-100 hover:bg-green-200">
+            Export Selected
+          </Button>
+          <Button leftIcon={<IconTrash />} color="lime" className="text-pink-400 bg-gray-100 hover:bg-gray-200">
+            Remove Selected
+          </Button>
+        </Flex>
+      </Flex>
+    ),
     mantineTableContainerProps: {
       ref, // get access to the table container element
       sx: { maxHeight: '500px' }, // give the table a max height
@@ -109,7 +140,7 @@ const UserDataTable = () => {
     onColumnFiltersChange: setFiltering,
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
-    
+
     onRowSelectionChange: setRowSelection,
     renderBottomToolbarCustomActions: () => (
       <Text>
@@ -129,7 +160,7 @@ const UserDataTable = () => {
     rowVirtualizerProps: { overscan: 10 },
   })
 
-  return <MantineReactTable table={table}  />
+  return <MantineReactTable table={table} />
 }
 
 export default UserDataTable
