@@ -28,6 +28,9 @@ namespace vteCore.dbService
 
                     switch( filterId)
                     {
+                        case nameof(DFAUser.UserId):
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserId, value);
+                            break;
                         case nameof(DFAUser.UserName):
                             nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName, value);
                             break;
@@ -41,7 +44,7 @@ namespace vteCore.dbService
                 }
 
                 var result = db.GetSearch<DFAUser>(nv);
-                var testresult = result.ToList();
+                
                 var sorter = new SortDescription[] { }.ToList();
                 foreach(var sort in query.Sorting)
                 {
