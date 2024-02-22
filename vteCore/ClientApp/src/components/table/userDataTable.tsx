@@ -115,13 +115,19 @@ const UserDataTable = () => {
           <MRT_SelectCheckbox selectAll table={table} />
           {selectedAlert}{' '}
         </Flex>
-        <Flex gap="md">
-          <Button leftIcon={<IconFileExport />} color="lime" className="text-blue-700 bg-green-100 hover:bg-green-200">
-            Export Selected
-          </Button>
-          <Button leftIcon={<IconTrash />} color="lime" className="text-pink-400 bg-gray-100 hover:bg-gray-200">
-            Remove Selected
-          </Button>
+        <Flex gap="xs">
+          <button
+            type="button"
+            className="border flex items-center border-green-500 bg-green-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-green-300 focus:outline-none focus:shadow-outline"
+          >
+            <IconFileExport /> Export Selected
+          </button>
+          <button
+            type="button"
+            className="border flex items-center border-pink-500 bg-pink-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-pink-300 focus:outline-none focus:shadow-outline"
+          >
+            <IconTrash /> Remove Selected
+          </button>
         </Flex>
       </Flex>
     ),
