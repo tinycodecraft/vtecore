@@ -3,7 +3,7 @@ import { HubInit, HubState, UserListContextProps, UserListResult } from '@/const
 import { useAppSelector } from '@/hooks'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-import { MRT_ColumnFiltersState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
+import { MRT_ColumnFiltersState, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
 import { createContext, PropsWithChildren, useRef, useState } from 'react'
 
 const UserTableContext = createContext<Partial<UserListContextProps>>({})
@@ -14,6 +14,7 @@ export const UserTableContextProvider = ({ children, fetchSize, token, refreshTo
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = useState<string>()
   const [sorting, setSorting] = useState<MRT_SortingState>([])
+  const [ rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
 
 
   const { data, fetchNextPage, isError, isFetching, isLoading } = useInfiniteQuery<UserListResult>({
@@ -52,7 +53,9 @@ export const UserTableContextProvider = ({ children, fetchSize, token, refreshTo
         isLoading,
         filtering: columnFilters,
         sorting,
+        rowSelection,
         setFiltering: setColumnFilters,
+        setRowSelection,
         setSorting,
         globalFilter,
         setGlobalFilter,

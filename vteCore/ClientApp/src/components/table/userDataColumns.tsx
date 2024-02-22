@@ -6,10 +6,12 @@ export const UserDataColumns: MRT_ColumnDef<UserData>[] = [
   {
     accessorKey: 'userId',
     header: 'User Id',
+    size: 50,
   },
   {
     accessorKey: 'userName',
     header: 'User Name',
+    size: 100
   },
   {
     accessorKey: 'isControlAdmin',
@@ -20,11 +22,13 @@ export const UserDataColumns: MRT_ColumnDef<UserData>[] = [
     mantineFilterCheckboxProps: {
       label: 'Control Admin',
     },
+    size: 100,
   },
   {
     accessorKey: 'loginedAt',
     header: 'Login Time',
     filterVariant: 'date-range',
+    size: 100,
     Cell: ({cell}) => {
         const datevalue = cell.getValue<Date>();
         

@@ -1,25 +1,26 @@
 import React, { UIEvent, useCallback, useContext, useEffect, useMemo } from 'react'
 import UserTableContext from '@/components/context/CtxForUserTable'
-import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
+import { MRT_SelectCheckbox, MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { UserDataColumns } from './userDataColumns'
-import { Text } from '@mantine/core'
-import { IconEdit, IconRowRemove } from '@tabler/icons-react'
+import { Button, Flex, Text } from '@mantine/core'
+import { IconCross, IconEdit, IconEraser, IconFileExport, IconRowRemove, IconTrash, IconX } from '@tabler/icons-react'
 
 const UserDataTable = () => {
   const {
     data,
     fetchNextPage,
     filtering,
+    rowSelection,
     globalFilter,
     isError,
     isFetching,
     ref,
     rowRef,
-
     isLoading,
     setFiltering,
     setGlobalFilter,
     setSorting,
+    setRowSelection,
     sorting,
   } = useContext(UserTableContext)
 
@@ -74,7 +75,8 @@ const UserDataTable = () => {
     </div>,
     columns: UserDataColumns,
     data: flatData,
-    
+    enableRowSelection: true,
+    enableColumnResizing: true,
     enableDensityToggle: false,
     enablePagination: false,
     enableRowNumbers: false,
@@ -83,17 +85,23 @@ const UserDataTable = () => {
     enableRowVirtualization: true, // optional, but recommended if it is likely going to be more than 100 rows
     manualFiltering: true,
     manualSorting: true,
+    positionToolbarAlertBanner: 'head-overlay',
+
+    renderToolbarAlertBannerContent : ({selectedAlert,table})=> <Flex justify="space-between">
+        <Flex p="6px" gap="xl"><MRT_SelectCheckbox selectAll table={table} />{selectedAlert}{' '} </Flex>
+        <Flex gap="md">
+            <Button leftIcon={<IconFileExport />} color='lime' className='text-blue-700 bg-green-100 hover:bg-green-200'>Export Selected</Button>
+            <Button leftIcon={<IconTrash />} color='lime' className='text-pink-400 bg-gray-100 hover:bg-gray-200'>Remove Selected</Button>
+        </Flex>
+    </Flex>,
     mantineTableContainerProps: {
       ref, // get access to the table container element
-      sx: { maxHeight: '600px' }, // give the table a max height
+      sx: { maxHeight: '500px' }, // give the table a max height
       onScroll: (
         event: UIEvent<HTMLDivElement>, // add an event listener to the table container element
       ) => fetchMoreOnBottomReached(event.target as HTMLDivElement),
     },
-    mantineToolbarAlertBannerProps: {
-      color: 'red',
-      children: 'Error loading data',
-    },
+
     mantineFilterDateInputProps: {
       valueFormat: 'DD/MM/YYYY',
       // maxDate, minDate, dateParser
@@ -101,6 +109,8 @@ const UserDataTable = () => {
     onColumnFiltersChange: setFiltering,
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
+    
+    onRowSelectionChange: setRowSelection,
     renderBottomToolbarCustomActions: () => (
       <Text>
         Fetched {totalFetched} of {totalDBRowCount} total rows.
@@ -113,6 +123,7 @@ const UserDataTable = () => {
       showAlertBanner: isError,
       showProgressBars: isFetching,
       sorting,
+      rowSelection,
     },
     rowVirtualizerInstanceRef: rowRef, // get access to the virtualizer instance
     rowVirtualizerProps: { overscan: 10 },

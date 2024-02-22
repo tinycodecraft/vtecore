@@ -1,4 +1,4 @@
-import { MRT_ColumnFiltersState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
+import { MRT_ColumnFiltersState, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
 import { ApiStatusEnum } from './enums'
 import {
   FetchNextPageOptions,
@@ -52,16 +52,19 @@ export type ListResult<T> = Readonly<{
 export interface ListContextProps<T> {
   ref: React.MutableRefObject<HTMLDivElement | null>
   rowRef: React.MutableRefObject<MRT_Virtualizer<HTMLDivElement, HTMLTableRowElement> | null>
+
   data: InfiniteData<T>
   isError: boolean
   isFetching: boolean
   isLoading: boolean
   filtering: MRT_ColumnFiltersState
   sorting: MRT_SortingState
+  rowSelection: MRT_RowSelectionState
   globalFilter: string
   setFiltering: (value: SetStateAction<MRT_ColumnFiltersState>) => void
   setSorting: (value: SetStateAction<MRT_SortingState>) => void
   setGlobalFilter: (value: SetStateAction<string | undefined>) => void
+  setRowSelection: (value: SetStateAction<MRT_RowSelectionState>) => void
   fetchNextPage: (options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult<T, unknown>>
 }
 
