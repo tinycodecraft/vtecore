@@ -70,6 +70,8 @@ const UserDataTable = () => {
     enableDensityToggle: false,
     enablePagination: false,
     enableRowNumbers: true,
+    enableFullScreenToggle: false,
+    enableHiding: false,
     enableRowVirtualization: true, // optional, but recommended if it is likely going to be more than 100 rows
     manualFiltering: true,
     manualSorting: true,
