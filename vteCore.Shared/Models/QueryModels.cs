@@ -20,10 +20,7 @@ namespace vteCore.Shared.Models
         public string Id { get; set; }  
         public dynamic Value { get; set; }
 
-        public Dictionary<string,object> GetValue()
-        {
-            return SubStringExtensions.Dyn2Dict(this.Value);
-        }
+
     }
 
 

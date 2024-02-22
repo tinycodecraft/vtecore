@@ -216,6 +216,10 @@ namespace vteCore.Shared.Tools
 
             switch(op)
             {
+                case "==":
+                case Op.equal:
+                    nv.Add($"__{nameof(QueryOpType.Equal)}__{MemberName}", value);
+                    break;
                 case ">=":
                 case Op.greaterThanOrEqual:
                     nv.Add($"__{nameof(QueryOpType.GreaterOrEq)}__{MemberName}", value);
@@ -474,6 +478,9 @@ namespace vteCore.Shared.Tools
                 QueryOpType funcKeyType = SubStringExtensions.GetEnum<QueryOpType>(functionKey);
                 switch (funcKeyType)
                 {
+                    case QueryOpType.Equal:
+                        yield return Expression.Equal(columnExpr, Expression.Constant(paramValue, columnProperty.PropertyType));
+                        break;
                     case QueryOpType.NotEq: //Add By Jonathan LO
                         yield return Expression.NotEqual(columnExpr, Expression.Constant(paramValue, columnProperty.PropertyType));
                         break;

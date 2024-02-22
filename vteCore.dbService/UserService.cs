@@ -23,27 +23,16 @@ namespace vteCore.dbService
                 
                 foreach(var filter in  query.Filtering)
                 {
-                    var valuedict = filter.GetValue();
-                    if (valuedict.Keys.Count == 0)
-                        continue;
-                    var values = valuedict.Values.ToArray();
-                    bool boolvalue = false;
+                    var value = (string)filter.Value.ToString();
+                    var filterId = filter.Id.Substring(0,1).ToUpper() + filter.Id.Substring(1);
 
-                    foreach(var v in values)
-                    {
-                        if(v!=null && bool.TryParse(v.ToString(),out boolvalue))
-                        {
-                            
-                        }
-
-                    }
-                    switch( filter.Id)
+                    switch( filterId)
                     {
                         case nameof(DFAUser.UserName):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName, values[0].ToString());
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName, value);
                             break;
                         case nameof(DFAUser.IsControlAdmin):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.IsAdmin, values[0].ToString() ,Op.equal);
+                            nv = nv.AddQueryParam(db.DFAUsers, x => x.IsAdmin, value,Op.equal);
                             nv = nv.AddQueryParam(db.DFAUsers, x => x.AdminScope, "Full", Op.equal);
                             break;
 
@@ -52,6 +41,7 @@ namespace vteCore.dbService
                 }
 
                 var result = db.GetSearch<DFAUser>(nv);
+                var testresult = result.ToList();
                 var sorter = new SortDescription[] { }.ToList();
                 foreach(var sort in query.Sorting)
                 {

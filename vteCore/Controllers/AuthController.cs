@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
 using vteCore.ErrorOr;
 using vteCore.Extensions;
 using vteCore.Mappers;
@@ -17,12 +18,14 @@ namespace vteCore.Controllers
         private readonly ISender sender;
         private readonly TokenService tokenService;
         private readonly IUserService userService;
+        
         public AuthController(ILogger<AuthController> log, ISender send, TokenService tkserv,IUserService usrmgr) { 
 
             logger = log;
             sender = send;
             tokenService = tkserv;
             userService = usrmgr;
+
         }
 
         [Authorize]

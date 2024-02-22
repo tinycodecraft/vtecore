@@ -3,7 +3,7 @@ import UserDataTable from '@/components/table/userDataTable'
 import { ApiErrorInit, ApiErrorState, HubInit, HubState } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { clsxm } from '@/utils/methods'
-import { Container } from '@mantine/core'
+import { Container, MantineProvider } from '@mantine/core'
 import { FunctionComponent, useCallback, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
@@ -31,6 +31,7 @@ export const UserListComponent: FunctionComponent = () => {
   }, [fields, token])
 
   return (
+    <MantineProvider inherit theme={{ colorScheme: 'light'}} >
     <Container
       className={clsxm(
         'relative',
@@ -56,5 +57,7 @@ export const UserListComponent: FunctionComponent = () => {
         )}
       </div>
     </Container>
+    </MantineProvider>
+
   )
 }

@@ -23,6 +23,7 @@ namespace vteCore.Shared
         }
         public enum QueryOpType
         {
+            Equal,
             StartsWith,
             EndsWith,
             ContainsWith,
