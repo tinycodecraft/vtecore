@@ -31,33 +31,28 @@ export const UserListComponent: FunctionComponent = () => {
   }, [fields, token])
 
   return (
-    <MantineProvider inherit theme={{ colorScheme: 'light'}} >
-    <Container
-      className={clsxm(
-        'relative',
-        'flex',
-        'flex-col',
-        'items-center',
-        'justify-center',
-        'overflow-hidden',
-        'py-10',
-        'round-lg',
-        
-      )}
-      
-    >
-      <div
-        className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md"
-        data-theme="lemonade"
-      >
-        {token && refreshToken && (
-          <UserTableContextProvider fetchSize={20} token={token} refreshToken={refreshToken}>
-            <UserDataTable />
-          </UserTableContextProvider>
+    <MantineProvider inherit theme={{ colorScheme: 'light' }}>
+      <Container
+        fluid={true}
+        className={clsxm(
+          'relative',
+          'flex',
+          'flex-col',
+          'items-center',
+          'justify-center',
+          'overflow-hidden',
+          'py-10',
+          'round-lg',
         )}
-      </div>
-    </Container>
+      >
+        <div className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md" data-theme="lemonade">
+          {token && refreshToken && (
+            <UserTableContextProvider fetchSize={20} token={token} refreshToken={refreshToken}>
+              <UserDataTable />
+            </UserTableContextProvider>
+          )}
+        </div>
+      </Container>
     </MantineProvider>
-
   )
 }

@@ -62,8 +62,12 @@ const UserDataTable = () => {
   }, [fetchMoreOnBottomReached, ref])
 
   const table = useMantineReactTable({
+    initialState: {
+      density: 'xs'  
+    },
     columns: UserDataColumns,
     data: flatData,
+    enableDensityToggle: false,
     enablePagination: false,
     enableRowNumbers: true,
     enableRowVirtualization: true, // optional, but recommended if it is likely going to be more than 100 rows
@@ -104,7 +108,7 @@ const UserDataTable = () => {
     rowVirtualizerProps: { overscan: 10 },
   })
 
-  return <MantineReactTable table={table} />
+  return <MantineReactTable table={table}  />
 }
 
 export default UserDataTable

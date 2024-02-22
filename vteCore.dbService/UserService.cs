@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Collections.Specialized;
+using System.Text.Json;
 using vteCore.Shared.Models;
 using vteCore.Shared.Tools;
 
@@ -24,22 +25,33 @@ namespace vteCore.dbService
                 foreach(var filter in  query.Filtering)
                 {
                     var value = (string)filter.Value.ToString();
-                    var filterId = filter.Id.Substring(0,1).ToUpper() + filter.Id.Substring(1);
+                    if (value == null)
+                        continue;
+                    var isarray = value.StartsWith("[");
+                    var valueobjs = isarray ? JsonSerializer.Deserialize<object[]>(value) : new object[]{ JsonSerializer.Deserialize<object>(filter.Value)};
+                    value = valueobjs![0] !=null ? valueobjs![0]!.ToString() : null;
+                    
 
-                    switch( filterId)
+
+                    var filterIds = new string[] { filter.Id.Substring(0, 1).ToUpper() + filter.Id.Substring(1), filter.Id };
+
+                    nv = filterIds switch
                     {
-                        case nameof(DFAUser.UserId):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserId, value);
-                            break;
-                        case nameof(DFAUser.UserName):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.UserName, value);
-                            break;
-                        case nameof(DFAUser.IsControlAdmin):
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.IsAdmin, value,Op.equal);
-                            nv = nv.AddQueryParam(db.DFAUsers, x => x.AdminScope, "Full", Op.equal);
-                            break;
+                        var x when x.Contains(nameof(DFAUser.UserId)) => nv.AddQueryParam(db.DFAUsers, x => x.UserId, value),
+                        var x when x.Contains(nameof(DFAUser.UserName)) => nv.AddQueryParam(db.DFAUsers, x => x.UserName, value),
+                        var x when x.Contains(nameof(DFAUser.loginedAt)) =>
+                        
+                        nv.AddQueryParam(db.DFAUsers, x=> x.loginedAt, valueobjs[0]?.ToString(), Op.greaterThanOrEqual)
+                        .AddQueryParam(db.DFAUsers, x => x.loginedAt, valueobjs[1]?.ToString(), Op.lessThanOrEqual)
+                         ,
+                        var x when x.Contains(nameof(DFAUser.IsControlAdmin)) =>
+                        nv.AddQueryParam(db.DFAUsers, x => x.IsAdmin, value, Op.equal)
+                        .AddQueryParam(db.DFAUsers, x => x.AdminScope,bool.Parse(value ?? "False") ? "Full": null, Op.equal),
+                        _ => nv,
 
-                    }
+                    };
+
+
 
                 }
 
