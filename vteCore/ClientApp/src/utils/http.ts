@@ -28,7 +28,7 @@ function config(method: string): AxiosRequestConfig {
 }
 
 export async function post<T>(url: string, data: any): Promise<ErrorOr<T>> {
-  return request({
+  return request<T>({
     ...config('POST'),
     url,
     data,
@@ -36,7 +36,7 @@ export async function post<T>(url: string, data: any): Promise<ErrorOr<T>> {
 }
 
 export async function get<T>(url: string, data: any): Promise<ErrorOr<T>> {
-  return request({
+  return request<T>({
     ...config('GET'),
     url,
     data,

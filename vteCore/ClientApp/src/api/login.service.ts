@@ -1,5 +1,6 @@
-import { ErrorOr, FormPostState, LoginProps, MantineTableProps, TokenProps, UserListResult, UserState, WeatherForecast } from '@/constants/types'
+import { ErrorOr, FormPostState, LoginProps, MantineTableProps, TokenProps, UserData, UserListResult, UserState, WeatherForecast } from '@/constants/types'
 import { BaseService } from './base.service'
+import {get} from '@/utils/http'
 
 class LoginService extends BaseService {
   private static _loginService: LoginService
@@ -18,6 +19,11 @@ class LoginService extends BaseService {
     return data
   }
 
+  public async getAsync(id: string): Promise<ErrorOr<UserData>>{
+    const url = 'GetModel';
+    const {data} = await this.$wAuthHttp.get<ErrorOr<UserData>>(url, {params: { id}})
+    return data;
+  }
 
   public async listAsync(query: MantineTableProps): Promise<ErrorOr<UserListResult>> {
     const url = `List`

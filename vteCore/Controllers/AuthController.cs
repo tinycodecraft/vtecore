@@ -29,6 +29,18 @@ namespace vteCore.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        public IActionResult GetModel(string id)
+        {
+            var user = userService.Get(id) as UserMap;
+            if(user == null)
+            {
+                return Ok((ErrorOr<UserMap>)Error.Failure(code: "GetUser", description: "user id could not be located!"));
+            }
+            return Ok((ErrorOr<UserMap>)user);
+        }
+
+        [Authorize]
         [HttpPost]
         public IActionResult List(EM.MantineTableProps query)
         {

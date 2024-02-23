@@ -48,7 +48,7 @@ export abstract class BaseService {
       withCredentials: true,
     })
     console.log(`the api url base is : ${BASE_URL}/api/${controller}`)
-
+    
     this.$wAuthHttp.interceptors.request.use(
       (config) => {
         if (this.token) {

@@ -49,6 +49,8 @@ namespace vteCore.Shared
             IAuthResult? Login(string username, string password);
 
             RM.UserListResult List(EM.MantineTableProps query);
+
+            IUser Get(string id);
         }
 
         public interface IUser

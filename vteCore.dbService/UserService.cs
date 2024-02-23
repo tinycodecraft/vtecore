@@ -16,6 +16,17 @@ namespace vteCore.dbService
             db = ctx;
         }
 
+        public IUser Get(string id)
+        {
+            var user = db.DFAUsers.FirstOrDefault(e => e.UserId == id || e.UserName == id);
+            if (user!=null)
+            {
+                var map = UserMap.FromModel(user);
+                return map;
+            }
+            return null;
+        }
+
         public RM.UserListResult List(EM.MantineTableProps query)
         {
             try
