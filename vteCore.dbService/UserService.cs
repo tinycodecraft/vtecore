@@ -33,7 +33,7 @@ namespace vteCore.dbService
                     
 
 
-                    var filterIds = new string[] { filter.Id.Substring(0, 1).ToUpper() + filter.Id.Substring(1), filter.Id };
+                    var filterIds = new string[] { filter.Id.PascaltoCamel(), filter.Id };
 
                     nv = filterIds switch
                     {

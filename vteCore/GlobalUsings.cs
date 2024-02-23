@@ -10,4 +10,5 @@ global using EM = vteCore.Shared.Models;
 //query (api)
 global using QM = vteCore.Handles.Queries;
 global using static vteCore.Extensions.SessionExtensions;
+global using static vteCore.Shared.Tools.SubStringExtensions;
 global using vteCore.dbBFA.Models;

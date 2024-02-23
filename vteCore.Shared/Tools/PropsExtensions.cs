@@ -62,6 +62,17 @@ namespace vteCore.Shared.Tools
             return d;
         }
 
+        public static string PascaltoCamel(this string str,bool invert=false)
+        {
+            if (string.IsNullOrEmpty(str)) return null;
+            if(invert)
+            {
+                return str.Substring(0, 1).ToUpper() + str.Substring(1);
+                
+            }
+            return str.Substring(0, 1).ToLower() + str.Substring(1);
+        }
+
         public static async IAsyncEnumerable<T> CreateJSONObjList<T>(string strJSON) where T : class
         {
             bool skip = false;
