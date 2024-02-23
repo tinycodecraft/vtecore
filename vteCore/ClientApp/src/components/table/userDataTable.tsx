@@ -79,15 +79,14 @@ const UserDataTable = () => {
     enableRowActions: true,
     positionActionsColumn: 'last',
     renderRowActions: ({ row }) => (
-      <div style={{ display: 'flex', flexWrap: 'nowrap', gap: '2px' }}>
-        <button className="btn btn-xs  btn-info">
-          <IconEdit className="size-3" />
-          Edit
+      <Flex justify="space-between">
+        <button
+          type="button"
+          className="border flex items-center border-red-300 bg-red-300 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-red-400 focus:outline-none focus:shadow-outline"
+        >
+          <IconEdit /> Edit
         </button>
-        <button className="btn btn-xs  btn-error">
-          <IconRowRemove className="size-3" /> Delete
-        </button>
-      </div>
+      </Flex>
     ),
     columns: UserDataColumns,
     data: flatData,
