@@ -49,7 +49,7 @@ namespace vteCore.Controllers
             var refresh = HttpContext.Session.GetStr(Sessions.REFRESHTOKEN);
             if(refresh == input.RefreshToken && !string.IsNullOrEmpty(input.RefreshToken))
             {
-                var user = UserMap.FromModel(new QM.LoginProps { UserName = userid });
+                var user = new UserMap {  UserName = userid};
                 input.Token = tokenService.CreateToken(user);
                 input.RefreshToken = TokenService.GenerateRefreshToken();
                 return Ok((ErrorOr<QM.TokenProps>)input);

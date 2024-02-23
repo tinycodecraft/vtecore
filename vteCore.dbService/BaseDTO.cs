@@ -1,6 +1,6 @@
 ﻿using Mapster;
 
-namespace vteCore.Models
+namespace vteCore.dbService
 {
     /// <summary>
     /// Base Data Transfer Object for model mapping.

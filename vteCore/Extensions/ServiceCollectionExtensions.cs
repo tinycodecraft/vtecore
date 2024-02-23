@@ -11,7 +11,7 @@ using Mapster;
 
 using System.Reflection;
 using MapsterMapper;
-using vteCore.Models;
+using vteCore.dbService;
 
 namespace vteCore.Extensions
 {
