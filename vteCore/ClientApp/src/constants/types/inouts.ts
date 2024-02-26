@@ -1,5 +1,5 @@
 import { MRT_ColumnFiltersState, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
-import { ApiStatusEnum } from './enums'
+import { ApiStatusEnum, ErrorEnum } from './enums'
 import {
   FetchNextPageOptions,
   InfiniteData,
@@ -7,7 +7,7 @@ import {
   InfiniteQueryObserverResult,
 } from '@tanstack/react-query'
 import { SetStateAction } from 'react'
-import {  UserListResult } from './views'
+import { UserData, UserListResult } from './views'
 
 export type UploadedFileState = {
   filePath?: string
@@ -49,11 +49,33 @@ export type ListResult<T> = Readonly<{
   data: T[]
 }>
 
+export type ErrorDetail = Readonly<{
+  code: string
+  description: string
+  type: ErrorEnum | number
+  numericType: number
+}>
+
+export type ErrorOr<T> = Readonly<{
+  status?: ApiStatusEnum
+  isError: boolean
+  errors: ErrorDetail[]
+  value?: T
+}>
+
+export type UnsubscribeFunc = () => void
+export type receiveHandlerType<T> = (data: ErrorOr<T>) => void
+
+export type QueryForm<T> = Readonly<{
+  id: string
+  handler: receiveHandlerType<T>
+}>
+
 export interface ListContextProps<T> {
   ref: React.MutableRefObject<HTMLDivElement | null>
   rowRef: React.MutableRefObject<MRT_Virtualizer<HTMLDivElement, HTMLTableRowElement> | null>
 
-  data: InfiniteData<T>
+  data: InfiniteData<ListResult<T>>
   isError: boolean
   isFetching: boolean
   isLoading: boolean
@@ -65,7 +87,11 @@ export interface ListContextProps<T> {
   setSorting: (value: SetStateAction<MRT_SortingState>) => void
   setGlobalFilter: (value: SetStateAction<string | undefined>) => void
   setRowSelection: (value: SetStateAction<MRT_RowSelectionState>) => void
-  fetchNextPage: (options?: FetchNextPageOptions | undefined) => Promise<InfiniteQueryObserverResult<T, unknown>>
+  fetchNextPage: (
+    options?: FetchNextPageOptions | undefined,
+  ) => Promise<InfiniteQueryObserverResult<ListResult<T>, unknown>>
+  handleEdit: (value: T) => void
+  handleDelete: (values: T[]) => void
 }
 
-export type UserListContextProps = ListContextProps<UserListResult>
+export type UserListContextProps = ListContextProps<UserData>

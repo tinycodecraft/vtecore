@@ -35,7 +35,7 @@ namespace vteCore.Controllers
             var user = userService.Get(id) as UserMap;
             if(user == null)
             {
-                return Ok((ErrorOr<UserMap>)Error.Failure(code: "GetUser", description: "user id could not be located!"));
+                return Ok((ErrorOr<UserMap>)Error.Failure(code: nameof(FieldType.getUser), description: "user id could not be located!"));
             }
             return Ok((ErrorOr<UserMap>)user);
         }
@@ -48,7 +48,7 @@ namespace vteCore.Controllers
 
             if(result.data==null)
             {
-                return Ok((ErrorOr<RM.UserListResult>)Error.Failure(code: "UserList",description: "user list could not be generated!"));
+                return Ok((ErrorOr<RM.UserListResult>)Error.Failure(code: nameof(FieldType.userList),description: "user list could not be generated!"));
             }
             var errwrapresult = (ErrorOr<RM.UserListResult>)result;
             return Ok(errwrapresult);

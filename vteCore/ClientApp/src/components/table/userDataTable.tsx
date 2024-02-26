@@ -31,6 +31,8 @@ const UserDataTable = () => {
     setSorting,
     setRowSelection,
     sorting,
+    handleDelete,
+    handleEdit,
   } = useContext(UserTableContext)
 
   const flatData = useMemo(() => data?.pages.flatMap((page) => page.data) ?? [], [data])
@@ -76,18 +78,20 @@ const UserDataTable = () => {
     initialState: {
       density: 'xs',
     },
-    enableRowActions: true,
+    enableRowActions: !!handleEdit,
     positionActionsColumn: 'last',
-    renderRowActions: ({ row }) => (
-      <Flex justify="space-between">
-        <button
-          type="button"
-          className="border flex items-center border-red-300 bg-red-300 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-red-400 focus:outline-none focus:shadow-outline"
-        >
-          <IconEdit /> Edit
-        </button>
-      </Flex>
-    ),
+    renderRowActions: ({ row }) =>
+      !!handleEdit && (
+        <Flex justify="space-between">
+          <button
+            type="button"
+            className="border flex items-center border-red-300 bg-red-300 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-red-400 focus:outline-none focus:shadow-outline"
+            onClick={() => handleEdit && handleEdit(row.original)}
+          >
+            <IconEdit /> Edit
+          </button>
+        </Flex>
+      ),
     columns: UserDataColumns,
     data: flatData,
     enableRowSelection: true,
@@ -121,12 +125,15 @@ const UserDataTable = () => {
           >
             <IconFileExport /> Export Selected
           </button>
-          <button
-            type="button"
-            className="border flex items-center border-pink-500 bg-pink-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-pink-300 focus:outline-none focus:shadow-outline"
-          >
-            <IconTrash /> Remove Selected
-          </button>
+          {!!handleDelete && table.getSelectedRowModel().rows.length >0 && (
+            <button
+              type="button"
+              className="border flex items-center border-pink-500 bg-pink-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-pink-300 focus:outline-none focus:shadow-outline"
+              onClick={() => handleDelete && handleDelete(table.getSelectedRowModel().rows.map(e=> e.original))}
+            >
+              <IconTrash /> Remove Selected
+            </button>
+          )}
         </Flex>
       </Flex>
     ),

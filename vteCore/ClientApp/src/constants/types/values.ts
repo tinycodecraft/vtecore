@@ -1,13 +1,21 @@
 import { IconHome, IconLogin, IconLogout } from '@tabler/icons-react'
-import { ApiErrorState,  FormPostState,  HubState, LoginProps, RouteInput, SelectOption, WeatherState } from './views'
+import {
+  ApiErrorState,
+  FormPostState,
+  HubState,
+  LoginProps,
+  RouteInput,
+  SelectOption,
+  UserData,
+  WeatherState,
+} from './views'
 import { ApiStatusEnum } from './enums'
+import dayjs from 'dayjs'
 
 export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
   { value: '', label: '(All)' },
   { value: '', label: '(Any)' },
 ]
-
-
 
 export const TRANSITION_DEFAULT = {
   classNames: 'fade',
@@ -20,7 +28,6 @@ export const LoginFormInit: LoginProps = {
   userName: '',
   forSignup: false,
   password: '',
-  
 }
 
 export const WeatherInit: WeatherState = {
@@ -29,9 +36,9 @@ export const WeatherInit: WeatherState = {
   debug: true,
 }
 
-export const FormPostInit : FormPostState= {
+export const FormPostInit: FormPostState = {
   userName: '',
-  status: ApiStatusEnum.NONE
+  status: ApiStatusEnum.NONE,
 }
 
 export const HubInit: HubState = {
@@ -41,6 +48,21 @@ export const HubInit: HubState = {
   controlAdminEnabled: false,
   dataAdminEnabled: false,
   divisionAdminEnabled: false,
+}
+
+export const EditUserFormInit: UserData = {
+  disabled: false,
+  division: '',
+  isControlAdmin: false,
+  isDataAdmin: false,
+  isDivisionAdmin: false,
+  isReset: false,
+  level: 18,
+  post: '',
+  updatedAt: new Date(),
+  userId: '',
+  updatedBy: '',
+  userName: '',
 }
 
 export const ApiErrorInit: ApiErrorState = {}

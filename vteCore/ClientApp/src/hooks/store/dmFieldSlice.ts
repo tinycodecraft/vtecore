@@ -24,6 +24,12 @@ export const dmFieldState = createSlice({
             case ApiFieldEnum.NewPassword:
               state[ApiFieldEnum.NewPassword] = value
               break
+            case ApiFieldEnum.GetUser:
+              state[ApiFieldEnum.GetUser] = value
+              break
+            case ApiFieldEnum.userList:
+              state[ApiFieldEnum.userList] = value
+              break
           }
         })
       }

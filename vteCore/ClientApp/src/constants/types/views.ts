@@ -65,22 +65,7 @@ export type HubState = Readonly<{
 
 export type UserState = Omit<HubState, 'connectionId'>
 
-export type ErrorDetail = Readonly<{
-  code: string
-  description: string
-  type: ErrorEnum | number
-  numericType: number
-}>
 
-export type ErrorOr<T> = Readonly<{
-  status?: ApiStatusEnum
-  isError: boolean
-  errors: ErrorDetail[]
-  value?: T
-}>
-
-export type UnsubscribeFunc = () => void
-export type receiveHandlerType<T> = (data: ErrorOr<T>) => void
 
 // FORM HELP TYPES
 
@@ -124,6 +109,7 @@ export type UserData = Readonly<{
   isDivisionAdmin: boolean
   isDataAdmin: boolean
   isControlAdmin: boolean
+  adminType?: string
   userName: string
   userId: string
 }>

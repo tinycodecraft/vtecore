@@ -1,5 +1,5 @@
 import { LoginApi } from '@/api/login.service'
-import { HubInit, HubState, UserListContextProps, UserListResult } from '@/constants/types'
+import { HubInit, HubState, UserData, UserListContextProps, UserListResult } from '@/constants/types'
 import { useAppSelector } from '@/hooks'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -8,14 +8,29 @@ import { createContext, PropsWithChildren, useRef, useState } from 'react'
 
 const UserTableContext = createContext<Partial<UserListContextProps>>({})
 
-export const UserTableContextProvider = ({ children, fetchSize, token, refreshToken }: PropsWithChildren<{ fetchSize: number, token: string, refreshToken: string }>) => {
+type HandlerForEdit = (value: UserData) => void
+type HandlerForDelete = (values: UserData[]) => void
+
+export const UserTableContextProvider = ({
+  children,
+  fetchSize,
+  token,
+  refreshToken,
+  handleDelete,
+  handleEdit,
+}: PropsWithChildren<{
+  fetchSize: number
+  token: string
+  refreshToken: string
+  handleEdit: HandlerForEdit
+  handleDelete: HandlerForDelete
+}>) => {
   const tableRef = useRef<HTMLDivElement | null>(null)
   const rowRef = useRef<MRT_Virtualizer<HTMLDivElement, HTMLTableRowElement> | null>(null)
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = useState<string>()
   const [sorting, setSorting] = useState<MRT_SortingState>([])
-  const [ rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
-
+  const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
 
   const { data, fetchNextPage, isError, isFetching, isLoading } = useInfiniteQuery<UserListResult>({
     queryKey: ['table-user', columnFilters, globalFilter, sorting],
@@ -62,6 +77,8 @@ export const UserTableContextProvider = ({ children, fetchSize, token, refreshTo
         ref: tableRef,
         rowRef,
         fetchNextPage,
+        handleDelete,
+        handleEdit,
       }}
     >
       {children}

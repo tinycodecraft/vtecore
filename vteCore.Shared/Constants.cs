@@ -20,6 +20,8 @@ namespace vteCore.Shared
             password,
             confirmPassword,
             newPassword,
+            getUser,
+            userList
         }
         public enum QueryOpType
         {
