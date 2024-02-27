@@ -16,7 +16,7 @@ import { getUserAsync, getUserLevelAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconBadge, IconLoader2, IconUser } from '@tabler/icons-react'
+import { IconBadge, IconBrightness2, IconLoader2, IconUser } from '@tabler/icons-react'
 import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
@@ -174,7 +174,15 @@ export const EditUserComponent: FunctionComponent = () => {
             <NativeSelect
               data={userLevels}
               label="Your User Level"
+              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.level] : ''}
               withAsterisk
+
+              styles={(theme) => ({
+                icon: {
+                  pointerEvents: 'auto',
+                },
+              })}              
+              icon={<div className="tooltip tooltip-top" data-tip="Your Operation level"><IconBrightness2 size='1rem' /></div>}
               {...editform.getInputProps('level')}
             />
             <div>
