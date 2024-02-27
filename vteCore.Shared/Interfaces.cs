@@ -41,6 +41,9 @@ namespace vteCore.Shared
 
         public interface IUserService
         {
+
+            bool Save(IUser user);
+
             //username can be id or name 
             bool HasUser(string username);
             //change password by admin without oldpassword

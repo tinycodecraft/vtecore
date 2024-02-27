@@ -23,6 +23,11 @@ namespace vteCore.Shared.Models
 
     }
 
+    public class DescProps
+    {
+        public string value { get; set; }
+        public string label { get; set; }
+    }
 
 
     public class MantineTableProps

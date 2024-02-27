@@ -27,6 +27,17 @@ namespace vteCore.dbService
             return null;
         }
 
+        public bool Save(IUser user)
+        {
+            var founduser = db.DFAUsers.FirstOrDefault(e => e.UserId == user.UserId);
+            var map = user as UserMap;
+            if(map!=null && founduser!=null)
+            {
+                map.ToModel(founduser);
+            }
+            return false;
+        }
+
         public RM.UserListResult List(EM.MantineTableProps query)
         {
             try

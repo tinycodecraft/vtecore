@@ -8,6 +8,10 @@ namespace vteCore.Shared
 {
     public static class Constants
     {
+        public enum LabelType
+        {
+            UserLevel
+        }
         public enum AdminScopeType
         {
             Division,
@@ -66,6 +70,16 @@ namespace vteCore.Shared
         {
             public const string success = nameof(success);
             public const string failure = nameof(failure);  
+        }
+
+        public static class UI
+        {
+            public const string NAME_USER_DRAFTER = "Drafter";
+            public const string NAME_USER_ENDORSER = "Endorser";
+            public const string NAME_USER_AUDITOR = "Auditor";
+            public const string NAME_USER_ENDDRAFTER = "Endorser+Drafter";
+            public const string NAME_USER_ENDAUDOR = "Endorser+Auditor";
+            public const string NAME_USER_ADMINS = "Administrator";
         }
         public static class Sessions
         {

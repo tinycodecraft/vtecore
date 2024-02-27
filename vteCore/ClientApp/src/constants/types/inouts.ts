@@ -49,6 +49,11 @@ export type ListResult<T> = Readonly<{
   data: T[]
 }>
 
+export type LabelDetail = Readonly<{
+  value: string
+  label: string
+}>
+
 export type ErrorDetail = Readonly<{
   code: string
   description: string
@@ -70,6 +75,8 @@ export type QueryForm<T> = Readonly<{
   id: string
   handler: receiveHandlerType<T>
 }>
+
+
 
 export interface ListContextProps<T> {
   ref: React.MutableRefObject<HTMLDivElement | null>

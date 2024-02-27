@@ -8,19 +8,21 @@ import {
   FormPostState,
   HubInit,
   HubState,
+  LabelDetail,
   UserData,
 } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { getUserAsync } from '@/hooks/store/dmFormSlice'
+import { getUserAsync, getUserLevelAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
-import { Container, Group, Input, MantineProvider, Radio } from '@mantine/core'
+import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconBadge, IconUser } from '@tabler/icons-react'
-import { FunctionComponent, useCallback, useEffect } from 'react'
+import { IconBadge, IconLoader2, IconUser } from '@tabler/icons-react'
+import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
-export const EditUserComponent: FunctionComponent= () => {
+export const EditUserComponent: FunctionComponent = () => {
   const loc = useLocation()
+  const [userLevels, setUserLevels] = useState<LabelDetail[]>([])
   const { token } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const { status, userName } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
@@ -34,12 +36,23 @@ export const EditUserComponent: FunctionComponent= () => {
         handler: (data) => {
           if (!data.isError && data.value) {
             editform.setValues(data.value)
+            console.log(`the user value of field level return: `, editform.getInputProps('level'))
             if (data.value.isControlAdmin) editform.setFieldValue('adminType', 'Full')
             else if (data.value.isDataAdmin) editform.setFieldValue('adminType', 'Archive')
             else if (data.value.isDivisionAdmin) editform.setFieldValue('adminType', 'Division')
             else {
               editform.setFieldValue('adminType', 'None')
             }
+          }
+        },
+      }),
+    )
+    dispatch(
+      getUserLevelAsync({
+        id: 'UserLevel',
+        handler: (data) => {
+          if (data.value) {
+            setUserLevels(data.value)
           }
         },
       }),
@@ -77,7 +90,7 @@ export const EditUserComponent: FunctionComponent= () => {
       return
     }
     initHandler(loc.state.id)
-  }, [userName,loc.state])
+  }, [userName, loc.state])
   return (
     <MantineProvider inherit theme={{ colorScheme: 'light' }}>
       <Container
@@ -158,6 +171,17 @@ export const EditUserComponent: FunctionComponent= () => {
                 <Radio value="Archive" label="Data Admin" />
               </Group>
             </Radio.Group>
+            <NativeSelect
+              data={userLevels}
+              label="Your User Level"
+              withAsterisk
+              {...editform.getInputProps('level')}
+            />
+            <div>
+              <button type="submit" className="btn btn-block bg-green-300 hover:bg-blue-400">
+                Save {status === ApiStatusEnum.PROCESS && <IconLoader2 className="motion-safe:animate-load-turn" />}
+              </button>
+            </div>
           </form>
         </div>
       </Container>

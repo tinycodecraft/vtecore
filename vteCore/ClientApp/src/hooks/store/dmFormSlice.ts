@@ -1,10 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { FormPostInit } from '@/constants/types/values'
-import { ApiErrorState, ErrorOr, FormPostState, LoginProps, SelectOption, UserData } from '@/constants/types'
+import { ApiErrorState, ErrorOr, FormPostState, LabelDetail, LoginProps, SelectOption, UserData } from '@/constants/types'
 import { ApiStatusEnum, QueryForm } from '@/constants/types'
 import { LoginApi } from '@/api/login.service'
 import { clearError, receiveError } from './dmFieldSlice'
 import { RootState } from '@/hooks'
+import { LabelApi } from '@/api/label.service'
 
 export const dmFormSlice = createSlice({
   name: 'dmForm',
@@ -16,6 +17,9 @@ export const dmFormSlice = createSlice({
     },
     raiseErrorFormState: (state) => {
       state.status = ApiStatusEnum.FAILURE
+    },
+    forceSuccssState: (state)=> {
+      state.status = ApiStatusEnum.SUCCESS
     },
     receiveFormState: (state, action: PayloadAction<ErrorOr<FormPostState>>) => {
       if (action.payload.isError) {
@@ -30,11 +34,44 @@ export const dmFormSlice = createSlice({
   },
 })
 
+export const getUserLevelAsync = createAsyncThunk('dmForm/getUserLevelAsync',async (query: QueryForm<LabelDetail[]>,{ dispatch, getState})=> {
+  const {
+    dmHub: { token: accessToken, refreshToken: renewToken, userName },
+  } = (getState as () => RootState)()
+  console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
+
+  try {
+    if(accessToken)
+    {
+      LabelApi.token = accessToken
+    }
+    if(renewToken)
+    {
+      LabelApi.refreshToken = renewToken
+    }
+    dispatch(waitFormState(query.id))
+    const response = await LabelApi.getLabelsAsync(query.id)
+    console.log(`the response from get label: `,response)
+
+    query.handler(response)
+
+    dispatch( forceSuccssState())
+    
+
+  }
+  catch(e){
+    console.error(e)
+    dispatch( raiseErrorFormState())
+
+  }
+
+})
+
 export const getUserAsync = createAsyncThunk(
   'dmForm/getUserAsync',
   async (query: QueryForm<UserData>, { dispatch, getState }) => {
     const {
-      dmHub: { token: accessToken, refreshToken: renewToken },
+      dmHub: { token: accessToken, refreshToken: renewToken, userName },
     } = (getState as () => RootState)()
     console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
     try {
@@ -53,10 +90,12 @@ export const getUserAsync = createAsyncThunk(
       if(query.handler)
       {
         query.handler(response)
+
       }
-      
+      dispatch(forceSuccssState())
     } catch (e) {
       console.error(e)
+      dispatch( raiseErrorFormState())
     }
   },
 )
@@ -90,6 +129,6 @@ export const changePsswdAsync = createAsyncThunk(
   },
 )
 
-export const { waitFormState, receiveFormState, raiseErrorFormState } = dmFormSlice.actions
+export const { waitFormState, receiveFormState, raiseErrorFormState,forceSuccssState } = dmFormSlice.actions
 
 export default dmFormSlice.reducer

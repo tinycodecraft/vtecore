@@ -29,6 +29,14 @@ namespace vteCore.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public IActionResult SaveModel(UserMap model)
+        {
+            
+            return Ok(new { });
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult GetModel(string id)
         {
