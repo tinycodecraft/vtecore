@@ -29,12 +29,25 @@ namespace vteCore.dbService
 
         public bool Save(IUser user)
         {
-            var founduser = db.DFAUsers.FirstOrDefault(e => e.UserId == user.UserId);
-            var map = user as UserMap;
-            if(map!=null && founduser!=null)
-            {
-                map.ToModel(founduser);
+            try {
+                var founduser = db.DFAUsers.FirstOrDefault(e => e.UserId == user.UserId);
+                var map = user as UserMap;
+                if (map != null && founduser != null)
+                {
+                    map.ToModel(founduser);
+
+                    db.Entry(founduser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    db.SaveChanges();
+
+                }
+                return true;
+
             }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+
             return false;
         }
 

@@ -11,7 +11,7 @@ import {
   LoginProps,
 } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { changePsswdAsync } from '@/hooks/store/dmFormSlice'
+import { changePsswdAsync, clearFormState } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, Input } from '@mantine/core'
 import { useForm } from '@mantine/form'
@@ -54,11 +54,12 @@ export const ChangePasswordComponent: FunctionComponent = () => {
   )
 
   useEffect(() => {
-    console.log(`the status: `,status,fields )
+    console.log(`the status: `, status, fields)
     if (!token) {
       navigate('/login')
     }
     if (status === ApiStatusEnum.SUCCESS) {
+      dispatch(clearFormState())
       navigate('/home')
     }
   }, [status, fields, token])

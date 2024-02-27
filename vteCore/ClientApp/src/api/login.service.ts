@@ -31,9 +31,9 @@ class LoginService extends BaseService {
     return data;
   }
 
-  public async changePasswdAsync(query: LoginProps): Promise<ErrorOr<FormPostState>> {
+  public async changePasswdAsync(query: LoginProps): Promise<ErrorOr<string>> {
     const url = `ChangePassword`
-    const { data } = await this.$wAuthHttp.post<ErrorOr<FormPostState>>(url, query)
+    const { data } = await this.$wAuthHttp.post<ErrorOr<string>>(url, query)
     return data
   }
 

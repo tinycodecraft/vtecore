@@ -32,8 +32,14 @@ namespace vteCore.Controllers
         [HttpPost]
         public IActionResult SaveModel(UserMap model)
         {
+            var okay = userService.Save(model);
+
+            if (okay)
+            {
+                return Ok((ErrorOr<string>)model.UserName);
+            }
             
-            return Ok(new { });
+            return Ok((ErrorOr<string>)Error.Failure(code: nameof(FieldType.saveUser),description: $"fail to save {model.UserName} due to internal error(Please check the log for detail)"));
         }
 
         [Authorize]
@@ -82,16 +88,16 @@ namespace vteCore.Controllers
         {
             if(login.NewPassword!=login.ConfirmPassword)
             {
-                return Ok(Error.Failure(code: nameof(FieldType.confirmPassword), description: $"the retyped new password not matched").ToErrorOr<RM.ChangePasswordResult>());
+                return Ok(Error.Failure(code: nameof(FieldType.confirmPassword), description: $"the retyped new password not matched").ToErrorOr<string>());
 
             }
             var byuser = HttpContext.Session.GetStr(Sessions.USERID);
             var changed = userService.ChangePassword(login.UserName, login.NewPassword, byuser, login.Password);
             if(!changed)
             {
-                return Ok(Error.Failure(code: nameof(FieldType.newPassword), description: $"the old password not matched ").ToErrorOr<RM.ChangePasswordResult>());
+                return Ok(Error.Failure(code: nameof(FieldType.newPassword), description: $"the old password not matched ").ToErrorOr<string>());
             }
-            return Ok((ErrorOr<RM.ChangePasswordResult>)new RM.ChangePasswordResult(login.UserName));
+            return Ok((ErrorOr<string>)login.UserName);
         }
 
         [HttpPost]

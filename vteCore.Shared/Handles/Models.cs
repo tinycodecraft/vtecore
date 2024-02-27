@@ -26,7 +26,8 @@ namespace vteCore.Handles
 
         public record UserResult(string UserName, string Token, string RefreshToken,bool DataAdminEnabled,bool DivisionAdminEnabled,bool ControlAdminEnabled);
 
-        public record ChangePasswordResult(string UserName);
+        
+        
         public class LoginResult
         {
             public string UserName { get; set; }

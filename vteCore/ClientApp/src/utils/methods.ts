@@ -1,4 +1,5 @@
 import clsx, { type ClassValue } from 'clsx'
+import { ErrorOr } from '@/constants/types'
 
 import { twMerge } from 'tailwind-merge'
 
@@ -30,6 +31,10 @@ export const value3Or = <T>(value: T | undefined, def1: T | undefined, def2: T):
     }
   }
   return value
+}
+
+export const getErrorOr = <T>(value: T | undefined): ErrorOr<T> => {
+  return { value, isError: !value, errors: [] }
 }
 
 export const isArrayWithLength = (val: unknown): boolean => Array.isArray(val) && !!val.length
