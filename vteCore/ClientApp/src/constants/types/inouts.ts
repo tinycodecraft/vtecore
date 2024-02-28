@@ -70,13 +70,17 @@ export type ErrorOr<T> = Readonly<{
 
 export type UnsubscribeFunc = () => void
 export type receiveHandlerType<T> = (data: ErrorOr<T>) => void
+export type resultHandlerType = (result: ErrorOr<string>) => boolean
 
 export type QueryForm<T> = Readonly<{
   id: string
   handler: receiveHandlerType<T>
 }>
 
-
+export type SaveForm<T> = Readonly<{
+  data: T
+  handler: resultHandlerType
+}>
 
 export interface ListContextProps<T> {
   ref: React.MutableRefObject<HTMLDivElement | null>

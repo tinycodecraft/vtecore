@@ -25,6 +25,8 @@ export const ApiFieldEnum = {
   UserId: 'userId',
   level: 'level',
   UserName: 'userName',  
+  Division: 'division',
+  Post: 'post',
   Password: 'password',
   NewPassword: 'newPassword',
   ConfirmPassword: 'confirmPassword',

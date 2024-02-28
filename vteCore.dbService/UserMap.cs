@@ -1,9 +1,11 @@
-﻿using vteCore.dbService;
+﻿using System.ComponentModel.DataAnnotations;
+using vteCore.dbService;
 
 namespace vteCore.Mappers
 {
     public class UserMap:BaseDto<UserMap,DFAUser>,IAuthResult,IAuthAuditResult,IUser
     {
+        [Required]
         public string UserId { get; set; }
 
         public string UserName { get; set; }
@@ -17,9 +19,12 @@ namespace vteCore.Mappers
         public bool IsReset { get; set; }
         public DateTime updatedAt { get; set; }
         public string updatedBy { get; set; }
+        
         public string post { get; set; }
         public bool Disabled { get; set; }
+        
         public int level { get; set; }
+        
         public string Division { get; set; }
 
         public override void AddCustomMappings()

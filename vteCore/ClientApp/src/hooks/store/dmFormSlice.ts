@@ -6,6 +6,7 @@ import {
   FormPostState,
   LabelDetail,
   LoginProps,
+  SaveForm,
   SelectOption,
   UserData,
 } from '@/constants/types'
@@ -65,6 +66,35 @@ export const getUserLevelAsync = createAsyncThunk(
       query.handler(response)
 
       dispatch(receiveFormState(getErrorOr(userName)))
+    } catch (e) {
+      console.error(e)
+      dispatch(raiseErrorFormState())
+    }
+  },
+)
+
+export const saveUserAsync = createAsyncThunk(
+  'dmForm/saveUserAsync',
+  async (value: SaveForm<UserData>, { dispatch, getState }) => {
+    const {
+      dmHub: { token: accessToken, refreshToken: renewToken, userName },
+    } = (getState as () => RootState)()
+    console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
+    try {
+      if (accessToken) {
+        LoginApi.token = accessToken
+      }
+      if (renewToken) {
+        LoginApi.refreshToken = renewToken
+      }
+      dispatch(waitFormState(value.data.userId))
+      const response = await LoginApi.saveAsync(value.data)
+      console.log(`the save user response is `, response)
+      if (response.isError) {
+        dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
+      }
+      value.handler(getErrorOr(response.value, response.errors))
+      dispatch(receiveFormState(response))
     } catch (e) {
       console.error(e)
       dispatch(raiseErrorFormState())

@@ -12,6 +12,12 @@ export const dmFieldState = createSlice({
       if (action.payload) {
         Object.entries(action.payload).forEach(([key, value]) => {
           switch (key) {
+            case ApiFieldEnum.Post:
+              state[ApiFieldEnum.Post] = value
+              break
+            case ApiFieldEnum.Division:
+              state[ApiFieldEnum.Division] = value
+              break
             case ApiFieldEnum.UserName:
               state[ApiFieldEnum.UserName] = value
               break

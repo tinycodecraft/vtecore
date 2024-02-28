@@ -3,7 +3,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System.Collections.Specialized;
+using vteCore.dbService;
 using vteCore.ErrorOr;
 using vteCore.Extensions;
 using vteCore.Mappers;
@@ -32,6 +34,17 @@ namespace vteCore.Controllers
         [HttpPost]
         public IActionResult SaveModel(UserMap model)
         {
+            var val = new UserValidator();
+            var errors = val.Validate(model);
+            if (errors != null)
+            {
+                var msgs = errors.Errors.Select(e=> Error.Failure(code: e.PropertyName.PascaltoCamel(), description: e.ErrorMessage)).ToArray();
+
+                return Ok((ErrorOr<string>)msgs);
+
+            }
+
+            
             var okay = userService.Save(model);
 
             if (okay)
@@ -75,7 +88,8 @@ namespace vteCore.Controllers
             var refresh = HttpContext.Session.GetStr(Sessions.REFRESHTOKEN);
             if(refresh == input.RefreshToken && !string.IsNullOrEmpty(input.RefreshToken))
             {
-                var user = new UserMap {  UserName = userid};
+                var user = userService.Get(userid) as IAuthResult;
+                
                 input.Token = tokenService.CreateToken(user);
                 input.RefreshToken = TokenService.GenerateRefreshToken();
                 return Ok((ErrorOr<QM.TokenProps>)input);

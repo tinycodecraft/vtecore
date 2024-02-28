@@ -12,17 +12,18 @@ import {
   UserData,
 } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { getUserAsync, getUserLevelAsync } from '@/hooks/store/dmFormSlice'
+import { getUserAsync, getUserLevelAsync, saveUserAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconBadge, IconBrightness2, IconLoader2, IconUser } from '@tabler/icons-react'
+import { IconBadge, IconBrightness2, IconLoader2, IconManualGearbox, IconUser } from '@tabler/icons-react'
 import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
 export const EditUserComponent: FunctionComponent = () => {
   const loc = useLocation()
   const [userLevels, setUserLevels] = useState<LabelDetail[]>([])
+  const [saved, setSaved] = useState<boolean>(false)
   const { token } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const { status, userName } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
@@ -80,6 +81,19 @@ export const EditUserComponent: FunctionComponent = () => {
           break
       }
       console.log(`the password change values are: `, newvalues)
+
+      if (newvalues) {
+        dispatch(
+          saveUserAsync({
+            data: newvalues,
+            handler: (result) => {
+              console.log(`the result saved!`, result)
+              setSaved(!result.isError)
+              return result.isError
+            },
+          }),
+        )
+      }
     }),
     [editform],
   )
@@ -89,8 +103,11 @@ export const EditUserComponent: FunctionComponent = () => {
       navigate('/login')
       return
     }
+    if (saved) {
+      navigate('/userlist')
+    }
     initHandler(loc.state.id)
-  }, [userName, loc.state])
+  }, [token, loc.state.id, saved])
   return (
     <MantineProvider inherit theme={{ colorScheme: 'light' }}>
       <Container
@@ -156,6 +173,52 @@ export const EditUserComponent: FunctionComponent = () => {
                 {...editform.getInputProps('userName')}
               />
             </Input.Wrapper>
+            <Input.Wrapper
+              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Post] : ''}
+              id={`${ApiFieldEnum.Post}-input`}
+              withAsterisk
+            >
+              <Input
+                
+                id={`${ApiFieldEnum.Post}-input`}
+                styles={(theme) => ({
+                  icon: {
+                    pointerEvents: 'auto',
+                  },
+                })}
+                autoComplete="off"
+                icon={
+                  <div className="tooltip tooltip-top" data-tip="Your Post">
+                    <IconManualGearbox size="1rem" />
+                  </div>
+                }
+                placeholder="Your Post"
+                {...editform.getInputProps('post')}
+              />
+            </Input.Wrapper>
+            <Input.Wrapper
+              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Division] : ''}
+              id={`${ApiFieldEnum.Division}-input`}
+              withAsterisk
+            >
+              <Input
+                
+                id={`${ApiFieldEnum.Division}-input`}
+                styles={(theme) => ({
+                  icon: {
+                    pointerEvents: 'auto',
+                  },
+                })}
+                autoComplete="off"
+                icon={
+                  <div className="tooltip tooltip-top" data-tip="Division">
+                    <IconManualGearbox size="1rem" />
+                  </div>
+                }
+                placeholder="Your Division"
+                {...editform.getInputProps('division')}
+              />
+            </Input.Wrapper>
             <Radio.Group
               withAsterisk
               required
@@ -176,13 +239,16 @@ export const EditUserComponent: FunctionComponent = () => {
               label="Your User Level"
               error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.level] : ''}
               withAsterisk
-
               styles={(theme) => ({
                 icon: {
                   pointerEvents: 'auto',
                 },
-              })}              
-              icon={<div className="tooltip tooltip-top" data-tip="Your Operation level"><IconBrightness2 size='1rem' /></div>}
+              })}
+              icon={
+                <div className="tooltip tooltip-top" data-tip="Your Operation level">
+                  <IconBrightness2 size="1rem" />
+                </div>
+              }
               {...editform.getInputProps('level')}
             />
             <div>

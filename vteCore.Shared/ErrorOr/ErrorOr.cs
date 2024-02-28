@@ -56,6 +56,9 @@ public readonly record struct ErrorOr<TValue> : IErrorOr<TValue>
                 return NoFirstError;
             }
 
+            if (_errors == null)
+                return NoFirstError;
+
             return _errors![0];
         }
     }
