@@ -1,9 +1,9 @@
 import { LoginApi } from '@/api/login.service'
-import { HubInit, HubState, UserData, UserListContextProps, UserListResult } from '@/constants/types'
+import { HubInit, HubState, ListResult, UserData, UserListContextProps, UserListResult } from '@/constants/types'
 import { useAppSelector } from '@/hooks'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-import { MRT_ColumnFiltersState, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
+import { MRT_ColumnFiltersState, MRT_Row, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
 import { createContext, PropsWithChildren, useRef, useState } from 'react'
 
 const UserTableContext = createContext<Partial<UserListContextProps>>({})
@@ -18,12 +18,14 @@ export const UserTableContextProvider = ({
   refreshToken,
   handleDelete,
   handleEdit,
+  getDoubleClick
 }: PropsWithChildren<{
   fetchSize: number
   token: string
   refreshToken: string
   handleEdit: HandlerForEdit
-  handleDelete: HandlerForDelete
+  handleDelete: HandlerForDelete,
+  getDoubleClick: (row: UserData) => React.MouseEventHandler<HTMLTableRowElement>
 }>) => {
   const tableRef = useRef<HTMLDivElement | null>(null)
   const rowRef = useRef<MRT_Virtualizer<HTMLDivElement, HTMLTableRowElement> | null>(null)
@@ -79,6 +81,7 @@ export const UserTableContextProvider = ({
         fetchNextPage,
         handleDelete,
         handleEdit,
+        getDoubleClick
       }}
     >
       {children}

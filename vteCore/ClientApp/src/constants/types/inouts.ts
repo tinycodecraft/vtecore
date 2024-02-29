@@ -1,4 +1,4 @@
-import { MRT_ColumnFiltersState, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
+import { MRT_ColumnFiltersState, MRT_Row, MRT_RowSelectionState, MRT_SortingState, MRT_Virtualizer } from 'mantine-react-table'
 import { ApiStatusEnum, ErrorEnum } from './enums'
 import {
   FetchNextPageOptions,
@@ -103,6 +103,7 @@ export interface ListContextProps<T> {
   ) => Promise<InfiniteQueryObserverResult<ListResult<T>, unknown>>
   handleEdit: (value: T) => void
   handleDelete: (values: T[]) => void
+  getDoubleClick: (row: T) => React.MouseEventHandler<HTMLTableRowElement>
 }
 
 export type UserListContextProps = ListContextProps<UserData>

@@ -6,6 +6,7 @@ import { ChangePasswordComponent } from '@/pages/auth/chgpsswd'
 import SetPasswordComponent from '@/pages/auth/setpsswd'
 import { UserListComponent } from '@/pages/auth/userlist'
 import { EditUserComponent } from '@/pages/auth/edituser'
+import { UserComponent } from '@/pages/auth/user'
 
 const routes: RouteInput[] = [
   {
@@ -48,6 +49,16 @@ const routes: RouteInput[] = [
     position: MenuPositionEnum.right,
     locked: true,
   },
+  {
+    path: '/user',
+    name: 'Edit',
+    Component: UserComponent,
+    transition: TRANSITION_DEFAULT,
+    iconIndex: 8,
+    popUpOnly: false,
+    position: MenuPositionEnum.right,
+    locked: true,
+  },    
   {
     path: '/edituser',
     name: 'Edit',

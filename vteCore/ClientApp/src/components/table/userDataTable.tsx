@@ -33,6 +33,7 @@ const UserDataTable = () => {
     sorting,
     handleDelete,
     handleEdit,
+    getDoubleClick
   } = useContext(UserTableContext)
 
   const flatData = useMemo(() => data?.pages.flatMap((page) => page.data) ?? [], [data])
@@ -104,6 +105,9 @@ const UserDataTable = () => {
     enableRowVirtualization: true, // optional, but recommended if it is likely going to be more than 100 rows
     manualFiltering: true,
     manualSorting: true,
+    mantineTableBodyRowProps:({row})=> ({     
+      onDoubleClick: getDoubleClick && getDoubleClick(row.original)      
+    }),
     positionToolbarAlertBanner: 'head-overlay',
     renderTopToolbarCustomActions: () => (
       <Tooltip label="Create New User">

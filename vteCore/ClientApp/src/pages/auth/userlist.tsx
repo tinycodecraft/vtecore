@@ -21,6 +21,17 @@ export const UserListComponent: FunctionComponent = () => {
       toastId.current = toast(message, { position: 'top-center' })
     }
   }, [])
+
+  const doubleClick = useCallback((value: UserData)=> {
+    return (event:React.MouseEvent<HTMLTableRowElement>) => {
+      if(value.userId)
+      {
+        navigate('/user',{state: { id: value.userId}})
+      }
+
+    }
+  },[token])
+
   const editHandler = useCallback(
     (value: UserData) => {
       if (value) {
@@ -70,6 +81,7 @@ export const UserListComponent: FunctionComponent = () => {
               refreshToken={refreshToken}
               handleEdit={editHandler}
               handleDelete={deleteHandler}
+              getDoubleClick={doubleClick}
             >
               <UserDataTable />
             </UserTableContextProvider>
