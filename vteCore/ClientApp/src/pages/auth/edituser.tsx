@@ -14,7 +14,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getUserAsync, getUserLevelAsync, saveUserAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
-import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select } from '@mantine/core'
+import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select, SimpleGrid } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconBadge, IconBrightness2, IconLoader2, IconManualGearbox, IconUser } from '@tabler/icons-react'
 import { FunctionComponent, useCallback, useEffect, useState } from 'react'
@@ -125,61 +125,63 @@ export const EditUserComponent: FunctionComponent = () => {
         <div className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md" data-theme="lemonade">
           <h1 className="text-3xl font-semibold text-center text-gray-700">Edit User</h1>
           <form className="space-y-4 p-5" onSubmit={submitHandler}>
-            <Input.Wrapper
-              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserId] : ''}
-              id={`${ApiFieldEnum.UserId}-input`}
-              withAsterisk
-            >
-              <Input
-                required
+            <SimpleGrid cols={2} spacing={'xs'} verticalSpacing={'xs'}>
+              <Input.Wrapper
+                error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserId] : ''}
                 id={`${ApiFieldEnum.UserId}-input`}
-                styles={(theme) => ({
-                  icon: {
-                    pointerEvents: 'auto',
-                  },
-                })}
-                disabled={true}
-                autoComplete="off"
-                icon={
-                  <div className="tooltip tooltip-top" data-tip="Your User Id">
-                    <IconBadge size="1rem" />
-                  </div>
-                }
-                placeholder="User Id"
-                {...editform.getInputProps('userId')}
-              />
-            </Input.Wrapper>
-            <Input.Wrapper
-              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserName] : ''}
-              id={`${ApiFieldEnum.UserName}-input`}
-              withAsterisk
-            >
-              <Input
-                required
+                withAsterisk
+              >
+                <Input
+                  required
+                  id={`${ApiFieldEnum.UserId}-input`}
+                  styles={(theme) => ({
+                    icon: {
+                      pointerEvents: 'auto',
+                    },
+                  })}
+                  disabled={true}
+                  autoComplete="off"
+                  icon={
+                    <div className="tooltip tooltip-top" data-tip="Your User Id">
+                      <IconBadge size="1rem" />
+                    </div>
+                  }
+                  placeholder="User Id"
+                  {...editform.getInputProps('userId')}
+                />
+              </Input.Wrapper>
+              <Input.Wrapper
+                error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserName] : ''}
                 id={`${ApiFieldEnum.UserName}-input`}
-                styles={(theme) => ({
-                  icon: {
-                    pointerEvents: 'auto',
-                  },
-                })}
-                disabled={true}
-                autoComplete="off"
-                icon={
-                  <div className="tooltip tooltip-top" data-tip="Your Name">
-                    <IconUser size="1rem" />
-                  </div>
-                }
-                placeholder="User Name"
-                {...editform.getInputProps('userName')}
-              />
-            </Input.Wrapper>
+                withAsterisk
+              >
+                <Input
+                  required
+                  id={`${ApiFieldEnum.UserName}-input`}
+                  styles={(theme) => ({
+                    icon: {
+                      pointerEvents: 'auto',
+                    },
+                  })}
+                  disabled={true}
+                  autoComplete="off"
+                  icon={
+                    <div className="tooltip tooltip-top" data-tip="Your Name">
+                      <IconUser size="1rem" />
+                    </div>
+                  }
+                  placeholder="User Name"
+                  {...editform.getInputProps('userName')}
+                />
+              </Input.Wrapper>
+            </SimpleGrid>
+
             <Input.Wrapper
               error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.Post] : ''}
               id={`${ApiFieldEnum.Post}-input`}
               withAsterisk
             >
               <Input
-                
                 id={`${ApiFieldEnum.Post}-input`}
                 styles={(theme) => ({
                   icon: {
@@ -202,7 +204,6 @@ export const EditUserComponent: FunctionComponent = () => {
               withAsterisk
             >
               <Input
-                
                 id={`${ApiFieldEnum.Division}-input`}
                 styles={(theme) => ({
                   icon: {
