@@ -1,4 +1,4 @@
-import { AppShell, Header, MantineProvider } from '@mantine/core'
+import { AppShell, Header, MantineProvider, NativeSelect } from '@mantine/core'
 import { FC, Fragment, PropsWithChildren, useContext, useEffect } from 'react'
 import { DyNavBar } from './dyNavBar'
 import CtxForLayout from '@/components/context/CtxForLayout'
@@ -36,7 +36,19 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
         withNormalizeCSS
         theme={{
           colorScheme: 'dark',
-
+          // components: {
+          //   NativeSelect: {
+          //     styles: {
+          //       root: {
+          //         '&[data-disabled]': {
+          //           opacity: '1 !important',
+          //           color: 'blue !important',
+          //         },
+          //       },
+          //     },
+          //   },
+          // },
+          fontFamily: 'Montserrat, sans-serif',
           colors: {
             brand: [
               '#F3E5F5',

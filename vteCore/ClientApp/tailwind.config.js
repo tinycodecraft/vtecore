@@ -114,6 +114,9 @@ export default {
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
+      robo: ['Roboto', 'sans-serif'],
+      vibe: [ 'Great Vibes','cursive' ],
+      monr: ['Montserrat'],
       serif: ['Merriweather', 'serif'],
     },
     extend: {

@@ -14,6 +14,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getUserAsync, getUserLevelAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
+import styled from '@emotion/styled'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, SimpleGrid } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { IconBadge, IconBriefcase2, IconManualGearbox, IconUser } from '@tabler/icons-react'
@@ -29,6 +30,7 @@ export const UserComponent = () => {
   const dispatch = useAppDispatch()
   const editform = useForm<UserData>({ initialValues: EditUserFormInit })
   const navigate = useNavigate()
+
   const initHandler = async (id: string) => {
     dispatch(
       getUserAsync({
@@ -185,7 +187,6 @@ export const UserComponent = () => {
             <Radio.Group
               withAsterisk
               required
-
               name="AdminType"
               label="Select which admin type you belong to"
               description="User Admin level"
@@ -199,6 +200,7 @@ export const UserComponent = () => {
               </Group>
             </Radio.Group>
             <NativeSelect
+              color="dark.9"
               data={userLevels}
               label="Your User Level"
               error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.level] : ''}
@@ -207,11 +209,6 @@ export const UserComponent = () => {
               styles={(theme) => ({
                 icon: {
                   pointerEvents: 'auto',
-                },
-                root: {
-                  '*:disabled': {
-                    color: theme.colors.sharp[9],
-                  },
                 },
               })}
               icon={
