@@ -13,16 +13,18 @@ import {
 } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { getUserAsync, getUserLevelAsync } from '@/hooks/store/dmFormSlice'
+import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
 import { clsxm } from '@/utils/methods'
 import styled from '@emotion/styled'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, SimpleGrid } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconBadge, IconBriefcase2, IconManualGearbox, IconUser } from '@tabler/icons-react'
+import { IconBadge, IconBriefcase2, IconChevronDown, IconManualGearbox, IconUser } from '@tabler/icons-react'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
 export const UserComponent = () => {
   const loc = useLocation()
+  const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [userLevels, setUserLevels] = useState<LabelDetail[]>([])
   const { token } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const { status, userName } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
@@ -206,6 +208,7 @@ export const UserComponent = () => {
               error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.level] : ''}
               withAsterisk
               disabled={true}
+              className={menuLinkStyle.select}
               styles={(theme) => ({
                 icon: {
                   pointerEvents: 'auto',
@@ -216,6 +219,7 @@ export const UserComponent = () => {
                   <IconBriefcase2 size="1rem" />
                 </div>
               }
+              rightSection={<IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />}
               {...editform.getInputProps('level')}
             />
           </form>

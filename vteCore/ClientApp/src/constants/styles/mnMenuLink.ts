@@ -1,6 +1,17 @@
 import { createStyles, rem } from '@mantine/core'
 
 export default createStyles((theme) => ({
+  select: {
+    '& .arrow': {
+      transform: 'rotate(0deg)',
+      transition: 'all 0.25s ease-in-out',
+    },
+
+    '&:focus .arrow': {
+      transform: 'rotate(180deg)',
+      transition: 'all 0.25s ease-in-out',
+    },
+  },
   menulink: {
     display: 'flex',
     alignItems: 'center',

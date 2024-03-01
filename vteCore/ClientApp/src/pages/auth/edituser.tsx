@@ -16,12 +16,21 @@ import { getUserAsync, getUserLevelAsync, saveUserAsync } from '@/hooks/store/dm
 import { clsxm } from '@/utils/methods'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select, SimpleGrid } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { IconBadge, IconBrightness2, IconLoader2, IconManualGearbox, IconUser } from '@tabler/icons-react'
+import {
+  IconBadge,
+  IconBrightness2,
+  IconChevronDown,
+  IconLoader2,
+  IconManualGearbox,
+  IconUser,
+} from '@tabler/icons-react'
 import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
+import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
 
 export const EditUserComponent: FunctionComponent = () => {
   const loc = useLocation()
+  const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [userLevels, setUserLevels] = useState<LabelDetail[]>([])
   const [saved, setSaved] = useState<boolean>(false)
   const { token } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
@@ -245,12 +254,15 @@ export const EditUserComponent: FunctionComponent = () => {
                   pointerEvents: 'auto',
                 },
               })}
+              className={menuLinkStyle.select}
               icon={
                 <div className="tooltip tooltip-top" data-tip="Your Operation level">
                   <IconBrightness2 size="1rem" />
                 </div>
               }
+              rightSection={<IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />}
               {...editform.getInputProps('level')}
+              
             />
             <div>
               <button type="submit" className="btn btn-block bg-green-300 hover:bg-blue-400">
