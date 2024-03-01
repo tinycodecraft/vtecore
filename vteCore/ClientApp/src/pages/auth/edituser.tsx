@@ -24,7 +24,7 @@ import {
   IconManualGearbox,
   IconUser,
 } from '@tabler/icons-react'
-import { FunctionComponent, useCallback, useEffect, useState } from 'react'
+import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
 
@@ -39,6 +39,8 @@ export const EditUserComponent: FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const editform = useForm<UserData>({ initialValues: EditUserFormInit })
   const navigate = useNavigate()
+
+
   const initHandler = async (id: string) => {
     dispatch(
       getUserAsync({
@@ -245,6 +247,7 @@ export const EditUserComponent: FunctionComponent = () => {
               </Group>
             </Radio.Group>
             <NativeSelect
+              
               data={userLevels}
               label="Your User Level"
               error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.level] : ''}

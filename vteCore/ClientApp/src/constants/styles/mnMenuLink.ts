@@ -7,7 +7,8 @@ export default createStyles((theme) => ({
       transition: 'all 0.25s ease-in-out',
     },
 
-    '&:focus .arrow': {
+    // focus-within work but the focus is not leaving after close, not work properly
+    '&:focus-within .arrow': {
       transform: 'rotate(180deg)',
       transition: 'all 0.25s ease-in-out',
     },
