@@ -16,6 +16,7 @@ import { getUserAsync, getUserLevelAsync, saveUserAsync } from '@/hooks/store/dm
 import { clsxm } from '@/utils/methods'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select, SimpleGrid } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import RSelect, { CSSObjectWithLabel } from 'react-select'
 import {
   IconBadge,
   IconBrightness2,
@@ -39,7 +40,6 @@ export const EditUserComponent: FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const editform = useForm<UserData>({ initialValues: EditUserFormInit })
   const navigate = useNavigate()
-
 
   const initHandler = async (id: string) => {
     dispatch(
@@ -246,7 +246,42 @@ export const EditUserComponent: FunctionComponent = () => {
                 <Radio value="Archive" label="Data Admin" />
               </Group>
             </Radio.Group>
-            <NativeSelect
+            <Input.Wrapper
+              label="Your User Level"
+              error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.level] : ''}
+              withAsterisk
+            >
+              <RSelect
+                styles={{
+                  dropdownIndicator: (base, state) =>
+                    ({
+                      ...base,
+                      transition: 'all .2s ease',
+                      transform: state.selectProps.menuIsOpen ? ['rotate(180deg)'] : [],
+                    } as CSSObjectWithLabel),
+                  control: (baseStyles, state) =>
+                    ({
+                      ...baseStyles,
+                      borderColor: state.isFocused ? 'rgba(9,211,172,0.75)' : 'rgb(206, 212, 218)',
+                      boxShadow: state.isFocused ? 'rgb(9, 211, 172, 0.225) 0px 0px 0px 0.2rem' : 'inherit',
+                    } as CSSObjectWithLabel),
+                  option: (baseStyles, state) =>
+                    ({
+                      ...baseStyles,
+                      backgroundColor: state.isSelected ? '#09d3ac' : 'inherit',
+
+                      ':hover': {
+                        backgroundColor: state.isSelected ? '#09d3ac' : 'rgba(9,211,172,0.224)',
+                      },
+                    } as CSSObjectWithLabel),
+                }}
+                options={userLevels}
+                defaultValue={userLevels.find((e) => editform.getInputProps('level').value == e.value)}
+                value={userLevels.find((e) => editform.getInputProps('level').value == e.value)}
+                onChange={(item) => item && editform.getInputProps('level').onChange(item.value)}
+              />
+            </Input.Wrapper>
+            {/* <NativeSelect
               
               data={userLevels}
               label="Your User Level"
@@ -266,7 +301,7 @@ export const EditUserComponent: FunctionComponent = () => {
               rightSection={<IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />}
               {...editform.getInputProps('level')}
               
-            />
+            /> */}
             <div>
               <button type="submit" className="btn btn-block bg-green-300 hover:bg-blue-400">
                 Save {status === ApiStatusEnum.PROCESS && <IconLoader2 className="motion-safe:animate-load-turn" />}
