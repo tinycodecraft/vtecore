@@ -279,6 +279,7 @@ export const EditUserComponent: FunctionComponent = () => {
                 defaultValue={userLevels.find((e) => editform.getInputProps('level').value == e.value)}
                 value={userLevels.find((e) => editform.getInputProps('level').value == e.value)}
                 onChange={(item) => item && editform.getInputProps('level').onChange(item.value)}
+                
               />
             </Input.Wrapper>
             {/* <NativeSelect

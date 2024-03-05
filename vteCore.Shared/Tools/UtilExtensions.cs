@@ -109,5 +109,51 @@ namespace vteCore.Shared.Tools
         {
             return !string.IsNullOrWhiteSpace(error);
         }
+
+
+        // all error checking left out for brevity
+
+        // a.k.a., linked list style enumerator
+        public static IEnumerable<TSource> FromHierarchy<TSource>(
+            this TSource source,
+            Func<TSource, TSource> nextItem,
+            Func<TSource, bool> canContinue)
+        {
+            for (var current = source; canContinue(current); current = nextItem(current))
+            {
+                yield return current;
+            }
+        }
+
+        public static IEnumerable<TSource> FromHierarchy<TSource>(
+            this TSource source,
+            Func<TSource, TSource> nextItem)
+            where TSource : class
+        {
+            return FromHierarchy(source, nextItem, s => s != null);
+        }
+
+        public static IEnumerable<string> ToErrorMessageList(this Exception ex, bool allerror = false)
+        {
+            if (!allerror && (ex is ThreadAbortException || ex is OperationCanceledException))
+            {
+                return new[] { ex.Message };
+            }
+            else
+                return ex.FromHierarchy(x => x.InnerException)
+                    .Select(x => x.Message);
+        }
+
+        public static IEnumerable<KeyValuePair<string, string>> ToErrorList(this Exception ex)
+        {
+            if (ex is ThreadAbortException || ex is OperationCanceledException)
+            {
+                return new[] { new KeyValuePair<string, string>("Operation Cancelled", ex.Message) };
+            }
+            else
+                return ex.FromHierarchy(x => x.InnerException)
+                    .Select(x => new KeyValuePair<string, string>(x.Source, x.Message))
+                    .Union(new[] { new KeyValuePair<string, string>("stacktrace", ex.StackTrace) });
+        }
     }
 }

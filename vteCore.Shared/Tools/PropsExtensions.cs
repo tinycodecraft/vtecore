@@ -22,6 +22,11 @@ namespace vteCore.Shared.Tools
     public static class SubStringExtensions
     {
 
+        public static string SplitCamelCase(this string str)
+        {
+            return Regex.Replace(Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2");
+        }
+
         public static Dictionary<String, Object> Dyn2Dict(dynamic dynObj)
         {
             var dictionary = new Dictionary<string, object>();
@@ -636,7 +641,61 @@ namespace vteCore.Shared.Tools
             return ret;
         }
 
+        public static Dictionary<string, Func<object, object>> GetSortedGetters(this Type type)
+        {
+            int order = int.MaxValue - type.GetProperties().Count();
+            var metadataType = type.GetCustomAttributes(typeof(MetadataTypeAttribute), true)
+                .OfType<MetadataTypeAttribute>().FirstOrDefault();
 
+
+            return type.GetProperties()
+                .Select(p =>
+                {
+
+
+                    var display = p.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+                    
+
+                    return new
+                    {
+                        display = display,
+                        property = p,
+                        order = display != null ?
+                            (display.GetOrder() ?? ++order) : ++order,
+
+                        getter = FindGetter(type, p.Name)
+
+                    };
+                })
+                .OrderBy(o => o.order)
+                .ToDictionary(x => x.property.Name, x => x.getter);
+        }
+        public static Dictionary<PropertyInfo, DisplayAttribute> GetSortedProperties(this Type type)
+        {
+            int order = int.MaxValue - type.GetProperties().Count();
+            var metadataType = type.GetCustomAttributes(typeof(MetadataTypeAttribute), true)
+                .OfType<MetadataTypeAttribute>().FirstOrDefault();
+
+
+            return type.GetProperties()
+                .Select(p =>
+                {
+
+
+                    var display = p.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+
+                    return new
+                    {
+                        display = display,
+                        property = p,
+                        order = display != null ?
+                            (display.GetOrder() ?? ++order) : ++order
+
+                    };
+                })
+                .OrderBy(o => o.order)
+                .ToDictionary(x => x.property, x => x.display);
+        }
 
         internal static Action<object, object> GetSetter(PropertyInfo property)
         {
