@@ -97,10 +97,12 @@ namespace vteCore.Shared
             public const string DivisionAdminEnabled = nameof(DivisionAdminEnabled);
         }
 
+
         public static class Setting
         {
             public const string AuthSetting = nameof(AuthSetting);
             public const string PathSetting = nameof(PathSetting);
+            public const string TemplateSetting = nameof(TemplateSetting);
 
             public const string CorsPolicySetting = nameof(CorsPolicySetting);
 

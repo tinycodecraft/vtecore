@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Collections.Specialized;
 using System.Text.Json;
 using vteCore.Shared.Models;
@@ -10,10 +11,15 @@ namespace vteCore.dbService
     {
         private readonly ILogger<IUserService>  logger;
         private readonly BFAContext db;
-        public UserService(ILogger<IUserService> log,BFAContext ctx)
+        private readonly TemplateSetting templateOps;
+        private readonly PathSetting pathOps;
+        public UserService(ILogger<IUserService> log,BFAContext ctx,IOptions<TemplateSetting> tpstg,IOptions<PathSetting> pthstg)
         {
             logger = log;
             db = ctx;
+            templateOps = tpstg.Value;
+            pathOps = pthstg.Value;
+            
         }
 
         public IUser Get(string id)

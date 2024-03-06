@@ -17,11 +17,11 @@ namespace vteCore.Shared.Tools
         private readonly IEnumerable<string> allowedExtensions = new List<string> { ".zip", ".bin", ".png", ".jpg", ".mp4" };
 
         private readonly ILogger _logger;
-        private readonly IOptions<PathSetting> _pathsetting;
+        private readonly PathSetting pathOps;
 
         public FileService(IOptions<PathSetting> pathsetting, ILogger<FileService> logger)
         {
-            _pathsetting = pathsetting;
+            pathOps = pathsetting.Value;
             _logger = logger;
         }
         public async Task<string> DownloadFilesAsync(Stream fileStream, string type, string filename,bool inupload=false)
@@ -29,7 +29,7 @@ namespace vteCore.Shared.Tools
             var file = string.Empty;
             try
             {
-                file = SubStringExtensions.GetPath(_pathsetting.Value, inupload ? PathType.Upload: PathType.Share, type, filename);
+                file = SubStringExtensions.GetPath(pathOps, inupload ? PathType.Upload: PathType.Share, type, filename);
                 if (File.Exists(file))
                 {
                     var bytes = await File.ReadAllBytesAsync(file);
@@ -51,8 +51,8 @@ namespace vteCore.Shared.Tools
             string file = string.Empty;
             try
             {
-                var templatepath = SubStringExtensions.GetPath(_pathsetting.Value, PathType.Template, type ?? "All", templatename);
-                var sharepath = SubStringExtensions.GetPath(_pathsetting.Value, PathType.Share, type ?? "All",SubStringExtensions.GetRandomFileInType(type));
+                var templatepath = SubStringExtensions.GetPath(pathOps, PathType.Template, type ?? "All", templatename);
+                var sharepath = SubStringExtensions.GetPath(pathOps, PathType.Share, type ?? "All",SubStringExtensions.GetRandomFileInType(type));
                 WmlDocument wmlDoc = new WmlDocument(templatepath);
                 using (StringReader textreader = new StringReader(xmldata))
                 {
@@ -127,7 +127,7 @@ namespace vteCore.Shared.Tools
 
 
 
-            var uploadpath = SubStringExtensions.GetPath(_pathsetting.Value, PathType.Upload, type);
+            var uploadpath = SubStringExtensions.GetPath(pathOps, PathType.Upload, type);
             Directory.CreateDirectory(uploadpath);
 
 
@@ -139,7 +139,7 @@ namespace vteCore.Shared.Tools
 
             await fileSection.FileStream.CopyToAsync(stream);
 
-            var streampath = SubStringExtensions.GetPath(_pathsetting.Value, PathType.Stream, type, fileSection.FileName);
+            var streampath = SubStringExtensions.GetPath(pathOps, PathType.Stream, type, fileSection.FileName);
 
             filePaths.Add(streampath);
 

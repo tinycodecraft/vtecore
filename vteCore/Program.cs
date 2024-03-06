@@ -38,12 +38,14 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 
 var authsetting = builder.Configuration.GetSection(Setting.AuthSetting);
 var pathsetting = builder.Configuration.GetSection(Setting.PathSetting);
+var templatesetting = builder.Configuration.GetSection(Setting.TemplateSetting);
 var CorsPolicy = builder.Configuration.GetSection(Setting.CorsPolicySetting).Get<EM.CorsPolicySetting>();
 var encryptionService = new StringEncrypService();
 authsetting[nameof(EM.AuthSetting.Secret)] = encryptionService.EncryptString(authsetting[nameof(EM.AuthSetting.SecretKey)] ?? "");
 pathsetting[nameof(EM.PathSetting.Base)] = Directory.GetCurrentDirectory();
 builder.Services.Configure<EM.AuthSetting>(authsetting);
 builder.Services.Configure<EM.PathSetting>(pathsetting);
+builder.Services.Configure<EM.TemplateSetting>(templatesetting);
 builder.Services.Configure<EM.CorsPolicySetting>(builder.Configuration.GetSection(Setting.CorsPolicySetting));
 
 

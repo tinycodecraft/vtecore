@@ -29,3 +29,10 @@ public class PathSetting
 
     public string Base { get; set; }
 }
+
+
+public class TemplateSetting
+{
+    public string User { get; set; }
+
+}
