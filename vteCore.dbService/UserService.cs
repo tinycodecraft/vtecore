@@ -57,6 +57,32 @@ namespace vteCore.dbService
             return false;
         }
 
+        public RM.LinkResult Export(EM.MantineTableProps query)
+        {
+            try
+            {
+                query.Size = db.DFAUsers.Count();
+                var dataresult = List(query);
+                var datatable = ExcelHelper.ListToDataTable(dataresult.data.Select(e => UserMap.FromModel((DFAUser)e)).ToList());
+                var exportfile = SubStringExtensions.GetPath(pathOps, PathType.Share, "excel", "User" + "User".RandomString() + ".xlsm");
+                var error = ExcelHelper.CreateExcelFromDt(datatable, templateOps.User, exportfile);
+                if(!string.IsNullOrEmpty(error))
+                {
+                    logger.LogDebug(error);
+                    return null;
+                }
+                //Please use "Share." prefix for the type argument , otherwise, Upload path will be used for Stream.
+                var apipath = SubStringExtensions.GetPath(pathOps,PathType.Stream,"Share.excel",Path.GetFileName(exportfile));
+                return new RM.LinkResult("excel", apipath);
+
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+            }
+            return null;
+        }
+
         public RM.UserListResult List(EM.MantineTableProps query)
         {
             try

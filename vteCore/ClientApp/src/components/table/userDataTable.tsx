@@ -33,7 +33,8 @@ const UserDataTable = () => {
     sorting,
     handleDelete,
     handleEdit,
-    getDoubleClick
+    handleNew,
+    getDoubleClick,
   } = useContext(UserTableContext)
 
   const flatData = useMemo(() => data?.pages.flatMap((page) => page.data) ?? [], [data])
@@ -105,13 +106,13 @@ const UserDataTable = () => {
     enableRowVirtualization: true, // optional, but recommended if it is likely going to be more than 100 rows
     manualFiltering: true,
     manualSorting: true,
-    mantineTableBodyRowProps:({row})=> ({     
-      onDoubleClick: getDoubleClick && getDoubleClick(row.original)      
+    mantineTableBodyRowProps: ({ row }) => ({
+      onDoubleClick: getDoubleClick && getDoubleClick(row.original),
     }),
     positionToolbarAlertBanner: 'head-overlay',
     renderTopToolbarCustomActions: () => (
       <Tooltip label="Create New User">
-        <ActionIcon>
+        <ActionIcon onClick={() => handleNew && handleNew()}>
           <IconPlus />
         </ActionIcon>
       </Tooltip>
@@ -129,11 +130,11 @@ const UserDataTable = () => {
           >
             <IconFileExport /> Export Selected
           </button>
-          {!!handleDelete && table.getSelectedRowModel().rows.length >0 && (
+          {!!handleDelete && table.getSelectedRowModel().rows.length > 0 && (
             <button
               type="button"
               className="border flex items-center border-pink-500 bg-pink-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-pink-300 focus:outline-none focus:shadow-outline"
-              onClick={() => handleDelete && handleDelete(table.getSelectedRowModel().rows.map(e=> e.original))}
+              onClick={() => handleDelete && handleDelete(table.getSelectedRowModel().rows.map((e) => e.original))}
             >
               <IconTrash /> Remove Selected
             </button>

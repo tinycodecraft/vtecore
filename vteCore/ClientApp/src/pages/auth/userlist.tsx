@@ -22,15 +22,21 @@ export const UserListComponent: FunctionComponent = () => {
     }
   }, [])
 
-  const doubleClick = useCallback((value: UserData)=> {
-    return (event:React.MouseEvent<HTMLTableRowElement>) => {
-      if(value.userId)
-      {
-        navigate('/user',{state: { id: value.userId}})
+  const doubleClick = useCallback(
+    (value: UserData) => {
+      return (event: React.MouseEvent<HTMLTableRowElement>) => {
+        if (value.userId) {
+          navigate('/user', { state: { id: value.userId } })
+        }
       }
+    },
+    [token],
+  )
 
-    }
-  },[token])
+  const newHandler = useCallback(() => {
+    console.log(`try to new user`)
+    navigate('/edituser', { state: { id: '' } })
+  }, [token])
 
   const editHandler = useCallback(
     (value: UserData) => {
@@ -81,6 +87,7 @@ export const UserListComponent: FunctionComponent = () => {
               refreshToken={refreshToken}
               handleEdit={editHandler}
               handleDelete={deleteHandler}
+              handleNew={newHandler}
               getDoubleClick={doubleClick}
             >
               <UserDataTable />

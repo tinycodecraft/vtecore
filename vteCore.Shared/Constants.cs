@@ -26,6 +26,7 @@ namespace vteCore.Shared
             newPassword,
             getUser,
             userList,
+            userExport,
             saveUser,
         }
         public enum QueryOpType

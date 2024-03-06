@@ -69,6 +69,19 @@ namespace vteCore.Controllers
 
         [Authorize]
         [HttpPost]
+        public IActionResult Export(EM.MantineTableProps query)
+        {
+            var result = userService.Export(query);
+            if (result == null)
+            {
+                return Ok((ErrorOr<RM.LinkResult>)Error.Failure(code: nameof(FieldType.userExport), description: "user export could not be generated! please check log for details!"));
+            }
+            return Ok(result);
+
+        }
+
+        [Authorize]
+        [HttpPost]
         public IActionResult List(EM.MantineTableProps query)
         {
             var result = userService.List(query);

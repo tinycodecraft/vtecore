@@ -1,5 +1,6 @@
 import {
   ErrorOr,
+  ExportResult,
   FormPostState,
   LoginProps,
   MantineTableProps,
@@ -38,6 +39,11 @@ class LoginService extends BaseService {
   public async saveAsync(user: UserData): Promise<ErrorOr<string>> {
     const url = 'SaveModel'
     const { data } = await this.$wAuthHttp.post<ErrorOr<string>>(url, user)
+    return data
+  }
+  public async exportAsync(query: MantineTableProps): Promise<ErrorOr<ExportResult>> {
+    const url = 'Export'
+    const { data } = await this.$wAuthHttp.post<ErrorOr<ExportResult>>(url, query)
     return data
   }
 

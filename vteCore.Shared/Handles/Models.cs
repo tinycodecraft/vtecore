@@ -23,6 +23,7 @@ namespace vteCore.Handles
 
         }
 
+        public record LinkResult(string Type, string Link);
 
         public record UserResult(string UserName, string Token, string RefreshToken,bool DataAdminEnabled,bool DivisionAdminEnabled,bool ControlAdminEnabled);
 

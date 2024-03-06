@@ -41,6 +41,20 @@ export const EditUserComponent: FunctionComponent = () => {
   const editform = useForm<UserData>({ initialValues: EditUserFormInit })
   const navigate = useNavigate()
 
+  const newHandler = async () => {
+    console.log(`the new user called!`)
+    editform.setFieldValue('adminType', 'None')
+    dispatch(
+      getUserLevelAsync({
+        id: 'UserLevel',
+        handler: (data) => {
+          if (data.value) {
+            setUserLevels(data.value)
+          }
+        },
+      }),
+    )
+  }
   const initHandler = async (id: string) => {
     dispatch(
       getUserAsync({
@@ -117,7 +131,11 @@ export const EditUserComponent: FunctionComponent = () => {
     if (saved) {
       navigate('/userlist')
     }
-    initHandler(loc.state.id)
+    if (!loc.state.id) {
+      initHandler(loc.state.id)
+    } else {
+      newHandler()
+    }
   }, [token, loc.state.id, saved])
   return (
     <MantineProvider inherit theme={{ colorScheme: 'light' }}>
@@ -141,6 +159,7 @@ export const EditUserComponent: FunctionComponent = () => {
                 error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserId] : ''}
                 id={`${ApiFieldEnum.UserId}-input`}
                 withAsterisk
+                required
               >
                 <Input
                   required
@@ -150,13 +169,14 @@ export const EditUserComponent: FunctionComponent = () => {
                       pointerEvents: 'auto',
                     },
                   })}
-                  disabled={true}
+                  disabled={!!editform.getInputProps('userId').value}
                   autoComplete="off"
                   icon={
                     <div className="tooltip tooltip-top" data-tip="Your User Id">
                       <IconBadge size="1rem" />
                     </div>
                   }
+                  
                   placeholder="User Id"
                   {...editform.getInputProps('userId')}
                 />
@@ -174,7 +194,7 @@ export const EditUserComponent: FunctionComponent = () => {
                       pointerEvents: 'auto',
                     },
                   })}
-                  disabled={true}
+                  disabled={!!editform.getInputProps('userId').value}
                   autoComplete="off"
                   icon={
                     <div className="tooltip tooltip-top" data-tip="Your Name">
@@ -279,7 +299,6 @@ export const EditUserComponent: FunctionComponent = () => {
                 defaultValue={userLevels.find((e) => editform.getInputProps('level').value == e.value)}
                 value={userLevels.find((e) => editform.getInputProps('level').value == e.value)}
                 onChange={(item) => item && editform.getInputProps('level').onChange(item.value)}
-                
               />
             </Input.Wrapper>
             {/* <NativeSelect

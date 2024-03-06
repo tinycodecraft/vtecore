@@ -10,6 +10,7 @@ const UserTableContext = createContext<Partial<UserListContextProps>>({})
 
 type HandlerForEdit = (value: UserData) => void
 type HandlerForDelete = (values: UserData[]) => void
+type HandlerForNew = ()=> void
 
 export const UserTableContextProvider = ({
   children,
@@ -18,13 +19,15 @@ export const UserTableContextProvider = ({
   refreshToken,
   handleDelete,
   handleEdit,
-  getDoubleClick
+  getDoubleClick,
+  handleNew
 }: PropsWithChildren<{
   fetchSize: number
   token: string
   refreshToken: string
   handleEdit: HandlerForEdit
   handleDelete: HandlerForDelete,
+  handleNew?: HandlerForNew
   getDoubleClick: (row: UserData) => React.MouseEventHandler<HTMLTableRowElement>
 }>) => {
   const tableRef = useRef<HTMLDivElement | null>(null)
@@ -81,6 +84,7 @@ export const UserTableContextProvider = ({
         fetchNextPage,
         handleDelete,
         handleEdit,
+        handleNew,
         getDoubleClick
       }}
     >

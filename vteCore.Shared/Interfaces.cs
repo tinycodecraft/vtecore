@@ -49,6 +49,7 @@ namespace vteCore.Shared
             //change password by admin without oldpassword
             bool ChangePassword(string username, string password, string byusername, string oldpassword = null);
 
+            RM.LinkResult Export(EM.MantineTableProps query);
             IAuthResult? Login(string username, string password);
 
             RM.UserListResult List(EM.MantineTableProps query);
