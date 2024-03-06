@@ -65,8 +65,6 @@ export type HubState = Readonly<{
 
 export type UserState = Omit<HubState, 'connectionId'>
 
-
-
 // FORM HELP TYPES
 
 export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
@@ -92,11 +90,9 @@ export type WeatherState = Readonly<{
   forecasts: WeatherForecast[]
 }>
 
-
 export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts'>
 
-
-//User List Result 
+//User List Result
 export type UserData = Readonly<{
   loginedAt?: Date
   isReset: boolean
@@ -112,6 +108,7 @@ export type UserData = Readonly<{
   adminType?: string
   userName: string
   userId: string
+  id: number
 }>
 export type UserListResult = ListResult<UserData>
 

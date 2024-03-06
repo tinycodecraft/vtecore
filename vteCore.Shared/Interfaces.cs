@@ -59,6 +59,7 @@ namespace vteCore.Shared
 
         public interface IUser
         {
+            int Id { get; }
             DateTime? loginedAt { get; }
             bool IsReset { get; }
             DateTime updatedAt { get; }

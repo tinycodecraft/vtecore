@@ -63,6 +63,7 @@ export const EditUserFormInit: UserData = {
   userId: '',
   updatedBy: '',
   userName: '',
+  id: 0
 }
 
 export const ApiErrorInit: ApiErrorState = {}

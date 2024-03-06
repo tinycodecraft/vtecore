@@ -6,6 +6,8 @@ namespace vteCore.Mappers
     public class UserMap:BaseDto<UserMap,DFAUser>,IAuthResult,IAuthAuditResult,IUser
     {
         
+        public int Id { get; set; }
+
         [Display(Order = 0,Name ="User Id")]
         public string UserId { get; set; }
         [Display(Order = 1, Name = "User Name")]
