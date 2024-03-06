@@ -19,14 +19,18 @@ namespace vteCore.Controllers
         [Route("Download/{type}/{filename}")]
         public async Task Get(string type, string filename)
         {
-            var besplit = type != null && type.Contains(".");
-            if (besplit)
+            //if the dot present in type parameter
+            //the share folder is used instead of upload folder
+            //share folder is the generated file place.
+            //upload folder is the uploaded file place.
+            var isShared = type != null && type.Contains(".");
+            if (isShared)
             {
 
                 // var pathtype = type.Substring(0,type.IndexOf("."));
                 type = type.Substring(type.IndexOf(".") + 1);
             }
-            var filepath = await fileService.DownloadFilesAsync(Response.Body, type, filename, !besplit);
+            var filepath = await fileService.DownloadFilesAsync(Response.Body, type, filename, !isShared);
 
             var provider = new FileExtensionContentTypeProvider();
             var filecontenttype = string.Empty;
