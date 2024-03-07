@@ -9,9 +9,10 @@ import {
   HubInit,
   HubState,
   LabelDetail,
+  ToastEnum,
   UserData,
 } from '@/constants/types'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { makeToast, useAppDispatch, useAppSelector } from '@/hooks'
 import { getUserAsync, getUserLevelAsync, saveUserAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, Group, Input, MantineProvider, NativeSelect, Radio, Select, SimpleGrid } from '@mantine/core'
@@ -28,6 +29,8 @@ import {
 import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
+import { toast } from 'react-toastify'
+import { clearError } from '@/hooks/store/dmFieldSlice'
 
 export const EditUserComponent: FunctionComponent = () => {
   const loc = useLocation()
@@ -40,6 +43,7 @@ export const EditUserComponent: FunctionComponent = () => {
   const dispatch = useAppDispatch()
   const editform = useForm<UserData>({ initialValues: EditUserFormInit })
   const navigate = useNavigate()
+  const toastError = makeToast({ type: ToastEnum.Error })
 
   const newHandler = async () => {
     console.log(`the new user called!`)
@@ -114,6 +118,7 @@ export const EditUserComponent: FunctionComponent = () => {
             handler: (result) => {
               console.log(`the result saved!`, result)
               setSaved(!result.isError)
+
               return result.isError
             },
           }),
@@ -124,7 +129,6 @@ export const EditUserComponent: FunctionComponent = () => {
   )
 
   useEffect(() => {
-    
     if (!token) {
       navigate('/login')
       return
@@ -137,9 +141,16 @@ export const EditUserComponent: FunctionComponent = () => {
       initHandler(loc.state.id)
     } else {
       newHandler()
-      
     }
   }, [token, loc.state.id, saved])
+
+  useEffect(() => {
+    console.log(`the save has error!`, fields)
+    if (fields[ApiFieldEnum.SaveUser]) {
+      toastError(fields[ApiFieldEnum.SaveUser])
+    }
+  }, [fields])
+
   return (
     <MantineProvider inherit theme={{ colorScheme: 'light' }}>
       <Container

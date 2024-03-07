@@ -28,17 +28,13 @@ const LoginForm: FunctionComponent = () => {
   const { token, refreshToken, userName, status } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
   const dispatch = useAppDispatch()
-  const toastId = useRef<string | number | null>(null)
+  
   const { navHeight } = useContext(CtxForLayout)
   const navigate = useNavigate()
   const loginForm = useForm({
     initialValues: LoginFormInit,
   })
-  const toastHandler = useCallback((message: string) => {
-    if (!toastId || !toastId.current) {
-      toastId.current = toast(message, { position: 'top-center' })
-    }
-  }, [])
+
 
   
   const submitHandler = useCallback(

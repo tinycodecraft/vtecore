@@ -5,9 +5,7 @@ export const dmFieldState = createSlice({
   name: 'dmField',
   initialState: ApiErrorInit,
   reducers: {
-    clearError: (state) => {
-      state = {}
-    },
+    clearError: () => ApiErrorInit,
     receiveError: (state, action: PayloadAction<ApiErrorState>) => {
       if (action.payload) {
         Object.entries(action.payload).forEach(([key, value]) => {
@@ -32,6 +30,9 @@ export const dmFieldState = createSlice({
               break
             case ApiFieldEnum.GetUser:
               state[ApiFieldEnum.GetUser] = value
+              break
+            case ApiFieldEnum.SaveUser:
+              state[ApiFieldEnum.SaveUser] = value
               break
             case ApiFieldEnum.userList:
               state[ApiFieldEnum.userList] = value

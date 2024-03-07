@@ -2,11 +2,12 @@ import { UserTableContextProvider } from '@/components/context/CtxForUserTable'
 import UserDataTable from '@/components/table/userDataTable'
 import { ApiErrorInit, ApiErrorState, HubInit, HubState, UserData } from '@/constants/types'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { clearError } from '@/hooks/store/dmFieldSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, MantineProvider } from '@mantine/core'
 import { FunctionComponent, useCallback, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router'
-import { toast } from 'react-toastify'
+import { toast, Id } from 'react-toastify'
 
 export const UserListComponent: FunctionComponent = () => {
   const fields = useAppSelector<ApiErrorState>((state) => state.dmField ?? ApiErrorInit)
@@ -14,13 +15,6 @@ export const UserListComponent: FunctionComponent = () => {
   const { token, userName, refreshToken } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const toastId = useRef<string | number | null>(null)
-
-  const toastHandler = useCallback((message: string) => {
-    if (!toastId || !toastId.current) {
-      toastId.current = toast(message, { position: 'top-center' })
-    }
-  }, [])
 
   const doubleClick = useCallback(
     (value: UserData) => {
@@ -34,13 +28,16 @@ export const UserListComponent: FunctionComponent = () => {
   )
 
   const newHandler = useCallback(() => {
+    dispatch(clearError())
     console.log(`try to new user`)
+
     navigate('/edituser', { state: { id: '' } })
   }, [token])
 
   const editHandler = useCallback(
     (value: UserData) => {
       if (value) {
+        dispatch(clearError())
         console.log(`try to edit the user id`, value.userId)
         navigate('/edituser', { state: { id: value.userId } })
       }

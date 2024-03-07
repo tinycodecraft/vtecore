@@ -88,13 +88,15 @@ export const saveUserAsync = createAsyncThunk(
         LoginApi.refreshToken = renewToken
       }
       dispatch(waitFormState(value.data.userId))
-      console.log(`the query value is `,value)
+      console.log(`the query value is `, value)
       const response = await LoginApi.saveAsync(value.data)
+      dispatch(clearError())
       console.log(`the save user response is `, response)
+
       if (response.isError) {
         dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
       }
-      value.handler(getErrorOr(response.value,response.isError ? response.errors: []))
+      value.handler(getErrorOr(response.value, response.isError ? response.errors : []))
       dispatch(receiveFormState(response))
     } catch (e) {
       console.error(e)

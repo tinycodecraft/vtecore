@@ -41,13 +41,27 @@ namespace vteCore.dbService
                 
                 if (map != null )
                 {
-                    if (founduser == null && map.Id==0)
+                    var isnew = founduser == null && map.Id == 0;
+                    if (isnew)
                         founduser = new DFAUser();
                     if(founduser != null)
                     {
                         map.ToModel(founduser);
+                        if(isnew)
+                        {
+                            db.DFAUsers.Add(founduser);
+                            var hasher = new PasswordHasher();
+                            founduser.EncPassword = hasher.HashPassword(Setting.DefaultPassword);
+                            founduser.IsReset = true;
+                            db.Entry(founduser).State = Microsoft.EntityFrameworkCore.EntityState.Added;
 
-                        db.Entry(founduser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        }
+                        else
+                        {
+                            db.Entry(founduser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        }
+
+                        
                         db.SaveChanges();
                         return true;
                     }

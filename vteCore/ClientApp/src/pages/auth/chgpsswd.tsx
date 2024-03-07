@@ -28,7 +28,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
   const { token, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const toastId = useRef<string | number | null>(null)
+  
   const psswdForm = useForm<LoginProps>({
     initialValues: {
       userName: userName,
@@ -39,11 +39,7 @@ export const ChangePasswordComponent: FunctionComponent = () => {
       confirmPassword: '',
     },
   })
-  const toastHandler = useCallback((message: string) => {
-    if (!toastId || !toastId.current) {
-      toastId.current = toast(message, { position: 'top-center' })
-    }
-  }, [])
+
   const submitHandler = useCallback(
     psswdForm.onSubmit((values) => {
       console.log(`the password change values are: `, values)

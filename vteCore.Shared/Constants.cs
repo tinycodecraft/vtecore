@@ -108,6 +108,8 @@ namespace vteCore.Shared
             public const string CorsPolicySetting = nameof(CorsPolicySetting);
 
             public const int JWTExpirationInMins = 8 * 30 * 2;
+
+            public const string DefaultPassword = "abc123";
             
         }
     }

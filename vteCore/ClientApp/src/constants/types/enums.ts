@@ -8,12 +8,6 @@ export const ApiStatusEnum = {
 
 export type ApiStatusEnum = (typeof ApiStatusEnum)[keyof typeof ApiStatusEnum]
 
-export const FieldsEnum = {
-  WHOLERECORD: 'all',
-  USERNAME: 'userName',
-  PASSWORD: 'password',
-} as const
-export type FieldsEnum = (typeof FieldsEnum)[keyof typeof FieldsEnum]
 
 export const LangEnum = {
   CHINESE: 'zh-HK',
@@ -31,11 +25,21 @@ export const ApiFieldEnum = {
   NewPassword: 'newPassword',
   ConfirmPassword: 'confirmPassword',
   GetUser: 'getUser',
+  SaveUser: 'saveUser',
   userList: 'userList'
 
 
 } as const 
 export type ApiFieldEnum = (typeof ApiFieldEnum)[keyof typeof ApiFieldEnum]
+
+export const ToastEnum = {
+  Warn: 'warn',
+  Success: 'success',
+  Info: 'info',
+  Error: 'error'
+
+} as const
+export type ToastEnum = (typeof ToastEnum)[keyof typeof ToastEnum]
 
 export const ErrorEnum = {
   Failure: 'Failure',
