@@ -93,7 +93,7 @@ export const saveUserAsync = createAsyncThunk(
       if (response.isError) {
         dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
       }
-      value.handler(getErrorOr(response.value, response.errors))
+      value.handler(getErrorOr(response.value,response.isError ? response.errors: []))
       dispatch(receiveFormState(response))
     } catch (e) {
       console.error(e)

@@ -124,6 +124,7 @@ export const EditUserComponent: FunctionComponent = () => {
   )
 
   useEffect(() => {
+    console.log(`${!loc.state.id}`, loc.state)
     if (!token) {
       navigate('/login')
       return
@@ -131,10 +132,12 @@ export const EditUserComponent: FunctionComponent = () => {
     if (saved) {
       navigate('/userlist')
     }
-    if (!loc.state.id) {
+    if (loc.state.id) {
+      console.log(`try to initHandler`)
       initHandler(loc.state.id)
     } else {
       newHandler()
+      
     }
   }, [token, loc.state.id, saved])
   return (
@@ -169,14 +172,13 @@ export const EditUserComponent: FunctionComponent = () => {
                       pointerEvents: 'auto',
                     },
                   })}
-                  disabled={!!editform.getInputProps('userId').value}
+                  disabled={!(Number(editform.getInputProps('id').value) === 0)}
                   autoComplete="off"
                   icon={
                     <div className="tooltip tooltip-top" data-tip="Your User Id">
                       <IconBadge size="1rem" />
                     </div>
                   }
-                  
                   placeholder="User Id"
                   {...editform.getInputProps('userId')}
                 />
@@ -194,7 +196,7 @@ export const EditUserComponent: FunctionComponent = () => {
                       pointerEvents: 'auto',
                     },
                   })}
-                  disabled={!!editform.getInputProps('userId').value}
+                  disabled={!(Number(editform.getInputProps('id').value) === 0)}
                   autoComplete="off"
                   icon={
                     <div className="tooltip tooltip-top" data-tip="Your Name">

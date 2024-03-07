@@ -38,15 +38,24 @@ namespace vteCore.dbService
             try {
                 var founduser = db.DFAUsers.FirstOrDefault(e => e.UserId == user.UserId);
                 var map = user as UserMap;
-                if (map != null && founduser != null)
+                
+                if (map != null )
                 {
-                    map.ToModel(founduser);
+                    if (founduser == null && map.Id==0)
+                        founduser = new DFAUser();
+                    if(founduser != null)
+                    {
+                        map.ToModel(founduser);
 
-                    db.Entry(founduser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    db.SaveChanges();
+                        db.Entry(founduser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        db.SaveChanges();
+                        return true;
+                    }
+
 
                 }
-                return true;
+                logger.LogDebug($"the user {user.UserId} could not be found for updating!");
+                return false;
 
             }
             catch(Exception ex)

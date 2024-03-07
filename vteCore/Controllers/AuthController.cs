@@ -36,7 +36,7 @@ namespace vteCore.Controllers
         {
             var val = new UserValidator();
             var errors = val.Validate(model);
-            if (errors != null)
+            if (errors != null && !errors.IsValid)
             {
                 var msgs = errors.Errors.Select(e=> Error.Failure(code: e.PropertyName.PascaltoCamel(), description: e.ErrorMessage)).ToArray();
 

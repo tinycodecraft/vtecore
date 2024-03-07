@@ -56,7 +56,7 @@ public readonly record struct ErrorOr<TValue> : IErrorOr<TValue>
                 return NoFirstError;
             }
 
-            if (_errors == null)
+            if (_errors == null || _errors.Count==0)
                 return NoFirstError;
 
             return _errors![0];
