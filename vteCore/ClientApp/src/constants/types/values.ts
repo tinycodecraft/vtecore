@@ -48,6 +48,7 @@ export const HubInit: HubState = {
   controlAdminEnabled: false,
   dataAdminEnabled: false,
   divisionAdminEnabled: false,
+  needReset: false
 }
 
 export const EditUserFormInit: UserData = {

@@ -1,5 +1,5 @@
 import { FC, Fragment, PropsWithChildren, useEffect, useRef } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useLocation } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store, persistor } from '@/hooks'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -10,6 +10,7 @@ import { HubConnectionState } from '@microsoft/signalr'
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const query = new QueryClient()
+  
 
   const signalrState = useRef<HubConnectionState>()
   useEffect(() => {
@@ -25,6 +26,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
         }
       }
     }
+    
     connect()
   }, [])
 

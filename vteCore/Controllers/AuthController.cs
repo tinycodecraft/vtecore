@@ -145,7 +145,7 @@ namespace vteCore.Controllers
                 var refresh = TokenService.GenerateRefreshToken();
                 HttpContext.Session.SetStr(Sessions.USERID, user.UserId);
                 HttpContext.Session.SetStr(Sessions.REFRESHTOKEN, refresh);
-                var result = (ErrorOr<RM.UserResult>)new RM.UserResult(user.UserName, token, refresh,user.IsDataAdmin,user.IsDivisionAdmin,user.IsControlAdmin);
+                var result = (ErrorOr<RM.UserResult>)new RM.UserResult(user.UserName, token, refresh,user.IsDataAdmin,user.IsDivisionAdmin,user.IsControlAdmin,user.NeedReset);
                 return Ok(result);
             }
             else

@@ -47,7 +47,14 @@ public partial class DFAUser: IUser,IAuthAuditResult,IAuthResult
             return this.AdminScope == nameof(AdminScopeType.Full);
         }
     }
-
+    [NotMapped]
+    public bool NeedReset
+    {
+        get
+        {
+            return this.IsReset;
+        }
+    }
     
 
 }

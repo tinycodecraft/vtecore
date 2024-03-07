@@ -1,4 +1,4 @@
-import { FC, forwardRef, useRef, useState } from 'react'
+import { FC, forwardRef, useEffect, useRef, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 import routes from '@/constants/routes/config'
 import LazyLoad from 'react-lazy-load'
@@ -12,11 +12,11 @@ const RouterComponent: FC = () => {
 
   return (
     <Routes location={location}>
-      {routes.map(({ path,params, Component, name, ...rest }, index) => {
+      {routes.map(({ path, params, Component, name, ...rest }, index) => {
         nodeRefs[index] = useRef(null)
         const ForwComponent = forwardRef<HTMLDivElement>((props, ref) => (
           <div ref={ref}>
-            <LazyLoad onContentVisible={() => console.log(`${index} of page loaded.`)} >
+            <LazyLoad onContentVisible={() => console.log(`${index} of page loaded.`)}>
               <Component {...props} />
             </LazyLoad>
           </div>
@@ -25,7 +25,7 @@ const RouterComponent: FC = () => {
         return (
           <Route
             key={name}
-            path={generatePath(path,params)}
+            path={generatePath(path, params)}
             action={async () => setRefIndex(index)}
             element={<ForwComponent ref={nodeRefs[index]} {...rest} />}
           />

@@ -98,6 +98,7 @@ namespace vteCore.Shared
             bool IsDivisionAdmin { get;  }
             bool IsDataAdmin { get; }
             bool IsControlAdmin { get; }
+            bool NeedReset { get;  }
 
             string UserName { get; }
             string Email { get; }

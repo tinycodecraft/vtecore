@@ -26,6 +26,12 @@ namespace vteCore.Mappers
         public DateTime? loginedAt { get; set; }
         [Display(Order = 3, Name = "Change Password Required")]
         public bool IsReset { get; set; }
+
+        public bool NeedReset { get
+            {
+                return this.IsReset;
+            } 
+        }
         public DateTime updatedAt { get; set; }
         public string updatedBy { get; set; }
         [Display(Order = 4, Name = "Post")]

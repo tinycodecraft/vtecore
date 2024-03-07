@@ -61,6 +61,7 @@ export type HubState = Readonly<{
   divisionAdminEnabled: boolean
   dataAdminEnabled: boolean
   status: ApiStatusEnum
+  needReset: boolean
 }>
 
 export type UserState = Omit<HubState, 'connectionId'>

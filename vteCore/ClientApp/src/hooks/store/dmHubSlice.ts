@@ -9,15 +9,7 @@ export const dmHubState = createSlice({
   name: 'dmHub',
   initialState: HubInit,
   reducers: {
-    removeToken: (state) => {
-      state.token = undefined
-      state.refreshToken = undefined
-      state.userName = ''
-      state.status = ApiStatusEnum.NONE
-      state.dataAdminEnabled = false
-      state.controlAdminEnabled = false
-      state.divisionAdminEnabled = false
-    },
+    removeToken: () => HubInit,
     waitForHubInfo: (state) => {
       state.status = ApiStatusEnum.PROCESS
     },
@@ -42,6 +34,7 @@ export const dmHubState = createSlice({
           state.controlAdminEnabled = action.payload.value.controlAdminEnabled
           state.dataAdminEnabled =action.payload.value.dataAdminEnabled
           state.divisionAdminEnabled = action.payload.value.divisionAdminEnabled
+          state.needReset = action.payload.value.needReset
         }
       }
     },
