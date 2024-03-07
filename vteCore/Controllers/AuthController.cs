@@ -30,6 +30,8 @@ namespace vteCore.Controllers
 
         }
 
+        //Pleae note that if the json post without Email field or any field missing.  It will get status 400 on post
+        //you need to add optional "?" to the missing field in the model
         [Authorize]
         [HttpPost]
         public IActionResult SaveModel(UserMap model)

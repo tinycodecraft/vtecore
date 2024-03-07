@@ -12,8 +12,10 @@ namespace vteCore.Mappers
         public string UserId { get; set; }
         [Display(Order = 1, Name = "User Name")]
         public string UserName { get; set; }
+
+        //Pleae note that if the json post without Email field.  It will get status 400 on post
         [Display(Order = 2, Name = "User Email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Display(Order = 8, Name = "Is Division Admin")]
         public bool IsDivisionAdmin { get ; set ; }
         [Display(Order = 9, Name = "Is Data Admin")]

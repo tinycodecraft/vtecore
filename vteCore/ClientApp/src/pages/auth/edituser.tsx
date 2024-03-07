@@ -124,7 +124,7 @@ export const EditUserComponent: FunctionComponent = () => {
   )
 
   useEffect(() => {
-    console.log(`${!loc.state.id}`, loc.state)
+    
     if (!token) {
       navigate('/login')
       return
