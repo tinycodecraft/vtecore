@@ -74,7 +74,7 @@ export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
   rel: 'noopener noreferrer',
 }
 
-export type SelectOption = Readonly<Pick<SelectItemProps, 'value' | 'label'>>
+
 
 export type WeatherForecast = Readonly<{
   id: number

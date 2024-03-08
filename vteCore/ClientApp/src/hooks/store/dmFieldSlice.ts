@@ -31,6 +31,9 @@ export const dmFieldState = createSlice({
             case ApiFieldEnum.GetUser:
               state[ApiFieldEnum.GetUser] = value
               break
+            case ApiFieldEnum.RemoveUsers:
+              state[ApiFieldEnum.RemoveUsers] = value
+              break
             case ApiFieldEnum.SaveUser:
               state[ApiFieldEnum.SaveUser] = value
               break

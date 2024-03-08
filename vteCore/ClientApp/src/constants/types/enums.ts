@@ -26,6 +26,7 @@ export const ApiFieldEnum = {
   ConfirmPassword: 'confirmPassword',
   GetUser: 'getUser',
   SaveUser: 'saveUser',
+  RemoveUsers: 'removeUsers',
   userList: 'userList'
 
 

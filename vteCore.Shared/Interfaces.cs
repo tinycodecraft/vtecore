@@ -42,6 +42,7 @@ namespace vteCore.Shared
         public interface IUserService
         {
 
+            bool Remove(string ids);
             bool Save(IUser user);
 
             //username can be id or name 

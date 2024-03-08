@@ -27,11 +27,6 @@ export type UploadState = {
   fileResults?: UploadedFileState[]
 }
 
-export type DownloadLinkResult = Readonly<{
-  status: ApiStatusEnum
-  downloadLink: string
-  type: string
-}>
 
 export type FileUploadSummaryState = {
   totalFilesUploaded: number
@@ -47,6 +42,7 @@ export type MantineTableProps = Readonly<{
   filtering?: MRT_ColumnFiltersState
   globalFilter?: string
   sorting?: MRT_SortingState
+  withDisabled?: boolean
 }>
 
 export type ListResult<T> = Readonly<{
@@ -101,10 +97,12 @@ export interface ListContextProps<T> {
   isError: boolean
   isFetching: boolean
   isLoading: boolean
+  withDisabled: boolean  
   filtering: MRT_ColumnFiltersState
   sorting: MRT_SortingState
   rowSelection: MRT_RowSelectionState
   globalFilter: string
+  setWithDisabled: (value: SetStateAction<boolean>) => void
   setFiltering: (value: SetStateAction<MRT_ColumnFiltersState>) => void
   setSorting: (value: SetStateAction<MRT_SortingState>) => void
   setGlobalFilter: (value: SetStateAction<string | undefined>) => void

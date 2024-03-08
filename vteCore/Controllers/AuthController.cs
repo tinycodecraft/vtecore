@@ -59,6 +59,16 @@ namespace vteCore.Controllers
 
         [Authorize]
         [HttpGet]
+        public IActionResult Remove(string ids)
+        {
+
+
+            return Ok((ErrorOr<string>)Error.Failure(code: nameof(FieldType.removeUsers), description: $"fail to remove {ids} due to internal error(Please check the log for details)"));
+        }
+        
+
+        [Authorize]
+        [HttpGet]
         public IActionResult GetModel(string id)
         {
             var user = userService.Get(id) as UserMap;

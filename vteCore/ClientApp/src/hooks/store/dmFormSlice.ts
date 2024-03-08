@@ -1,15 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { FormPostInit } from '@/constants/types/values'
-import {
-  ApiErrorState,
-  ErrorOr,
-  FormPostState,
-  LabelDetail,
-  LoginProps,
-  SaveForm,
-  SelectOption,
-  UserData,
-} from '@/constants/types'
+import { ApiErrorState, ErrorOr, FormPostState, LabelDetail, LoginProps, SaveForm, UserData } from '@/constants/types'
 import { ApiStatusEnum, QueryForm } from '@/constants/types'
 import { LoginApi } from '@/api/login.service'
 import { clearError, receiveError } from './dmFieldSlice'
@@ -68,6 +59,39 @@ export const getUserLevelAsync = createAsyncThunk(
       dispatch(receiveFormState(getErrorOr(userName)))
     } catch (e) {
       console.error(e)
+      dispatch(raiseErrorFormState())
+    }
+  },
+)
+
+export const removeUserAsync = createAsyncThunk(
+  'dmForm/removeUserAsync',
+  async (value: SaveForm<string>, { dispatch, getState }) => {
+    const {
+      dmHub: { token: accessToken, refreshToken: renewToken, userName },
+    } = (getState as () => RootState)()
+    console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
+    try {
+      if (accessToken) {
+        LoginApi.token = accessToken
+      }
+      if (renewToken) {
+        LoginApi.refreshToken = renewToken
+      }
+
+      dispatch(waitFormState(userName))
+
+      console.log(`the remove user params is`, value)
+      const response = await LoginApi.removeAsync(value.data)
+      dispatch(clearError())
+      console.log(`the remove user response is `, response)
+      if (response.isError) {
+        dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
+      }
+      value.handler(getErrorOr(response.value, response.isError ? response.errors : []))
+      dispatch(receiveFormState(response))
+    } catch (ex) {
+      console.error(ex)
       dispatch(raiseErrorFormState())
     }
   },

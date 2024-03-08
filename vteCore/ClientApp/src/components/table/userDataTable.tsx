@@ -13,6 +13,7 @@ import {
   IconTrash,
   IconX,
 } from '@tabler/icons-react'
+import { AddControl } from '../layout/mnAddBtn'
 
 const UserDataTable = () => {
   const {
@@ -111,11 +112,7 @@ const UserDataTable = () => {
     }),
     positionToolbarAlertBanner: 'head-overlay',
     renderTopToolbarCustomActions: () => (
-      <Tooltip label="Create New User">
-        <ActionIcon onClick={() => handleNew && handleNew()}>
-          <IconPlus />
-        </ActionIcon>
-      </Tooltip>
+      <AddControl label="Add" clickHandler={(e) => handleNew && handleNew()} tooltip="Add User" />
     ),
     renderToolbarAlertBannerContent: ({ selectedAlert, table }) => (
       <Flex justify="space-between">

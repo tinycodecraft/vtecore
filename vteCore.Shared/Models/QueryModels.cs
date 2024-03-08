@@ -45,6 +45,8 @@ namespace vteCore.Shared.Models
         public string GlobalFilter { get; set; }
 
         public SortProps[] Sorting { get; set; }
+
+        public bool? WithDisabled { get; set; }
     }
     
 

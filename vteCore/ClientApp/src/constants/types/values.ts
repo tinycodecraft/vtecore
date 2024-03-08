@@ -4,18 +4,14 @@ import {
   FormPostState,
   HubState,
   LoginProps,
-  RouteInput,
-  SelectOption,
+  
+  
   UserData,
   WeatherState,
 } from './views'
 import { ApiStatusEnum } from './enums'
-import dayjs from 'dayjs'
 
-export const SELECT_OPTION_TEMPLATE: SelectOption[] = [
-  { value: '', label: '(All)' },
-  { value: '', label: '(Any)' },
-]
+
 
 export const TRANSITION_DEFAULT = {
   classNames: 'fade',

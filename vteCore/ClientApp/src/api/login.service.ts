@@ -36,6 +36,12 @@ class LoginService extends BaseService {
     return data
   }
 
+  public async removeAsync(ids: string): Promise<ErrorOr<string>> {
+    const url = 'Remove'
+    const { data } = await this.$wAuthHttp.get<ErrorOr<string>>(url, { params: { ids } })
+    return data
+  }
+
   public async saveAsync(user: UserData): Promise<ErrorOr<string>> {
     const url = 'SaveModel'
     const { data } = await this.$wAuthHttp.post<ErrorOr<string>>(url, user)

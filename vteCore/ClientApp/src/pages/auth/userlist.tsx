@@ -1,8 +1,9 @@
 import { UserTableContextProvider } from '@/components/context/CtxForUserTable'
 import UserDataTable from '@/components/table/userDataTable'
-import { ApiErrorInit, ApiErrorState, HubInit, HubState, UserData } from '@/constants/types'
-import { useAppDispatch, useAppSelector } from '@/hooks'
+import { ApiErrorInit, ApiErrorState, HubInit, HubState, ToastEnum, UserData } from '@/constants/types'
+import { makeToast, useAppDispatch, useAppSelector } from '@/hooks'
 import { clearError } from '@/hooks/store/dmFieldSlice'
+import { removeUserAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, MantineProvider } from '@mantine/core'
 import { FunctionComponent, useCallback, useEffect, useRef } from 'react'
@@ -15,6 +16,7 @@ export const UserListComponent: FunctionComponent = () => {
   const { token, userName, refreshToken } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const toastMaker = makeToast({ type: ToastEnum.Error })
 
   const doubleClick = useCallback(
     (value: UserData) => {
@@ -48,6 +50,23 @@ export const UserListComponent: FunctionComponent = () => {
     (values: UserData[]) => {
       if (values && values.length > 0) {
         console.log(`remove the user ids`, values)
+        const ids = values.map((e) => e.id.toString()).join(',')
+        dispatch(
+          removeUserAsync({
+            data: ids,
+            handler: (response) => {
+              if (response.isError) {
+                console.log(`the remove user ${ids} get error`, response)
+                if (response.errors && response.errors.length > 0) {
+                  toastMaker(response.errors[0].description)
+                }
+
+                return false
+              }
+              return true
+            },
+          }),
+        )
       }
     },
     [token],

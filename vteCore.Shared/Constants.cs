@@ -28,6 +28,7 @@ namespace vteCore.Shared
             userList,
             userExport,
             saveUser,
+            removeUsers,
         }
         public enum QueryOpType
         {

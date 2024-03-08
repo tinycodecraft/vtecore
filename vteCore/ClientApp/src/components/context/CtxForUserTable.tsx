@@ -36,9 +36,10 @@ export const UserTableContextProvider = ({
   const [globalFilter, setGlobalFilter] = useState<string>()
   const [sorting, setSorting] = useState<MRT_SortingState>([])
   const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
+  const [withDisabled, setWithDisabled] = useState(false)
 
   const { data, fetchNextPage, isError, isFetching, isLoading } = useInfiniteQuery<UserListResult>({
-    queryKey: ['table-user', columnFilters, globalFilter, sorting],
+    queryKey: ['table-user', columnFilters, globalFilter, sorting,withDisabled],
     getNextPageParam: (_lastGroup, groups) => groups.length,
     queryFn: async ({ pageParam = 0 }) => {
       console.log(`the filter values of columns`, columnFilters)
@@ -52,6 +53,7 @@ export const UserTableContextProvider = ({
         filtering: columnFilters,
         globalFilter,
         sorting,
+        withDisabled
       })
 
       if (response.isError) {
@@ -85,7 +87,9 @@ export const UserTableContextProvider = ({
         handleDelete,
         handleEdit,
         handleNew,
-        getDoubleClick
+        getDoubleClick,
+        withDisabled,
+        setWithDisabled
       }}
     >
       {children}

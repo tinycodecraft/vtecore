@@ -33,6 +33,33 @@ namespace vteCore.dbService
             return null;
         }
 
+        public bool Remove(string ids)
+        {
+            try
+            {
+                if(!string.IsNullOrEmpty(ids))
+                {
+                    var idlist = ids.ItSplit(",").Where(e=> PropsExtensions.IsInteger(e)).Select(e=> int.Parse(e)).ToArray();
+                    var removeUsers = db.DFAUsers.Where(e=> idlist.Contains(e.Id)).ToList();
+                    foreach( var user in removeUsers )
+                    {
+                        user.Disabled = true;
+                        db.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        
+                    }
+                    db.SaveChanges();
+
+                }
+
+            }
+            catch(Exception ex) {
+                logger.LogError(ex, ex.Message);
+            }
+
+            return false;
+        }
+
+
         public bool Save(IUser user)
         {
             try {
@@ -141,8 +168,13 @@ namespace vteCore.dbService
 
                     };
 
+                    
 
-
+                }
+                var allRecords = query.WithDisabled == null || !query.WithDisabled.Value;
+                if(!allRecords)
+                {
+                    nv.AddQueryParam(db.DFAUsers,x=> x.Disabled, false.ToString(), Op.equal);
                 }
 
                 var result = db.GetSearch<DFAUser>(nv);
