@@ -2,7 +2,7 @@ import React, { UIEvent, useCallback, useContext, useEffect, useMemo } from 'rea
 import UserTableContext from '@/components/context/CtxForUserTable'
 import { MRT_SelectCheckbox, MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { UserDataColumns } from './userDataColumns'
-import { ActionIcon, Button, Flex, Text, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Flex, Group, SegmentedControl, Text, Tooltip } from '@mantine/core'
 import {
   IconCross,
   IconEdit,
@@ -27,6 +27,8 @@ const UserDataTable = () => {
     ref,
     rowRef,
     isLoading,
+    withDisabled,
+    setWithDisabled,
     setFiltering,
     setGlobalFilter,
     setSorting,
@@ -112,7 +114,19 @@ const UserDataTable = () => {
     }),
     positionToolbarAlertBanner: 'head-overlay',
     renderTopToolbarCustomActions: () => (
-      <AddControl label="Add" clickHandler={(e) => handleNew && handleNew()} tooltip="Add User" />
+      <Group>
+        <AddControl label="Add" clickHandler={(e) => handleNew && handleNew()} tooltip="Add User" />
+
+        <SegmentedControl
+          data={[
+            { label: 'All', value: 'all' },
+            { label: 'Active Only', value: 'active' },
+          ]}
+          value={withDisabled ? 'all' : 'active'}
+          onChange={(value) => setWithDisabled && setWithDisabled(value === 'all')}
+          className='ml-4'
+        />
+      </Group>
     ),
     renderToolbarAlertBannerContent: ({ selectedAlert, table }) => (
       <Flex justify="space-between">
