@@ -61,7 +61,10 @@ namespace vteCore.Controllers
         [HttpGet]
         public IActionResult Remove(string ids)
         {
+            var result = userService.Remove(ids);
 
+            if (result)
+                return Ok((ErrorOr<string>)$"{ids} are removed!");
 
             return Ok((ErrorOr<string>)Error.Failure(code: nameof(FieldType.removeUsers), description: $"fail to remove {ids} due to internal error(Please check the log for details)"));
         }

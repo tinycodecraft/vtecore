@@ -48,7 +48,7 @@ namespace vteCore.dbService
                         
                     }
                     db.SaveChanges();
-
+                    return true;
                 }
 
             }
@@ -171,7 +171,7 @@ namespace vteCore.dbService
                     
 
                 }
-                var allRecords = query.WithDisabled == null || !query.WithDisabled.Value;
+                var allRecords = query.WithDisabled == null || query.WithDisabled.Value;
                 if(!allRecords)
                 {
                     nv.AddQueryParam(db.DFAUsers,x=> x.Disabled, false.ToString(), Op.equal);
