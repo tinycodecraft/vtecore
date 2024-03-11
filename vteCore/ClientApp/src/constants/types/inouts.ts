@@ -11,6 +11,10 @@ import {
   InfiniteData,
   InfiniteQueryObserver,
   InfiniteQueryObserverResult,
+  QueryObserverOptions,
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
 } from '@tanstack/react-query'
 import { SetStateAction } from 'react'
 import { UserData, UserListResult } from './views'
@@ -114,6 +118,9 @@ export interface ListContextProps<T> {
   handleDelete: (values: T[]) => void
   handleNew: () => void
   getDoubleClick: (row: T) => React.MouseEventHandler<HTMLTableRowElement>
+  refetch: <TPageData>(
+    options?: RefetchOptions & RefetchQueryFilters<TPageData>,
+  ) => Promise<QueryObserverResult<InfiniteData<ListResult<T>>, unknown>>
 }
 
 export type UserListContextProps = ListContextProps<UserData>

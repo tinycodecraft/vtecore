@@ -38,7 +38,7 @@ export const UserTableContextProvider = ({
   const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({})
   const [withDisabled, setWithDisabled] = useState(false)
 
-  const { data, fetchNextPage, isError, isFetching, isLoading } = useInfiniteQuery<UserListResult>({
+  const { data, fetchNextPage, isError, isFetching, isLoading,refetch } = useInfiniteQuery<UserListResult>({
     queryKey: ['table-user', columnFilters, globalFilter, sorting,withDisabled],
     getNextPageParam: (_lastGroup, groups) => groups.length,
     queryFn: async ({ pageParam = 0 }) => {
@@ -89,7 +89,8 @@ export const UserTableContextProvider = ({
         handleNew,
         getDoubleClick,
         withDisabled,
-        setWithDisabled
+        setWithDisabled,
+        refetch
       }}
     >
       {children}

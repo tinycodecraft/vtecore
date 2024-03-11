@@ -1,4 +1,4 @@
-import React, { UIEvent, useCallback, useContext, useEffect, useMemo } from 'react'
+import React, { UIEvent, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import UserTableContext from '@/components/context/CtxForUserTable'
 import { MRT_SelectCheckbox, MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { UserDataColumns } from './userDataColumns'
@@ -14,6 +14,8 @@ import {
   IconX,
 } from '@tabler/icons-react'
 import { AddControl } from '../layout/mnAddBtn'
+import { ApiStatusEnum, FormPostInit, FormPostState } from '@/constants/types'
+import { useAppSelector } from '@/hooks'
 
 const UserDataTable = () => {
   const {
@@ -38,9 +40,11 @@ const UserDataTable = () => {
     handleEdit,
     handleNew,
     getDoubleClick,
+    refetch,
   } = useContext(UserTableContext)
 
   const flatData = useMemo(() => data?.pages.flatMap((page) => page.data) ?? [], [data])
+  const { status } = useAppSelector<FormPostState>((state) => state.dmForm ?? FormPostInit)
 
   const totalDBRowCount = data?.pages?.[0]?.total_count ?? 0
   const totalFetched = flatData.length
@@ -78,6 +82,12 @@ const UserDataTable = () => {
       fetchMoreOnBottomReached(ref.current)
     }
   }, [fetchMoreOnBottomReached, ref])
+
+  useEffect(() => {
+    if (status === ApiStatusEnum.SUCCESS || status === ApiStatusEnum.FAILURE) {
+      refetch && refetch()
+    }
+  }, [status])
 
   const table = useMantineReactTable({
     initialState: {
@@ -124,7 +134,7 @@ const UserDataTable = () => {
           ]}
           value={withDisabled ? 'all' : 'active'}
           onChange={(value) => setWithDisabled && setWithDisabled(value === 'all')}
-          className='ml-4'
+          className="ml-4"
         />
       </Group>
     ),
