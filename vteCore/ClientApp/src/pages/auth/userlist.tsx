@@ -17,6 +17,7 @@ export const UserListComponent: FunctionComponent = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const toastMaker = makeToast({ type: ToastEnum.Error })
+  const infoMaker = makeToast({type: ToastEnum.Success})
 
   const doubleClick = useCallback(
     (value: UserData) => {
@@ -63,6 +64,7 @@ export const UserListComponent: FunctionComponent = () => {
 
                 return false
               }
+              infoMaker('the selected records are disabled!')
               return true
             },
           }),
