@@ -13,6 +13,11 @@ export default createStyles((theme) => ({
       transition: 'all 0.25s ease-in-out',
     },
   },
+  simplelink : {
+    fontWeight: 600,
+    fontSize: theme.fontSizes.md,
+
+  },
   menulink: {
     display: 'flex',
     alignItems: 'center',
@@ -21,8 +26,8 @@ export default createStyles((theme) => ({
     paddingRight: theme.spacing.md,
     textDecoration: 'none',
     color: theme.colorScheme === 'dark' ? theme.colors.brand[6] : theme.colors.brand[0],
-    fontWeight: 500,
-    fontSize: theme.fontSizes.sm,
+    fontWeight: 600,
+    fontSize: theme.fontSizes.md,
     '& .arrow': {
       transform: 'rotate(0deg)',
       transition: 'all 0.25s ease-in-out',

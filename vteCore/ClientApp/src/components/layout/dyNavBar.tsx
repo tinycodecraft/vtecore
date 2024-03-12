@@ -40,6 +40,7 @@ import { generatePath, useNavigate } from 'react-router'
 import routes from '@/constants/routes/config'
 import { HubInit, HubState, MenuPositionEnum } from '@/constants/types'
 import { useAppSelector } from '@/hooks'
+import { clsxm } from '@/utils/methods'
 
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
@@ -99,11 +100,11 @@ export const DyNavBar = () => {
             .filter((e) => e.position === MenuPositionEnum.center && (!e.locked || token))
             .map((route, index) => {
               return (
-                <li className="underline-flash" key={`${route.name}-${index}`}>
+                <li className={clsxm(`${menuLinkStyle.simplelink}`,'underline-flash')} key={`${route.name}-${index}`}>
                   <NavLink
                     key={route.name}
                     to={generatePath(route.path, route.params)}
-                    className={({ isActive }) => (isActive ? 'is-active' : '')}
+                    
                   >
                     {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
                     {route.name}
@@ -211,7 +212,7 @@ export const DyNavBar = () => {
                         // or using createsearchparams if not using state
                         // , search: createSearchParams({mode: 'exit'}).toString()
                       }}                      
-                      className={({ isActive }) => (isActive ? 'is-active text-gray-50' : 'text-gray-50 ')}
+                      className={clsxm('text-gray-50')}
                     >
                       User List
                     </NavLink>
@@ -229,7 +230,7 @@ export const DyNavBar = () => {
                         // or using createsearchparams if not using state
                         // , search: createSearchParams({mode: 'exit'}).toString()
                       }}                      
-                      className={({ isActive }) => (isActive ? 'is-active text-gray-50' : 'text-gray-50 ')}
+                      className={clsxm('text-gray-50')}
                     >
                       Change Password
                     </NavLink>
@@ -247,7 +248,7 @@ export const DyNavBar = () => {
                         // , search: createSearchParams({mode: 'exit'}).toString()
                       }}
                       state={{ mode: 'exit' }}
-                      className={({ isActive }) => (isActive ? 'is-active text-gray-50' : 'text-gray-50 ')}
+                      className={clsxm('text-gray-50')}
                     >
                       Logout
                     </NavLink>

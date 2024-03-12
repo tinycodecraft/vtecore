@@ -36,7 +36,7 @@
   width: 0;
   @apply bg-pink-600;
 }
-.underline-flash:has(.is-active):after {
+.underline-flash:has(.active):after {
   width: 100%;
   left: 0;
 }
