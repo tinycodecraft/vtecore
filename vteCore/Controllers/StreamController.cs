@@ -48,7 +48,7 @@ namespace vteCore.Controllers
             Response.Headers.Add("Content-Disposition", cd.ToString());
             Response.Headers.Add("X-Content-Type-Options", "nosniff");
 
-
+            //enableRangeprocessing help partial stream large file
             return File(new FileStream(path,FileMode.Open,FileAccess.Read), filecontenttype, enableRangeProcessing: true);
         }
 
