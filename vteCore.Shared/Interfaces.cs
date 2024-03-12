@@ -34,6 +34,7 @@ namespace vteCore.Shared
         }
         public interface IFileService
         {
+            string CreatePathFor(string type, string filename, bool inupload = false);
             string GenerateWordWithData(string xmldata, string templatename, string type = null);
             Task<string> DownloadFilesAsync(Stream fileStream, string type, string filename,bool inupload=false);
             Task<FileUploadSummary> UploadFileAsync(Stream fileStream, string contentType, string type);

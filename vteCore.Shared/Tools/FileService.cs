@@ -24,6 +24,26 @@ namespace vteCore.Shared.Tools
             pathOps = pathsetting.Value;
             _logger = logger;
         }
+
+        public string CreatePathFor(string type,string filename,bool inupload = false)
+        {
+            var file = string.Empty;
+            try
+            {
+                file = SubStringExtensions.GetPath(pathOps, inupload ? PathType.Upload : PathType.Share, type, filename);
+                if(File.Exists(file))
+                {
+                    return file;
+                }
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
+            return null;
+        }
+
         public async Task<string> DownloadFilesAsync(Stream fileStream, string type, string filename,bool inupload=false)
         {
             var file = string.Empty;
