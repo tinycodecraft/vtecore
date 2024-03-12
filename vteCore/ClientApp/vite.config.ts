@@ -1,6 +1,8 @@
 import serverOption from './serverOption'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react-swc'
+import { splitVendorChunkPlugin } from 'vite'
+
 import { fileURLToPath, URL } from 'url'
 
 // https://vitejs.dev/config/
@@ -34,7 +36,7 @@ export default defineConfig(({ command, mode }) => {
       },
       ...serverOption,
     },
-    plugins: [react()],
+    plugins: [react(),splitVendorChunkPlugin()],
     resolve: {
       alias: [
         {
