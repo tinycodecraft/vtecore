@@ -89,7 +89,7 @@ export const DyNavBar = () => {
   ]
 
   return (
-    <div className="navbar bg-base-100" data-theme="cyberpunk">
+    <div className="navbar bg-base-100" data-theme="nord">
       <div className="flex-none">
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
