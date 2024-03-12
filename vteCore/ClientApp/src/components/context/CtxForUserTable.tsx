@@ -1,5 +1,5 @@
 import { LoginApi } from '@/api/login.service'
-import { HubInit, HubState, ListResult, UserData, UserListContextProps, UserListResult } from '@/constants/types'
+import { ApiFieldEnum, HubInit, HubState, ListResult, MantineTableProps, UserData, UserListContextProps, UserListResult } from '@/constants/types'
 import { useAppSelector } from '@/hooks'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
@@ -11,6 +11,7 @@ const UserTableContext = createContext<Partial<UserListContextProps>>({})
 type HandlerForEdit = (value: UserData) => void
 type HandlerForDelete = (values: UserData[]) => void
 type HandlerForNew = ()=> void
+type HandlerForExport = (query: MantineTableProps) => void
 
 export const UserTableContextProvider = ({
   children,
@@ -20,14 +21,16 @@ export const UserTableContextProvider = ({
   handleDelete,
   handleEdit,
   getDoubleClick,
-  handleNew
+  handleNew,
+  handleExport
 }: PropsWithChildren<{
   fetchSize: number
   token: string
   refreshToken: string
   handleEdit: HandlerForEdit
   handleDelete: HandlerForDelete,
-  handleNew?: HandlerForNew
+  handleNew?: HandlerForNew,
+  handleExport?: HandlerForExport
   getDoubleClick: (row: UserData) => React.MouseEventHandler<HTMLTableRowElement>
 }>) => {
   const tableRef = useRef<HTMLDivElement | null>(null)
@@ -47,7 +50,7 @@ export const UserTableContextProvider = ({
       LoginApi.token = token
       LoginApi.refreshToken = refreshToken
       const response = await LoginApi.listAsync({
-        type: 'usertable',
+        type: ApiFieldEnum.userList,
         start: pageParam * fetchSize,
         size: fetchSize,
         filtering: columnFilters,
@@ -87,6 +90,7 @@ export const UserTableContextProvider = ({
         handleDelete,
         handleEdit,
         handleNew,
+        handleExport,
         getDoubleClick,
         withDisabled,
         setWithDisabled,

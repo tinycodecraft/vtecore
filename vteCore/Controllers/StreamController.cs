@@ -51,7 +51,7 @@ namespace vteCore.Controllers
             Response.Headers.Add("X-Content-Type-Options", "nosniff");
 
 
-            Response.Headers.ContentType = filecontenttype;
+            Response.Headers.ContentType = "application/octet-stream";// filecontenttype;
 
             return;
 

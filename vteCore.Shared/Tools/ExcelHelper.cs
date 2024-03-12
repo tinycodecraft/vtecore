@@ -129,10 +129,10 @@ namespace vteCore.Shared.Tools
         }
 
 
-        public static DataTable ListToDataTable<T>(List<T> list)
+        public static DataTable ListToDataTable<T>(List<T> list,bool onlyDisplay=false)
         {
             DataTable dt = new DataTable();
-            var props = typeof(T).GetSortedProperties();
+            var props = typeof(T).GetSortedProperties(onlyDisplay);
             foreach (var infop in props)
             {
                 var info = infop.Key;
@@ -150,7 +150,7 @@ namespace vteCore.Shared.Tools
 
             }
 
-            var getters = typeof(T).GetSortedGetters();
+            var getters = typeof(T).GetSortedGetters(onlyDisplay);
             foreach (T t in list)
             {
                 DataRow row = dt.NewRow();

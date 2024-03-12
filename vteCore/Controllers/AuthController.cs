@@ -91,7 +91,7 @@ namespace vteCore.Controllers
             {
                 return Ok((ErrorOr<RM.LinkResult>)Error.Failure(code: nameof(FieldType.userExport), description: "user export could not be generated! please check log for details!"));
             }
-            return Ok(result);
+            return Ok((ErrorOr<RM.LinkResult>)result);
 
         }
 

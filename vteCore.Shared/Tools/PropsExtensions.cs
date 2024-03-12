@@ -641,7 +641,7 @@ namespace vteCore.Shared.Tools
             return ret;
         }
 
-        public static Dictionary<string, Func<object, object>> GetSortedGetters(this Type type)
+        public static Dictionary<string, Func<object, object>> GetSortedGetters(this Type type,bool onlyDisplay=false)
         {
             int order = int.MaxValue - type.GetProperties().Count();
             var metadataType = type.GetCustomAttributes(typeof(MetadataTypeAttribute), true)
@@ -667,10 +667,11 @@ namespace vteCore.Shared.Tools
 
                     };
                 })
+                .Where(e=> !onlyDisplay || e.display!=null)
                 .OrderBy(o => o.order)
                 .ToDictionary(x => x.property.Name, x => x.getter);
         }
-        public static Dictionary<PropertyInfo, DisplayAttribute> GetSortedProperties(this Type type)
+        public static Dictionary<PropertyInfo, DisplayAttribute> GetSortedProperties(this Type type,bool onlyDisplay=false)
         {
             int order = int.MaxValue - type.GetProperties().Count();
             var metadataType = type.GetCustomAttributes(typeof(MetadataTypeAttribute), true)
@@ -683,7 +684,7 @@ namespace vteCore.Shared.Tools
 
 
                     var display = p.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
-
+                    
                     return new
                     {
                         display = display,
@@ -693,6 +694,7 @@ namespace vteCore.Shared.Tools
 
                     };
                 })
+                .Where(e => !onlyDisplay || e.display != null)
                 .OrderBy(o => o.order)
                 .ToDictionary(x => x.property, x => x.display);
         }

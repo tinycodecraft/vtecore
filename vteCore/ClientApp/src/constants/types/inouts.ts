@@ -47,6 +47,7 @@ export type MantineTableProps = Readonly<{
   globalFilter?: string
   sorting?: MRT_SortingState
   withDisabled?: boolean
+  selectedIds?: string
 }>
 
 export type ListResult<T> = Readonly<{
@@ -87,6 +88,10 @@ export type QueryForm<T> = Readonly<{
   id: string
   handler: receiveHandlerType<T>
 }>
+export type ExportForm<T> = Readonly<{
+  query: MantineTableProps
+  handler: receiveHandlerType<T> 
+}>
 
 export type SaveForm<T> = Readonly<{
   data: T
@@ -116,6 +121,7 @@ export interface ListContextProps<T> {
   ) => Promise<InfiniteQueryObserverResult<ListResult<T>, unknown>>
   handleEdit: (value: T) => void
   handleDelete: (values: T[]) => void
+  handleExport: (query: MantineTableProps) => void
   handleNew: () => void
   getDoubleClick: (row: T) => React.MouseEventHandler<HTMLTableRowElement>
   refetch: <TPageData>(

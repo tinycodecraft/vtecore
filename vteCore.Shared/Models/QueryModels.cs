@@ -47,6 +47,8 @@ namespace vteCore.Shared.Models
         public SortProps[] Sorting { get; set; }
 
         public bool? WithDisabled { get; set; }
+
+        public string? SelectedIds { get; set; }
     }
     
 

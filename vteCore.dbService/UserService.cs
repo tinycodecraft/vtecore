@@ -111,11 +111,13 @@ namespace vteCore.dbService
         {
             try
             {
+                query.Start = 0;
                 query.Size = db.DFAUsers.Count();
-                var dataresult = List(query);
-                var datatable = ExcelHelper.ListToDataTable(dataresult.data.Select(e => UserMap.FromModel((DFAUser)e)).ToList());
+                var dataresult = List(query).data.Where(e=> query.SelectedIds!=null && query.SelectedIds.Contains(e.Id.ToString()));
+                var datatable = ExcelHelper.ListToDataTable(dataresult.Select(e => UserMap.FromModel((DFAUser)e)).ToList(),true);
                 var exportfile = SubStringExtensions.GetPath(pathOps, PathType.Share, "excel", "User" + "User".RandomString() + ".xlsm");
-                var error = ExcelHelper.CreateExcelFromDt(datatable, templateOps.User, exportfile);
+                var templatefile = SubStringExtensions.GetPath(pathOps, PathType.Template, "excel", templateOps.User);
+                var error = ExcelHelper.CreateExcelFromDt(datatable, templatefile, exportfile);
                 if(!string.IsNullOrEmpty(error))
                 {
                     logger.LogDebug(error);

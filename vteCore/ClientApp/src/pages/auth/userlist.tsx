@@ -1,9 +1,9 @@
 import { UserTableContextProvider } from '@/components/context/CtxForUserTable'
 import UserDataTable from '@/components/table/userDataTable'
-import { ApiErrorInit, ApiErrorState, HubInit, HubState, ToastEnum, UserData } from '@/constants/types'
+import { ApiErrorInit, ApiErrorState, HubInit, HubState, MantineTableProps, ToastEnum, UserData } from '@/constants/types'
 import { makeToast, useAppDispatch, useAppSelector } from '@/hooks'
 import { clearError } from '@/hooks/store/dmFieldSlice'
-import { removeUserAsync } from '@/hooks/store/dmFormSlice'
+import { exportUserAsync, removeUserAsync } from '@/hooks/store/dmFormSlice'
 import { clsxm } from '@/utils/methods'
 import { Container, MantineProvider } from '@mantine/core'
 import { FunctionComponent, useCallback, useEffect } from 'react'
@@ -29,6 +29,27 @@ export const UserListComponent: FunctionComponent = () => {
     },
     [token],
   )
+
+  const exportHandler = useCallback((query: MantineTableProps)=> {
+
+    dispatch(clearError())
+    console.log(`try to export the users`)
+    dispatch(exportUserAsync({
+      query: query,
+      handler: (response)=> {
+        if(!response.isError && response.value )
+        {
+          console.log(`the response from the export User`,response)
+          window.location.replace( response.value.link)
+        }
+        else {
+          toastMaker('the response for the export has problem')
+        }
+      }
+    }))
+
+
+  },[token])
 
   const newHandler = useCallback(() => {
     dispatch(clearError())
@@ -107,6 +128,7 @@ export const UserListComponent: FunctionComponent = () => {
               handleDelete={deleteHandler}
               handleNew={newHandler}
               getDoubleClick={doubleClick}
+              handleExport={exportHandler}
             >
               <UserDataTable />
             </UserTableContextProvider>

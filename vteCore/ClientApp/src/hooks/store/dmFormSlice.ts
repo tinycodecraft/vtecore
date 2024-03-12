@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { FormPostInit } from '@/constants/types/values'
-import { ApiErrorState, ErrorOr, FormPostState, LabelDetail, LoginProps, SaveForm, UserData } from '@/constants/types'
+import { ApiErrorState, ErrorOr, ExportForm, ExportResult, FormPostState, LabelDetail, LoginProps, SaveForm, UserData } from '@/constants/types'
 import { ApiStatusEnum, QueryForm } from '@/constants/types'
 import { LoginApi } from '@/api/login.service'
 import { clearError, receiveError } from './dmFieldSlice'
@@ -63,6 +63,9 @@ export const getUserLevelAsync = createAsyncThunk(
     }
   },
 )
+
+
+
 
 export const removeUserAsync = createAsyncThunk(
   'dmForm/removeUserAsync',
@@ -128,6 +131,38 @@ export const saveUserAsync = createAsyncThunk(
     }
   },
 )
+
+export const exportUserAsync = createAsyncThunk('dmForm/exportUserAsync', async(query: ExportForm<ExportResult>, { dispatch, getState})=> {
+  const {
+    dmHub: { token: accessToken, refreshToken: renewToken, userName },
+  } = (getState as () => RootState)()
+  console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
+  
+  try{
+
+      if (accessToken) {
+        LoginApi.token = accessToken
+      }
+      if (renewToken) {
+        LoginApi.refreshToken = renewToken
+      }
+      dispatch(waitFormState(userName))
+      const response = await LoginApi.exportAsync(query.query)
+      console.log(`the response from export user: `, response)
+      if (response.isError) {
+        dispatch(receiveError(Object.fromEntries(response.errors.map((e) => [e.code, e.description])) as ApiErrorState))
+      }
+      if (query.handler) {
+        query.handler(response)
+      }
+      dispatch(receiveFormState(getErrorOr(userName)))      
+  }
+  catch(e)
+  {
+    console.error(e)
+    dispatch(raiseErrorFormState())
+  }
+})
 
 export const getUserAsync = createAsyncThunk(
   'dmForm/getUserAsync',

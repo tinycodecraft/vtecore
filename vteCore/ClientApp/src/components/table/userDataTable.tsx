@@ -14,7 +14,7 @@ import {
   IconX,
 } from '@tabler/icons-react'
 import { AddControl } from '../layout/mnAddBtn'
-import { ApiStatusEnum, FormPostInit, FormPostState } from '@/constants/types'
+import { ApiFieldEnum, ApiStatusEnum, FormPostInit, FormPostState } from '@/constants/types'
 import { useAppSelector } from '@/hooks'
 
 const UserDataTable = () => {
@@ -41,6 +41,7 @@ const UserDataTable = () => {
     handleNew,
     getDoubleClick,
     refetch,
+    handleExport,
   } = useContext(UserTableContext)
 
   const flatData = useMemo(() => data?.pages.flatMap((page) => page.data) ?? [], [data])
@@ -145,12 +146,28 @@ const UserDataTable = () => {
           {selectedAlert}{' '}
         </Flex>
         <Flex gap="xs">
-          <button
-            type="button"
-            className="border flex items-center border-green-500 bg-green-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-green-300 focus:outline-none focus:shadow-outline"
-          >
-            <IconFileExport /> Export Selected
-          </button>
+          {!!handleExport && table.getSelectedRowModel().rows.length > 0 && (
+            <button
+              type="button"
+              className="border flex items-center border-green-500 bg-green-500 rounded-md px-4 py-2 transition duration-500 ease select-none hover:bg-green-300 focus:outline-none focus:shadow-outline"
+              onClick={() =>
+                handleExport &&
+                handleExport({
+                  start: 0,
+                  size: totalDBRowCount,
+                  type: ApiFieldEnum.exportUsers,
+                  filtering,
+                  globalFilter,
+                  sorting,
+                  withDisabled,
+                  selectedIds: table.getSelectedRowModel().rows.map((e) => e.original.id).join(',')
+                })
+              }
+            >
+              <IconFileExport /> Export Selected
+            </button>
+          )}
+
           {!!handleDelete && table.getSelectedRowModel().rows.length > 0 && (
             <button
               type="button"

@@ -27,7 +27,9 @@ export const ApiFieldEnum = {
   GetUser: 'getUser',
   SaveUser: 'saveUser',
   RemoveUsers: 'removeUsers',
-  userList: 'userList'
+  userList: 'userList',
+  exportUsers: 'exportUsers'
+
 
 
 } as const 

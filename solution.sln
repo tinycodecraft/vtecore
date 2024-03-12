@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenXmlPowerTools", "OpenXm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.Shared", "vteCore.Shared\vteCore.Shared.csproj", "{B46AF568-82C9-48EF-88B5-CAF77E921F20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vteCore.dbBFA", "vteCore.dbBFA\vteCore.dbBFA.csproj", "{CF5BD075-AA52-4CBA-ABBD-FD310018620A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.dbBFA", "vteCore.dbBFA\vteCore.dbBFA.csproj", "{CF5BD075-AA52-4CBA-ABBD-FD310018620A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vteCore.dbService", "vteCore.dbService\vteCore.dbService.csproj", "{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.dbService", "vteCore.dbService\vteCore.dbService.csproj", "{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
