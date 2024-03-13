@@ -12,6 +12,16 @@ export type WindowSize = Readonly<{
   winHeight: number | undefined
 }>
 
+
+export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
+  role: 'button',
+  target: '_blank',
+  rel: 'noopener noreferrer',
+}
+
+// route help types
+
+
 export type RouteComponent = ComponentType<any>
 
 export type ReactTransition = typeof TRANSITION_DEFAULT
@@ -28,23 +38,15 @@ export type RouteInput = Readonly<{
   locked: boolean
 }>
 
-// AUTH HELP TYPES
+// lang help types
 
 export interface LangContextProps {
   locale: string
   setLocale: (value: SetStateAction<string>) => void
 }
-export interface TokenProps {
-  token: string
-  refreshToken?: string
-}
-export interface LoginProps {
-  userName: string
-  password: string
-  newPassword?: string
-  confirmPassword?: string
-  forSignup: boolean
-}
+
+
+//Generic State
 
 export type ApiErrorState = Readonly<Record<string, string>>
 
@@ -66,54 +68,8 @@ export type HubState = Readonly<{
 
 export type UserState = Omit<HubState, 'connectionId'>
 
-// FORM HELP TYPES
-
-export const LINK_ATTRIBUTES: AnchorHTMLAttributes<HTMLAnchorElement> = {
-  role: 'button',
-  target: '_blank',
-  rel: 'noopener noreferrer',
-}
 
 
 
-export type WeatherForecast = Readonly<{
-  id: number
-  summary: string
-  temperatureC: number
-  temperatureF: number
-  dateFormatted: string
-  recordDate: Date
-}>
 
-export type WeatherState = Readonly<{
-  debug?: boolean
-  isLoading: boolean
-  forecasts: WeatherForecast[]
-}>
 
-export type ReceiveForecastsPayload = Pick<WeatherState, 'forecasts'>
-
-//User List Result
-export type UserData = Readonly<{
-  loginedAt?: Date
-  isReset: boolean
-  updatedAt: Date
-  updatedBy: string
-  post: string
-  disabled: boolean
-  level: number
-  division: string
-  isDivisionAdmin: boolean
-  isDataAdmin: boolean
-  isControlAdmin: boolean
-  adminType?: string
-  userName: string
-  userId: string
-  id: number
-}>
-export type UserListResult = ListResult<UserData>
-
-export type UserListState = Readonly<{
-  status: ApiStatusEnum
-  result: UserListResult
-}>

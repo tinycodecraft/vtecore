@@ -1,4 +1,4 @@
-import { useHover, useViewportSize } from '@mantine/hooks'
+import { useHover, useResizeObserver, useViewportSize } from '@mantine/hooks'
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import useMenuLinkStyle from '@/constants/styles/mnMenuLink'
 import { LanguageControl } from '@/components/layout/mnLangBtn'
@@ -39,22 +39,26 @@ import { NavLink, createSearchParams } from 'react-router-dom'
 import { generatePath, useNavigate } from 'react-router'
 import routes from '@/constants/routes/config'
 import { HubInit, HubState, MenuPositionEnum } from '@/constants/types'
-import { useAppSelector } from '@/hooks'
+import { useAppSelector, useWindowSize } from '@/hooks'
 import { clsxm } from '@/utils/methods'
 
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
   const [openHovered, setOpenHover] = useState(false)
+  const windowSize = useWindowSize()
+  const [navRef, navRect] = useResizeObserver()
+  const [isfullwidth, setfullwidth] = useState<boolean>(!windowSize.winWidth || windowSize.winWidth > navRect.width)
+  const [isNavOpen, setNavOpen] = useState<boolean>(false)
   const { token, controlAdminEnabled, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
-  //the following setOpenHover cause problem to any setState function
-  //timeout is only method found to work without problem
-  // const openclose = useCallback(async () => {
-  //   setTimeout(() => {
-  //     setOpenHover(!openHovered)
-  //   }, 1000)
-  // }, [openHovered, setOpenHover])
-  const icons = [IconHome, IconLock, IconCloudFog, IconLogout,IconSwitch3,IconList]
+  const icons = [IconHome, IconLock, IconCloudFog, IconLogout, IconSwitch3, IconList]
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (windowSize.winWidth) {
+      console.log(`the center menu width `, navRect.width)
+      setfullwidth(windowSize.winWidth > navRect.width)
+    }
+  }, [windowSize, navRect])
 
   const mockdata = [
     {
@@ -94,18 +98,17 @@ export const DyNavBar = () => {
       <div className="flex-none">
         <a className="btn btn-ghost text-2xl font-blck">Ray Studio</a>
       </div>
-      <div className="flex-grow justify-center">
+      <div className="flex-grow justify-center" ref={navRef}>
         <ul className="menu menu-horizontal px-1">
           {routes
             .filter((e) => e.position === MenuPositionEnum.center && (!e.locked || token))
             .map((route, index) => {
               return (
-                <li className={clsxm(`${menuLinkStyle.simplelink}`,'underline-flash','font-quan','text-lg')} key={`${route.name}-${index}`}>
-                  <NavLink
-                    key={route.name}
-                    to={generatePath(route.path, route.params)}
-                    
-                  >
+                <li
+                  className={clsxm(`${menuLinkStyle.simplelink}`, 'underline-flash', 'font-quan', 'text-lg')}
+                  key={`${route.name}-${index}`}
+                >
+                  <NavLink key={route.name} to={generatePath(route.path, route.params)}>
                     {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
                     {route.name}
                   </NavLink>
@@ -125,7 +128,7 @@ export const DyNavBar = () => {
               // onClose={openclose}
             >
               <HoverCard.Target>
-                <a className={clsxm(menuLinkStyle.menulink,'font-quan','text-lg')}>
+                <a className={clsxm(menuLinkStyle.menulink, 'font-quan', 'text-lg')}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
@@ -153,7 +156,7 @@ export const DyNavBar = () => {
                           <Text size="sm" fw={500}>
                             {item.title}
                           </Text>
-                          <Text size="xs" color="yellow.0" className='font-gabr' >
+                          <Text size="xs" color="yellow.0" className="font-gabr">
                             {item.description}
                           </Text>
                         </div>
@@ -167,7 +170,7 @@ export const DyNavBar = () => {
         </ul>
       </div>
       <div className="flex-none">
-        <LanguageControl className='mr-2' />
+        <LanguageControl className="mr-2" />
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
             {token && (
@@ -198,24 +201,24 @@ export const DyNavBar = () => {
                     </Center>
                   </a>
                 </Menu.Target>
-                <Menu.Dropdown className={clsxm("px-1 mx-1 w-full", menuLinkStyle.sublinkonly)}>
+                <Menu.Dropdown className={clsxm('px-1 mx-1 w-full', menuLinkStyle.sublinkonly)}>
                   {controlAdminEnabled && (
-                    <Menu.Item 
-                    icon={React.createElement(icons[5], { className: 'h-[18px] w-[18px] inline' })}
-                    className="text-gray-50"
-                    onClick={() => navigate('/userlist')}                    
+                    <Menu.Item
+                      icon={React.createElement(icons[5], { className: 'h-[18px] w-[18px] inline' })}
+                      className="text-gray-50"
+                      onClick={() => navigate('/userlist')}
                     >
-                    <NavLink
-                      key={'userlist'}
-                      to={{
-                        pathname: '/userlist',
-                        // or using createsearchparams if not using state
-                        // , search: createSearchParams({mode: 'exit'}).toString()
-                      }}                      
-                      className={clsxm('text-gray-50')}
-                    >
-                      User List
-                    </NavLink>
+                      <NavLink
+                        key={'userlist'}
+                        to={{
+                          pathname: '/userlist',
+                          // or using createsearchparams if not using state
+                          // , search: createSearchParams({mode: 'exit'}).toString()
+                        }}
+                        className={clsxm('text-gray-50')}
+                      >
+                        User List
+                      </NavLink>
                     </Menu.Item>
                   )}
                   <Menu.Item
@@ -229,12 +232,12 @@ export const DyNavBar = () => {
                         pathname: '/chgpsswd',
                         // or using createsearchparams if not using state
                         // , search: createSearchParams({mode: 'exit'}).toString()
-                      }}                      
+                      }}
                       className={clsxm('text-gray-50')}
                     >
                       Change Password
                     </NavLink>
-                  </Menu.Item>                  
+                  </Menu.Item>
                   <Menu.Item
                     icon={React.createElement(icons[3], { className: 'h-[18px] w-[18px] inline' })}
                     className="text-gray-50"
@@ -257,11 +260,7 @@ export const DyNavBar = () => {
               </Menu>
             )}
             {!token && (
-              <NavLink
-                key={'login'}
-                to={generatePath('/login')}  
-                className="text-lg font-quan"              
-              >
+              <NavLink key={'login'} to={generatePath('/login')} className="text-lg font-quan">
                 {React.createElement(icons[1], { className: 'h-[18px] w-[18px] inline' })}Login
               </NavLink>
             )}
