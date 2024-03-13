@@ -81,7 +81,7 @@ const LoginForm: FunctionComponent = () => {
         className="w-full p-6 border-t-4 border-pink-600 rounded-md border-b-4 shadow-md lg:max-w-lg"
         data-theme="coffee"
       >
-        <h1 className="text-3xl font-semibold text-center text-gray-700">DaisyUI</h1>
+        <h1 className="text-3xl font-semibold text-center text-orange-300 font-blck">Ray Studio</h1>
         <form className="space-y-4 p-5" onSubmit={submitHandler}>
           <Input.Wrapper
             error={status === ApiStatusEnum.FAILURE ? fields[ApiFieldEnum.UserName] : ''}
