@@ -48,7 +48,7 @@ export default createStyles((theme) => ({
 
     '& button': {
       ...theme.fn.hover({
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.lime[2] : theme.colors.lime[0],
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.lime[0],
         color: theme.colorScheme === 'dark' ? theme.colors.indigo[7]:theme.colors.indigo[3],  
       })
     }
@@ -61,7 +61,7 @@ export default createStyles((theme) => ({
     borderRadius: theme.radius.md,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.lime[2] : theme.colors.lime[0],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.lime[0],
       color: theme.colorScheme === 'dark' ? theme.colors.dark[7]:theme.colors.dark[3],
       fontWeight: 700,
       '& *': {

@@ -259,8 +259,7 @@ export const DyNavBar = () => {
             {!token && (
               <NavLink
                 key={'login'}
-                to={generatePath('/login')}
-                className={({ isActive }) => (isActive ? 'is-active' : '')}
+                to={generatePath('/login')}                
               >
                 {React.createElement(icons[1], { className: 'h-[18px] w-[18px] inline' })}Login
               </NavLink>
