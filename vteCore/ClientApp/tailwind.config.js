@@ -118,6 +118,7 @@ export default {
       vibe: [ 'Great Vibes','cursive' ],
       monr: ['Montserrat'],
       serif: ['Merriweather', 'serif'],
+      spar: ['League Spartan'],
     },
     extend: {
       spacing: {
