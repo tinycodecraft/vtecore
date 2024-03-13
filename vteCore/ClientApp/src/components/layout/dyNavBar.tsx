@@ -153,7 +153,7 @@ export const DyNavBar = () => {
                           <Text size="sm" fw={500}>
                             {item.title}
                           </Text>
-                          <Text size="xs" color="dimmed">
+                          <Text size="xs" color="yellow.0" >
                             {item.description}
                           </Text>
                         </div>
@@ -198,7 +198,7 @@ export const DyNavBar = () => {
                     </Center>
                   </a>
                 </Menu.Target>
-                <Menu.Dropdown className="px-1 mx-1 w-full">
+                <Menu.Dropdown className={clsxm("px-1 mx-1 w-full", menuLinkStyle.sublinkonly)}>
                   {controlAdminEnabled && (
                     <Menu.Item 
                     icon={React.createElement(icons[5], { className: 'h-[18px] w-[18px] inline' })}

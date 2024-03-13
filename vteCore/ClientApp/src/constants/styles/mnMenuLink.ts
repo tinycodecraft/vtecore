@@ -38,8 +38,21 @@ export default createStyles((theme) => ({
       transition: 'all 0.25s ease-in-out',
     },
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.brand[6] : theme.colors.brand[0],
-    }),
+      '& *': {
+        color: theme.colorScheme === 'dark' ? theme.colors.indigo[3]:theme.colors.indigo[8],
+      }
+    })
+
+  },
+  sublinkonly: {
+
+    '& button': {
+      ...theme.fn.hover({
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.lime[2] : theme.colors.lime[0],
+        color: theme.colorScheme === 'dark' ? theme.colors.indigo[7]:theme.colors.indigo[3],  
+      })
+    }
+
   },
 
   childLink: {
@@ -48,7 +61,13 @@ export default createStyles((theme) => ({
     borderRadius: theme.radius.md,
 
     ...theme.fn.hover({
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.brand[7] : theme.colors.brand[0],
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.lime[2] : theme.colors.lime[0],
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[7]:theme.colors.dark[3],
+      fontWeight: 700,
+      '& *': {
+        color: theme.colorScheme === 'dark' ? theme.colors.indigo[8]:theme.colors.indigo[3],
+        fontWeight: 700,
+      }
     }),
 
     '&:active': theme.activeStyles,
