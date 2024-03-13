@@ -100,7 +100,7 @@ export const DyNavBar = () => {
             .filter((e) => e.position === MenuPositionEnum.center && (!e.locked || token))
             .map((route, index) => {
               return (
-                <li className={clsxm(`${menuLinkStyle.simplelink}`,'underline-flash')} key={`${route.name}-${index}`}>
+                <li className={clsxm(`${menuLinkStyle.simplelink}`,'underline-flash','font-quan','text-lg')} key={`${route.name}-${index}`}>
                   <NavLink
                     key={route.name}
                     to={generatePath(route.path, route.params)}
@@ -125,7 +125,7 @@ export const DyNavBar = () => {
               // onClose={openclose}
             >
               <HoverCard.Target>
-                <a className={menuLinkStyle.menulink}>
+                <a className={clsxm(menuLinkStyle.menulink,'font-quan','text-lg')}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
@@ -153,7 +153,7 @@ export const DyNavBar = () => {
                           <Text size="sm" fw={500}>
                             {item.title}
                           </Text>
-                          <Text size="xs" color="yellow.0" >
+                          <Text size="xs" color="yellow.0" className='font-spar' >
                             {item.description}
                           </Text>
                         </div>
@@ -167,7 +167,7 @@ export const DyNavBar = () => {
         </ul>
       </div>
       <div className="flex-none">
-        <LanguageControl />
+        <LanguageControl className='mr-2' />
         <ul className="menu menu-horizontal px-1">
           <li className="underline-flash">
             {token && (
@@ -192,7 +192,7 @@ export const DyNavBar = () => {
                   <a className={menuLinkStyle.menulink}>
                     <Center inline>
                       <Box component="span" mr={5}>
-                        <IconUser className="h-[18px] w-[18px] inline" /> {userName}
+                        <IconUser className="h-[18px] w-[18px] inline text-lg font-quan" /> {userName}
                       </Box>
                       <IconChevronDown size={16} color={theme.fn.primaryColor()} className="arrow" />
                     </Center>
@@ -259,7 +259,8 @@ export const DyNavBar = () => {
             {!token && (
               <NavLink
                 key={'login'}
-                to={generatePath('/login')}                
+                to={generatePath('/login')}  
+                className="text-lg font-quan"              
               >
                 {React.createElement(icons[1], { className: 'h-[18px] w-[18px] inline' })}Login
               </NavLink>

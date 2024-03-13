@@ -113,12 +113,9 @@ export default {
       'gray-light': '#d3dce6',
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      robo: ['Roboto', 'sans-serif'],
-      vibe: [ 'Great Vibes','cursive' ],
       monr: ['Montserrat'],
-      serif: ['Merriweather', 'serif'],
-      spar: ['League Spartan'],
+      quan: ['Quantico'],
+      
     },
     extend: {
       spacing: {
