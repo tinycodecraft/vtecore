@@ -92,7 +92,7 @@ export const DyNavBar = () => {
   return (
     <div className="navbar bg-base-100" data-theme="nord">
       <div className="flex-none">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-2xl font-blck">Ray Studio</a>
       </div>
       <div className="flex-grow justify-center">
         <ul className="menu menu-horizontal px-1">
@@ -153,7 +153,7 @@ export const DyNavBar = () => {
                           <Text size="sm" fw={500}>
                             {item.title}
                           </Text>
-                          <Text size="xs" color="yellow.0" className='font-spar' >
+                          <Text size="xs" color="yellow.0" className='font-gabr' >
                             {item.description}
                           </Text>
                         </div>

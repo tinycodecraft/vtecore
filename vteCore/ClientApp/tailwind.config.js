@@ -115,6 +115,8 @@ export default {
     fontFamily: {
       monr: ['Montserrat'],
       quan: ['Quantico'],
+      gabr: ['Gabriela'],
+      blck: ['Blackout Midnight']
       
     },
     extend: {
