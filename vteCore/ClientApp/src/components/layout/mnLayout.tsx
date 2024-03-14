@@ -8,9 +8,10 @@ import { SignalRApi } from '@/api/signalr.service'
 import { receiveHubInfo } from '@/hooks/store/dmHubSlice'
 import { useAppDispatch } from '@/hooks'
 import { canWait } from '@/utils/methods'
+import TwDrawer from './twDrawer'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
-  const { navBarRef } = useContext(CtxForLayout)
+  const { navBarRef, isNavOpen, setNavOpen } = useContext(CtxForLayout)
   const dispatch = useAppDispatch()
   useEffect(() => {
     const handle = async () => {
@@ -107,7 +108,15 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
             theme="light"
             transition={Bounce}
           />
-          {children}
+          <div className="flex items-center justify-center flex-col">
+            {children}
+            <TwDrawer
+              isOpen={isNavOpen ? isNavOpen : false}
+              setOpen={(value) => (setNavOpen ? setNavOpen(!value) : false)}
+            >
+              'test'
+            </TwDrawer>
+          </div>
         </AppShell>
       </MantineProvider>
     </Fragment>

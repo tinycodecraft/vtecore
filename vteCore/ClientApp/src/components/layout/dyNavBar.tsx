@@ -62,6 +62,11 @@ export const DyNavBar = () => {
       setfullwidth && setfullwidth(midRect.width > navRect.width + 50 || navRect.width < 150)
     }
   }, [windowSize, navRect, midRect])
+  useEffect(() => {
+    if (isfullwidth && setNavOpen) {
+      setNavOpen(false)
+    }
+  }, [isfullwidth])
 
   const mockdata = [
     {

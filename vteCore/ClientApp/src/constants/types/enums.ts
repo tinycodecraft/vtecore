@@ -69,3 +69,12 @@ export const MenuPositionEnum = {
   right: 'right'
 } as const
 export type MenuPositionEnum = (typeof MenuPositionEnum)[keyof typeof MenuPositionEnum]
+
+export const DrawerPositionEnum = {
+  right: 'right',
+  left: 'left',
+  top: 'top',
+  bottom: 'bottom'
+}
+
+export type DrawerPositionEnum = (typeof DrawerPositionEnum)[keyof typeof DrawerPositionEnum]

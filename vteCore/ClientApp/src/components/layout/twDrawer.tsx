@@ -1,0 +1,62 @@
+import { DrawerPositionEnum, drawerCloseClasses, drawerDefaultClasses, drawerOpenClasses } from '@/constants/types'
+import { clsxm } from '@/utils/methods'
+import React, { PropsWithChildren, useContext, useEffect } from 'react'
+import LayoutContext from '@/components/context/CtxForLayout'
+import { Skeleton } from '@mantine/core'
+
+interface TwDrawerProps {
+  isOpen: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  side?: DrawerPositionEnum
+}
+
+const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }: PropsWithChildren<TwDrawerProps>) => {
+  const { drawerTop } = useContext(LayoutContext)
+  useEffect(() => {
+    console.log(`the drawertop is ${drawerTop}`)
+  }, [drawerTop])
+
+  return (
+    <div
+      id={`dialog-${side}`}
+      className="relative z-10"
+      aria-labelledby="slide-over"
+      role="dialog"
+      aria-modal="true"
+      onClick={() => setOpen((value) => !value)}
+    >
+      <div
+        className={clsxm(
+          'fixed inset-0 bg-gray-500 bg-opacity-75 transition-all',
+          {
+            'opacity-100 duration-500 ease-in-out visible': isOpen,
+          },
+          { 'opacity-0 duration-500 ease-in-out invisible': !isOpen },
+        )}
+      ></div>
+      <div className={clsxm({ 'fixed inset-0 overflow-hidden': isOpen })}>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className={clsxm('pointer-events-none fixed max-w-full', drawerDefaultClasses[side])}>
+            <Skeleton mt={drawerTop ? drawerTop -25: 0} />
+            <div
+              className={clsxm(
+                'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 bg-teal-200 text-red-600 text-5xl',
+                { [drawerCloseClasses[side]]: !isOpen },
+                { [drawerOpenClasses[side]]: isOpen },
+              )}
+              onClick={(event) => {
+                event.preventDefault()
+                event.stopPropagation()
+              }}
+            >
+              {' '}
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default TwDrawer
