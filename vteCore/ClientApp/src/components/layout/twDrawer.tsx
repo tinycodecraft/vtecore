@@ -33,7 +33,8 @@ const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }
     >
       <div
         className={clsxm(
-          'fixed inset-0 bg-gray-500 bg-opacity-75 transition-all',
+          classes.shadowOverlay,
+          'fixed inset-0 transition-all',
           {
             'opacity-100 duration-500 ease-in-out visible': isOpen,
           },
@@ -47,7 +48,7 @@ const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }
             <div
               className={clsxm(
                 classes.shadowTeal,
-                'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 bg-teal-200 text-red-600 text-5xl',
+                'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 pl-5 pt-3 pr-14 text-5xl',
                 { [drawerCloseClasses[side]]: !isOpen },
                 { [drawerOpenClasses[side]]: isOpen },
               )}

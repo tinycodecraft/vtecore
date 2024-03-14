@@ -1,6 +1,10 @@
 import { createStyles } from "@mantine/core";
 
 export default createStyles((theme)=> ({
+    shadowOverlay: {
+        background: theme.fn.rgba('#f0f0f0',0.5),
+        
+    },
     shadowYellow: {
         boxShadow: 'rgba(0, 0, 0, 0.15) 0px 1px 2px 0px',
         transform: 'translate3d(0px, 0px, 0px) scale(1)',
