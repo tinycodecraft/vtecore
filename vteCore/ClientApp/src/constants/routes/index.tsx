@@ -15,7 +15,7 @@ const RouterComponent: FC = () => {
       {routes.map(({ path, params, Component, name, ...rest }, index) => {
         nodeRefs[index] = useRef(null)
         const ForwComponent = forwardRef<HTMLDivElement>((props, ref) => (
-          <div ref={ref}>
+          <div ref={ref} className='w-full'>
             <LazyLoad onContentVisible={() => console.log(`${index} of page loaded.`)}>
               <Component {...props} />
             </LazyLoad>

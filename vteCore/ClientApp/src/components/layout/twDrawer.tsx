@@ -3,6 +3,7 @@ import { clsxm } from '@/utils/methods'
 import React, { PropsWithChildren, useContext, useEffect } from 'react'
 import LayoutContext from '@/components/context/CtxForLayout'
 import { Skeleton } from '@mantine/core'
+import useBoxStyles  from '@/constants/styles/mnBoxShadow'
 
 interface TwDrawerProps {
   isOpen: boolean
@@ -12,6 +13,7 @@ interface TwDrawerProps {
 
 const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }: PropsWithChildren<TwDrawerProps>) => {
   const { drawerTop, setNavOpen } = useContext(LayoutContext)
+  const { classes,cx,theme} = useBoxStyles()
   useEffect(() => {
     console.log(`the drawertop is ${drawerTop}`)
   }, [drawerTop])
@@ -44,6 +46,7 @@ const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }
             <Skeleton mt={drawerTop ? drawerTop - 25 : 0} />
             <div
               className={clsxm(
+                classes.shadowTeal,
                 'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 bg-teal-200 text-red-600 text-5xl',
                 { [drawerCloseClasses[side]]: !isOpen },
                 { [drawerOpenClasses[side]]: isOpen },

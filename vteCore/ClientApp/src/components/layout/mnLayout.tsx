@@ -9,6 +9,7 @@ import { receiveHubInfo } from '@/hooks/store/dmHubSlice'
 import { useAppDispatch } from '@/hooks'
 import { canWait } from '@/utils/methods'
 import TwDrawer from './twDrawer'
+import { DrawerPositionEnum } from '@/constants/types'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
   const { navBarRef, isNavOpen, setNavOpen } = useContext(CtxForLayout)
@@ -113,6 +114,7 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
             <TwDrawer
               isOpen={isNavOpen ? isNavOpen : false}
               setOpen={(value) => (setNavOpen ? setNavOpen(!value) : false)}
+              side={DrawerPositionEnum.left}
             >
               'test'
             </TwDrawer>

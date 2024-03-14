@@ -13,10 +13,9 @@ export default createStyles((theme) => ({
       transition: 'all 0.25s ease-in-out',
     },
   },
-  simplelink : {
+  simplelink: {
     fontWeight: 600,
     fontSize: theme.fontSizes.md,
-
   },
   menulink: {
     display: 'flex',
@@ -39,20 +38,17 @@ export default createStyles((theme) => ({
     },
     ...theme.fn.hover({
       '& *': {
-        color: theme.colorScheme === 'dark' ? theme.colors.indigo[3]:theme.colors.indigo[8],
-      }
-    })
-
+        color: theme.colorScheme === 'dark' ? theme.colors.indigo[3] : theme.colors.indigo[8],
+      },
+    }),
   },
   sublinkonly: {
-
     '& button': {
       ...theme.fn.hover({
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.lime[0],
-        color: theme.colorScheme === 'dark' ? theme.colors.indigo[7]:theme.colors.indigo[3],  
-      })
-    }
-
+        color: theme.colorScheme === 'dark' ? theme.colors.indigo[7] : theme.colors.indigo[3],
+      }),
+    },
   },
 
   childLink: {
@@ -62,12 +58,12 @@ export default createStyles((theme) => ({
 
     ...theme.fn.hover({
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.lime[0],
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[7]:theme.colors.dark[3],
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.dark[3],
       fontWeight: 700,
       '& *': {
-        color: theme.colorScheme === 'dark' ? theme.colors.indigo[8]:theme.colors.indigo[3],
+        color: theme.colorScheme === 'dark' ? theme.colors.indigo[8] : theme.colors.indigo[3],
         fontWeight: 700,
-      }
+      },
     }),
 
     '&:active': theme.activeStyles,
