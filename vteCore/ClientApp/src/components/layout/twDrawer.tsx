@@ -11,7 +11,7 @@ interface TwDrawerProps {
 }
 
 const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }: PropsWithChildren<TwDrawerProps>) => {
-  const { drawerTop } = useContext(LayoutContext)
+  const { drawerTop, setNavOpen } = useContext(LayoutContext)
   useEffect(() => {
     console.log(`the drawertop is ${drawerTop}`)
   }, [drawerTop])
@@ -23,7 +23,11 @@ const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }
       aria-labelledby="slide-over"
       role="dialog"
       aria-modal="true"
-      onClick={() => setOpen((value) => !value)}
+      onClick={() => {
+        setOpen((value) => !value)
+        console.log(`overlay open value ${isOpen}`)
+        setNavOpen && setNavOpen(isOpen ? false : true)
+      }}
     >
       <div
         className={clsxm(
@@ -37,7 +41,7 @@ const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }
       <div className={clsxm({ 'fixed inset-0 overflow-hidden': isOpen })}>
         <div className="absolute inset-0 overflow-hidden">
           <div className={clsxm('pointer-events-none fixed max-w-full', drawerDefaultClasses[side])}>
-            <Skeleton mt={drawerTop ? drawerTop -25: 0} />
+            <Skeleton mt={drawerTop ? drawerTop - 25 : 0} />
             <div
               className={clsxm(
                 'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 bg-teal-200 text-red-600 text-5xl',
