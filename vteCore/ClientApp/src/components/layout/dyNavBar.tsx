@@ -41,18 +41,17 @@ import routes from '@/constants/routes/config'
 import { HubInit, HubState, MenuPositionEnum } from '@/constants/types'
 import { useAppSelector, useWindowSize } from '@/hooks'
 import { clsxm } from '@/utils/methods'
-import { DyHamburger } from '../dyHamburger'
+import { DyHamburger } from '@/components/dyHamburger'
+import LayoutContext from '@/components/context/CtxForLayout'
 
 export const DyNavBar = () => {
   const { classes: menuLinkStyle, theme } = useMenuLinkStyle()
-  const [openHovered, setOpenHover] = useState(false)
+
   const windowSize = useWindowSize()
   const [navRef, navRect] = useResizeObserver()
   const [midRef, midRect] = useResizeObserver()
-  const [isfullwidth, setfullwidth] = useState<boolean>(
-    !midRect || !navRect || midRect.width > navRect.width + 50 || navRect.width < 150,
-  )
-  const [isNavOpen, setNavOpen] = useState<boolean>(false)
+  const { isfullwidth, setfullwidth, setNavOpen, isNavOpen } = useContext(LayoutContext)
+
   const { token, controlAdminEnabled, userName } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
   const icons = [IconHome, IconLock, IconCloudFog, IconLogout, IconSwitch3, IconList]
   const navigate = useNavigate()
@@ -60,7 +59,7 @@ export const DyNavBar = () => {
   useEffect(() => {
     if (windowSize.winWidth) {
       console.log(`the center menu width `, navRect.width)
-      setfullwidth(midRect.width > navRect.width + 50 || navRect.width < 150)
+      setfullwidth && setfullwidth(midRect.width > navRect.width + 50 || navRect.width < 150)
     }
   }, [windowSize, navRect, midRect])
 
@@ -101,8 +100,13 @@ export const DyNavBar = () => {
     <div className="navbar bg-base-100" data-theme="nord">
       <div className="flex-none">
         <a className="btn btn-ghost text-2xl font-blck">
-          Ray Studio
-          {!isfullwidth && <DyHamburger />}
+          Ray Studio {isNavOpen ? ' open' : ' close'}
+          {!isfullwidth && (
+            <DyHamburger
+              onChange={(e) => setNavOpen && setNavOpen((value) => !value)}
+              value={isNavOpen ? 'checked' : ''}
+            />
+          )}
         </a>
       </div>
       <div className="flex-grow justify-center" ref={midRef}>

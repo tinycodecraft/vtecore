@@ -1,3 +1,4 @@
+
 import React, { ComponentProps, FC } from 'react'
 
 export const DyHamburger: FC<ComponentProps<'input'>> = ({ ...rest }) => {
