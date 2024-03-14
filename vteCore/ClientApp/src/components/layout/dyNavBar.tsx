@@ -104,15 +104,17 @@ export const DyNavBar = () => {
   return (
     <div className="navbar bg-base-100" data-theme="nord">
       <div className="flex-none">
-        <a className="btn btn-ghost text-2xl font-blck">
-          Ray Studio {isNavOpen ? ' open' : ' close'}
-          {!isfullwidth && (
-            <DyHamburger
-              onChange={(e) => setNavOpen && setNavOpen((value) => !value)}
-              value={isNavOpen ? 'checked' : ''}
-            />
-          )}
+        <a className="btn btn-ghost text-2xl font-blck pointer-events-none" >
+          Ray Studio
         </a>
+        {!isfullwidth && (
+            <div className={clsxm('tham tham-e-spin tham-w-6 -mt-1',isNavOpen ? 'tham-active': '')} onClick={()=> setNavOpen && setNavOpen(value=> !value)}>
+              <div className='tham-box'>
+                <div className='tham-inner' />
+              </div>
+            </div>
+
+          )}        
       </div>
       <div className="flex-grow justify-center" ref={midRef}>
         {isfullwidth && (
