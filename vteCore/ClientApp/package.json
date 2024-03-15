@@ -35,6 +35,7 @@
     "@fontsource/montserrat": "^5.0.8",
     "@fontsource/quantico": "^5.0.18",
     "@heroicons/react": "^2.0.18",
+    "@iconscout/react-unicons": "^2.0.2",
     "@mantine/core": "^6.0.21",
     "@mantine/dates": "^6.0.21",
     "@mantine/dropzone": "^6.0.21",
