@@ -46,9 +46,8 @@ const TwDrawer = ({ isOpen, setOpen, children, side = DrawerPositionEnum.right }
           <div className={clsxm('pointer-events-none fixed max-w-full', drawerDefaultClasses[side])}>
             <Skeleton mt={drawerTop ? drawerTop - 25 : 0} />
             <div
-              className={clsxm(
-                classes.shadowTeal,
-                'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 pl-5 pt-3 pr-14 text-5xl',
+              className={clsxm(                
+                'pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500 pl-5 pt-3 pr-14 text-5xl glass',
                 { [drawerCloseClasses[side]]: !isOpen },
                 { [drawerOpenClasses[side]]: isOpen },
               )}

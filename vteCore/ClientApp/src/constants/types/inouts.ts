@@ -17,7 +17,8 @@ import {
   RefetchQueryFilters,
 } from '@tanstack/react-query'
 import { SetStateAction } from 'react'
-import { UserData, UserListResult } from './views'
+import { UserData } from './apis'
+
 
 export type UploadedFileState = {
   filePath?: string
