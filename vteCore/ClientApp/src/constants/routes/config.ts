@@ -1,4 +1,4 @@
-import { type RouteInput, TRANSITION_DEFAULT, MenuPositionEnum } from '@/constants/types'
+import { type RouteInput, TRANSITION_DEFAULT, MenuPositionEnum, LinkNameEnum } from '@/constants/types'
 import HomeComponent from '@/pages/landing'
 import WeatherComponent from '@/pages/weather'
 import LoginFormComponent from '@/pages/login'
@@ -11,7 +11,7 @@ import { UserComponent } from '@/pages/auth/user'
 const routes: RouteInput[] = [
   {
     path: '/home',
-    name: 'Home',
+    name: LinkNameEnum.home,
     Component: HomeComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 0,
@@ -21,7 +21,7 @@ const routes: RouteInput[] = [
   },
   {
     path: '/forecast',
-    name: 'Forecast',
+    name: LinkNameEnum.forecast,
     Component: WeatherComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 2,
@@ -31,7 +31,7 @@ const routes: RouteInput[] = [
   },
   {
     path: '/chgpsswd',
-    name: 'Change Password',
+    name: LinkNameEnum.chgpassword,
     Component: ChangePasswordComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 4,
@@ -41,7 +41,7 @@ const routes: RouteInput[] = [
   },
   {
     path: '/userlist',
-    name: 'User List',
+    name: LinkNameEnum.userlist,
     Component: UserListComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 6,
@@ -51,7 +51,7 @@ const routes: RouteInput[] = [
   },
   {
     path: '/user',
-    name: 'Edit',
+    name: LinkNameEnum.userdisplay,
     Component: UserComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 8,
@@ -61,7 +61,7 @@ const routes: RouteInput[] = [
   },    
   {
     path: '/edituser',
-    name: 'Edit',
+    name: LinkNameEnum.useredit,
     Component: EditUserComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 7,
@@ -71,7 +71,7 @@ const routes: RouteInput[] = [
   },  
   {
     path: '/setpsswd',
-    name: 'Set Password',
+    name: LinkNameEnum.setpassword,
     Component: SetPasswordComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 5,
@@ -82,7 +82,7 @@ const routes: RouteInput[] = [
 
   {
     path: '/login',
-    name: 'Login',
+    name: LinkNameEnum.login,
     Component: LoginFormComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 1,
@@ -92,7 +92,7 @@ const routes: RouteInput[] = [
   },
   {
     path: '/logout',
-    name: 'Logout',
+    name: LinkNameEnum.logout,
     Component: LoginFormComponent,
     transition: TRANSITION_DEFAULT,
     iconIndex: 3,

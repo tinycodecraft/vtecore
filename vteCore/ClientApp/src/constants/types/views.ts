@@ -1,6 +1,6 @@
 import { AnchorHTMLAttributes, ComponentType, SetStateAction } from 'react'
 import { SelectItemProps } from '@mantine/core'
-import { ApiStatusEnum, ErrorEnum, MenuPositionEnum } from './enums'
+import { ApiStatusEnum, ErrorEnum, LinkNameEnum, MenuPositionEnum } from './enums'
 import { TRANSITION_DEFAULT } from './values'
 import { Params } from 'react-router'
 import { ListResult } from './inouts'
@@ -27,7 +27,7 @@ export type RouteComponent = ComponentType<any>
 export type ReactTransition = typeof TRANSITION_DEFAULT
 
 export type RouteInput = Readonly<{
-  name: string
+  name: LinkNameEnum
   path: string
   popUpOnly: boolean
   transition: ReactTransition
@@ -36,7 +36,11 @@ export type RouteInput = Readonly<{
   iconIndex?: number
   position: MenuPositionEnum
   locked: boolean
+  parentName?: LinkNameEnum
 }>
+
+export type RouteDepth = Readonly<Record<number,RouteInput[]>>
+export type RouteDepthList = RouteDepth[]
 
 // lang help types
 
