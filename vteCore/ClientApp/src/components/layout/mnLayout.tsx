@@ -7,12 +7,17 @@ import 'react-toastify/dist/ReactToastify.css'
 import { SignalRApi } from '@/api/signalr.service'
 import { receiveHubInfo } from '@/hooks/store/dmHubSlice'
 import { useAppDispatch } from '@/hooks'
-import { canWait } from '@/utils/methods'
+import { canWait, getRouteByDepth } from '@/utils/methods'
 import TwDrawer from './twDrawer'
+import asidelist from '@/constants/routes/aside'
 import { DrawerPositionEnum } from '@/constants/types'
+import { DyAsideMenu } from './dyAsideMenu'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
   const { navBarRef, isNavOpen, setNavOpen } = useContext(CtxForLayout)
+
+  const routesDepth =getRouteByDepth (asidelist)
+  const depth0routes = [...routesDepth[0]]
   const dispatch = useAppDispatch()
   useEffect(() => {
     const handle = async () => {
@@ -113,10 +118,10 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
             {children}
             <TwDrawer
               isOpen={isNavOpen ? isNavOpen : false}
-              setOpen={(value) => (setNavOpen ? setNavOpen(!value) : false)}
+              
               side={DrawerPositionEnum.left}
             >
-              'test'
+              <DyAsideMenu asideList={depth0routes} routeDepth={routesDepth} />
             </TwDrawer>
           </div>
         </AppShell>

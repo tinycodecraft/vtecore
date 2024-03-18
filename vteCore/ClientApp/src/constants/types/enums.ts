@@ -98,7 +98,7 @@ export const LinkNameEnum = {
   submenu3: 'M3 Sub Menu 3',
   sub1menu1: 'M3-S3 Sub Sub Menu 1',
   sub1menu2: 'M3-S3 Sub Sub Menu 2',
-  submenu4: 'M3 - Sub Menu 4',
+  submenu4: 'M3 Sub Menu 4',
   sub1menu3: 'M3-S4 Sub Sub Menu 3',
   sub1menu4: 'M3-S4 Sub Sub Menu 4',
   sub2menu1: 'M3-S4-S4 Sub Sub Sub Menu 1',
