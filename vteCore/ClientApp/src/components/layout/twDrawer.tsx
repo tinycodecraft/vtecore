@@ -2,9 +2,9 @@ import { DrawerPositionEnum, drawerCloseClasses, drawerDefaultClasses, drawerOpe
 import { clsxm } from '@/utils/methods'
 import React, { PropsWithChildren, useContext, useEffect } from 'react'
 import LayoutContext from '@/components/context/CtxForLayout'
-import { Skeleton } from '@mantine/core'
+import { ScrollArea, Skeleton } from '@mantine/core'
 import useBoxStyles from '@/constants/styles/mnBoxShadow'
-import { useClickOutside, useHotkeys } from '@mantine/hooks'
+import { useClickOutside, useHotkeys, useViewportSize } from '@mantine/hooks'
 
 interface TwDrawerProps {
   isOpen: boolean
@@ -15,6 +15,7 @@ interface TwDrawerProps {
 const TwDrawer = ({ isOpen, children, side = DrawerPositionEnum.right }: PropsWithChildren<TwDrawerProps>) => {
   const { drawerTop, isNavOpen, setNavOpen } = useContext(LayoutContext)
   const { classes, cx, theme } = useBoxStyles()
+  const { height } = useViewportSize()
   useHotkeys([['escape', () => setNavOpen && setNavOpen(false)]])
   useEffect(() => {
     console.log(`the drawertop is ${drawerTop}`)
@@ -50,8 +51,7 @@ const TwDrawer = ({ isOpen, children, side = DrawerPositionEnum.right }: PropsWi
                 { [drawerOpenClasses[side]]: isNavOpen },
               )}
             >
-              {' '}
-              {children}
+              <ScrollArea h={height - (drawerTop ?? 0)} >{children}</ScrollArea>
             </div>
           </div>
         </div>
