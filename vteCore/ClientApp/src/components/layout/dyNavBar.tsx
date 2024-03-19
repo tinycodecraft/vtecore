@@ -58,12 +58,13 @@ export const DyNavBar = () => {
 
   useEffect(() => {
     if (windowSize.winWidth) {
-      console.log(`the center menu width `, navRect.width)
-      setfullwidth && setfullwidth(midRect.width > navRect.width + 50 || navRect.width < 150)
+      console.log(`the center menu width `, navRect.width,midRect.width)
+      setfullwidth && setfullwidth((midRect.width > (navRect.width + 50)) || (navRect.width > 250))
     }
   }, [windowSize, navRect, midRect])
   useEffect(() => {
     if (isfullwidth && setNavOpen) {
+      console.log(`the full width `,isfullwidth)
       setNavOpen(false)
     }
   }, [isfullwidth])

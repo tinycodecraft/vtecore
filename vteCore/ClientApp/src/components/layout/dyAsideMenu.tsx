@@ -6,6 +6,7 @@ import React, { useContext, useEffect } from 'react'
 import { generatePath } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import LayoutContext from '@/components/context/CtxForLayout'
+import { useClickOutside } from '@mantine/hooks'
 
 interface DyAsideProps {
   asideList: RouteInput[]
@@ -18,19 +19,18 @@ const icons = [IconHome, IconLock, IconCloudCog, IconLogout, IconSwitch2, IconLi
 export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: DyAsideProps) => {
   const cloneDepth = routeDepth ? routeDepth : getRouteByDepth(asideList)
   const { setNavOpen } = useContext(LayoutContext)
-  console.log(asideList)
+
+    
+
   if (maxDepth === 0) {
     maxDepth = recordKeys(cloneDepth).length
   }
-  const parentnames = routeDepth && depth && depth <maxDepth && routeDepth[depth].map((e) => e.parentName)
+  const parentnames = routeDepth && depth && depth < maxDepth && routeDepth[depth].map((e) => e.parentName)
   const leaves = asideList.filter((e) => !parentnames || !parentnames.includes(e.name))
   const parents = asideList.filter((e) => parentnames && parentnames.includes(e.name))
 
-  useEffect(()=> {
-    console.log(asideList)
-  },[])
   return (
-    <ul className={clsx(depth <=1 ? 'menu bg-base-200 w-106 rounded-box' : '')} data-theme="retro">
+    <ul className={clsx(depth <= 1 ? 'menu bg-base-200 w-full rounded-box' : '')} >
       {(() => {
         let childarr: any[] = []
         for (var i = 0; i < leaves.length; i++) {
@@ -38,7 +38,11 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
           childarr.push(
             <li data-depth={`${depth}`} key={`${leaves[i].name}-${depth}`}>
               {' '}
-              <NavLink key={route.name} to={generatePath(route.path, route.params)} onClick={() => setNavOpen && setNavOpen(false)}>
+              <NavLink
+                key={route.name}
+                to={generatePath(route.path, route.params)}
+                onClick={() => setNavOpen && setNavOpen(false)}
+              >
                 {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
                 {route.name}
               </NavLink>
@@ -50,7 +54,7 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
       })()}
       {(() => {
         let parentarr: any[] = []
-        
+
         for (var j = 0; j < parents.length; j++) {
           let submenu = routeDepth && routeDepth[depth].filter((e) => e.parentName === parents[j].name)
           if (submenu) {
@@ -58,7 +62,7 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
               <li data-depth={`${depth}`} key={`${parents[j].name}-${depth}`}>
                 <details open>
                   <summary>{parents[j].name}</summary>
-                  <DyAsideMenu asideList={[...submenu]} depth={depth+1} routeDepth={routeDepth} />{' '}
+                  <DyAsideMenu asideList={[...submenu]} depth={depth + 1} routeDepth={routeDepth} />{' '}
                 </details>
               </li>,
             )
@@ -67,7 +71,11 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
             parentarr.push(
               <li data-depth={`${depth}`} key={`${parents[j].name}-${depth}`}>
                 {' '}
-                <NavLink key={route.name} to={generatePath(route.path, route.params)} onClick={() => setNavOpen && setNavOpen(false)}>
+                <NavLink
+                  key={route.name}
+                  to={generatePath(route.path, route.params)}
+                  onClick={() => setNavOpen && setNavOpen(false)}
+                >
                   {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
                   {route.name}
                 </NavLink>
