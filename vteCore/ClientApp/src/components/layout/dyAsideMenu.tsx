@@ -60,7 +60,7 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
           if (submenu) {
             parentarr.push(
               <li data-depth={`${depth}`} key={`${parents[j].name}-${depth}`}>
-                <details open>
+                <details>
                   <summary>{parents[j].name}</summary>
                   <DyAsideMenu asideList={[...submenu]} depth={depth + 1} routeDepth={routeDepth} />{' '}
                 </details>
