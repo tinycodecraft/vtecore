@@ -41,8 +41,8 @@ const TwDrawer = ({ isOpen, children, side = DrawerPositionEnum.right }: PropsWi
         )}
       ></div>
       <div className={clsxm({ 'fixed inset-0 ': isNavOpen })}>
-        <div className="absolute inset-0 ">
-          <div className={clsxm('fixed max-w-full', drawerDefaultClasses[side])}>
+        <div className="absolute inset-0">
+          <div className={clsxm('fixed max-w-full', drawerDefaultClasses[side],{'w-0': !isNavOpen})}>
             <Skeleton mt={drawerTop ? drawerTop - 25 : 0} />
             <div
               className={clsxm(
@@ -51,7 +51,7 @@ const TwDrawer = ({ isOpen, children, side = DrawerPositionEnum.right }: PropsWi
                 { [drawerOpenClasses[side]]: isNavOpen },
               )}
             >
-              <ScrollArea h={height - (drawerTop ?? 0)} >{children}</ScrollArea>
+              <ScrollArea h={height - (drawerTop ?? 0)}> {children}</ScrollArea>
             </div>
           </div>
         </div>
