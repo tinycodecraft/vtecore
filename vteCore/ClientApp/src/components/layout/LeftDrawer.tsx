@@ -7,6 +7,8 @@ interface LeftDrawerProps {
 
 export const LeftDrawer = ({ children, title }: PropsWithChildren<LeftDrawerProps>) => {
   const { isNavOpen, setNavOpen } = useContext(LayoutContext)
+  // css explanation
+  // w-screen set the width as large as possible till the max-w allowed.
   return (
     <main
       className={
@@ -19,12 +21,12 @@ export const LeftDrawer = ({ children, title }: PropsWithChildren<LeftDrawerProp
     >
       <section
         className={
-          ' w-screen max-w-lg left-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
+          ' w-screen max-w-md left-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
           (isNavOpen ? ' translate-x-0 ' : ' -translate-x-full ')
         }
       >
-        <article className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-auto h-full">
-          <header className="p-4 font-bold text-lg">{`${title}`}</header>
+        <article className="relative w-screen max-w-md pb-10 flex flex-col space-y-0.5 overflow-y-auto h-full">
+          <header className="pt-9 font-bold text-lg">{`${title}`}</header>
           {children}
         </article>
       </section>

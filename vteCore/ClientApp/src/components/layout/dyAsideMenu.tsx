@@ -30,7 +30,7 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
   const parents = asideList.filter((e) => parentnames && parentnames.includes(e.name))
 
   return (
-    <ul className={clsx(depth <= 1 ? 'menu bg-base-200 w-full rounded-box' : '')} >
+    <ul className={clsx(depth <= 1 ? 'menu bg-base-200 w-full rounded-box pt-0' : '')} >
       {(() => {
         let childarr: any[] = []
         for (var i = 0; i < leaves.length; i++) {
