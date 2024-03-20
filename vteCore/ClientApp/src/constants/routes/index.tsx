@@ -10,6 +10,7 @@ const RouterComponent: FC = () => {
   const nodeRefs: any[] = []
   const [refIndex, setRefIndex] = useState(0)
 
+  //css explanation w-full will render the route component 100% width
   return (
     <Routes location={location}>
       {routes.map(({ path, params, Component, name, ...rest }, index) => {
