@@ -8,15 +8,16 @@ import { SignalRApi } from '@/api/signalr.service'
 import { receiveHubInfo } from '@/hooks/store/dmHubSlice'
 import { useAppDispatch } from '@/hooks'
 import { canWait, getRouteByDepth } from '@/utils/methods'
-import TwDrawer from './twDrawer'
+
 import asidelist from '@/constants/routes/aside'
 import { DrawerPositionEnum } from '@/constants/types'
 import { DyAsideMenu } from './dyAsideMenu'
+import { LeftDrawer } from './LeftDrawer'
 
 const ManLayout: FC<PropsWithChildren> = ({ children }) => {
   const { navBarRef, isNavOpen, setNavOpen } = useContext(CtxForLayout)
 
-  const routesDepth =getRouteByDepth (asidelist)
+  const routesDepth = getRouteByDepth(asidelist)
   const depth0routes = [...routesDepth[0]]
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -116,13 +117,9 @@ const ManLayout: FC<PropsWithChildren> = ({ children }) => {
           />
           <div className="flex items-center justify-center flex-col">
             {children}
-            <TwDrawer
-              isOpen={isNavOpen ? isNavOpen : false}
-              
-              side={DrawerPositionEnum.left}
-            >
+            <LeftDrawer title="Side Menu">
               <DyAsideMenu asideList={depth0routes} routeDepth={routesDepth} />
-            </TwDrawer>
+            </LeftDrawer>
           </div>
         </AppShell>
       </MantineProvider>
