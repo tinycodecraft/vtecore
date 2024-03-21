@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react'
 import LayoutContext from '@/components/context/CtxForLayout'
+import Scrollbars from 'rc-scrollbars'
 
 interface LeftDrawerProps {
   title: string
@@ -17,17 +18,17 @@ export const LeftDrawer = ({ children, title }: PropsWithChildren<LeftDrawerProp
           ? ' transition-opacity opacity-100 duration-500 translate-x-0  '
           : ' transition-all delay-500 opacity-0 -translate-x-full  ')
       }
-      data-theme="lemonade"
+      data-theme="nord"
     >
       <section
         className={
-          ' w-screen max-w-md left-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
+          ' w-screen max-w-md left-0 absolute  h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
           (isNavOpen ? ' translate-x-0 ' : ' -translate-x-full ')
         }
       >
-        <article className="relative w-screen max-w-md pb-10 flex flex-col space-y-0.5 overflow-y-auto h-full">
+        <article className="relative w-screen max-w-md flex flex-col space-y-0.5 h-full">
           <header className="pt-9 font-bold text-lg">{`${title}`}</header>
-          {children}
+          <Scrollbars autoHide className='h-screen' data-theme="lemonade">{children}</Scrollbars>
         </article>
       </section>
       <section
