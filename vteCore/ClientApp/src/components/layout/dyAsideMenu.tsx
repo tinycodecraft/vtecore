@@ -20,71 +20,48 @@ export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: 
   const cloneDepth = routeDepth ? routeDepth : getRouteByDepth(asideList)
   const { setNavOpen } = useContext(LayoutContext)
 
-    
-
   if (maxDepth === 0) {
     maxDepth = recordKeys(cloneDepth).length
   }
   const parentnames = routeDepth && depth && depth < maxDepth && routeDepth[depth].map((e) => e.parentName)
   const leaves = asideList.filter((e) => !parentnames || !parentnames.includes(e.name))
-  const parents = asideList.filter((e) => parentnames && parentnames.includes(e.name))
+  const parents = asideList
+    .filter((e) => parentnames && parentnames.includes(e.name))
+    .map((e) => ({ menu: e, submenu: cloneDepth[depth].filter((f) => f.parentName === e.name) }))
 
   return (
-    <ul className={clsx(depth <= 1 ? 'menu bg-base-200 w-full rounded-box pt-0' : '')} >
-      {(() => {
-        let childarr: any[] = []
-        for (var i = 0; i < leaves.length; i++) {
-          let route = leaves[i]
-          childarr.push(
-            <li data-depth={`${depth}`} key={`${leaves[i].name}-${depth}`}>
-              {' '}
+    <ul className={clsx(depth <= 1 ? 'menu bg-base-200 w-full rounded-box pt-0' : '')}>
+      {leaves.length > 0 &&
+        leaves.map((l) => (
+          <li data-depth={`${depth}`} key={`${l.name}-${depth}`}>
+            {' '}
+            <NavLink key={l.name} to={generatePath(l.path, l.params)} onClick={() => setNavOpen && setNavOpen(false)}>
+              {React.createElement(icons[l.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })} {l.name}
+            </NavLink>{' '}
+          </li>
+        ))}
+      {parents.length > 0 &&
+        parents.map((p) =>
+          p.submenu && p.submenu.length > 0 ? (
+            <li data-depth={`${depth}`} key={`${p.menu.name}-${depth}`}>
+              <details>
+                <summary>{p.menu.name}</summary>
+                <DyAsideMenu asideList={[...p.submenu]} depth={depth + 1} routeDepth={cloneDepth} />{' '}
+              </details>
+            </li>
+          ) : (
+            <li data-depth={`${depth}`} key={`${p.menu.name}-${depth}`}>
               <NavLink
-                key={route.name}
-                to={generatePath(route.path, route.params)}
+                key={p.menu.name}
+                to={generatePath(p.menu.path, p.menu.params)}
                 onClick={() => setNavOpen && setNavOpen(false)}
               >
-                {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
-                {route.name}
-              </NavLink>
-            </li>,
-          )
-        }
-
-        return childarr.map((e) => e)
-      })()}
-      {(() => {
-        let parentarr: any[] = []
-
-        for (var j = 0; j < parents.length; j++) {
-          let submenu = routeDepth && routeDepth[depth].filter((e) => e.parentName === parents[j].name)
-          if (submenu) {
-            parentarr.push(
-              <li data-depth={`${depth}`} key={`${parents[j].name}-${depth}`}>
-                <details>
-                  <summary>{parents[j].name}</summary>
-                  <DyAsideMenu asideList={[...submenu]} depth={depth + 1} routeDepth={routeDepth} />{' '}
-                </details>
-              </li>,
-            )
-          } else {
-            let route = parents[j]
-            parentarr.push(
-              <li data-depth={`${depth}`} key={`${parents[j].name}-${depth}`}>
-                {' '}
-                <NavLink
-                  key={route.name}
-                  to={generatePath(route.path, route.params)}
-                  onClick={() => setNavOpen && setNavOpen(false)}
-                >
-                  {React.createElement(icons[route.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
-                  {route.name}
-                </NavLink>
-              </li>,
-            )
-          }
-        }
-        return parentarr.map((e) => e)
-      })()}
+                {React.createElement(icons[p.menu.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })}
+                {p.menu.name}
+              </NavLink>{' '}
+            </li>
+          ),
+        )}
     </ul>
   )
 }
