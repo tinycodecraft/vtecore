@@ -19,30 +19,22 @@ const icons = [IconHome, IconLock, IconCloudCog, IconLogout, IconSwitch2, IconLi
 export const DyAsideMenu = ({ asideList, routeDepth, depth = 1, maxDepth = 0 }: DyAsideProps) => {
   const cloneDepth = routeDepth ? routeDepth : getRouteByDepth(asideList)
   const { setNavOpen } = useContext(LayoutContext)
+  const hasDepth = cloneDepth && cloneDepth[depth]
 
   if (maxDepth === 0) {
     maxDepth = recordKeys(cloneDepth).length
   }
   const parentnames = routeDepth && depth && depth < maxDepth && routeDepth[depth].map((e) => e.parentName)
-  const leaves = asideList.filter((e) => !parentnames || !parentnames.includes(e.name))
-  const parents = asideList
-    .filter((e) => parentnames && parentnames.includes(e.name))
-    .map((e) => ({ menu: e, submenu: cloneDepth[depth].filter((f) => f.parentName === e.name) }))
+  
+  const parents = asideList    
+    .map((e) => ({ menu: e, submenu: hasDepth && cloneDepth[depth].filter((f) => f.parentName === e.name) , hasChildren: parentnames && parentnames.includes(e.name) }))
 
   return (
     <ul className={clsx(depth <= 1 ? 'menu bg-base-200 w-full rounded-box pt-0' : '')}>
-      {leaves.length > 0 &&
-        leaves.map((l) => (
-          <li data-depth={`${depth}`} key={`${l.name}-${depth}`}>
-            {' '}
-            <NavLink key={l.name} to={generatePath(l.path, l.params)} onClick={() => setNavOpen && setNavOpen(false)}>
-              {React.createElement(icons[l.iconIndex ?? 0], { className: 'h-[18px] w-[18px] inline' })} {l.name}
-            </NavLink>{' '}
-          </li>
-        ))}
+
       {parents.length > 0 &&
         parents.map((p) =>
-          p.submenu && p.submenu.length > 0 ? (
+          p.hasChildren && p.submenu && p.submenu.length > 0 ? (
             <li data-depth={`${depth}`} key={`${p.menu.name}-${depth}`}>
               <details>
                 <summary>{p.menu.name}</summary>

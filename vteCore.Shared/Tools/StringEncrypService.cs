@@ -9,6 +9,7 @@ namespace vteCore.Shared.Tools
 {
     public class StringEncrypService
     {
+        //256-bit key
         private const string phrase = "E546C8DF278CD5931069B522E695D4F2";
 
         private readonly string sign;
@@ -23,7 +24,7 @@ namespace vteCore.Shared.Tools
 
         {
             string key = this.sign;
-
+            //128-bit iv
             byte[] iv = new byte[16];
             byte[] array;
             using (Aes aes = Aes.Create())
