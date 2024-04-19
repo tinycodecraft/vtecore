@@ -1,0 +1,1 @@
+﻿global using EM = vteCore.Shared.Models;
