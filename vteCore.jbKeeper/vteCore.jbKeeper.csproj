@@ -35,4 +35,11 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\vteCore.dbBFA\vteCore.dbBFA.csproj" />
+    <ProjectReference Include="..\vteCore.dbService\vteCore.dbService.csproj" />
+    <ProjectReference Include="..\vteCore.Shared\vteCore.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
