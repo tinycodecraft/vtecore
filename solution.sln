@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.dbBFA", "vteCore.db
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vteCore.dbService", "vteCore.dbService\vteCore.dbService.csproj", "{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vteCore.jbKeeper", "vteCore.jbKeeper\vteCore.jbKeeper.csproj", "{F3FF7F8E-CD1D-4F89-A43A-1447C3758A16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F10CAAB8-24CD-48E9-87E0-DF8D0B82A6B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3FF7F8E-CD1D-4F89-A43A-1447C3758A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3FF7F8E-CD1D-4F89-A43A-1447C3758A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3FF7F8E-CD1D-4F89-A43A-1447C3758A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3FF7F8E-CD1D-4F89-A43A-1447C3758A16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
