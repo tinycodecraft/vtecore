@@ -20,6 +20,15 @@ const WeatherForm = () => {
   const { connectionId } = useAppSelector<HubState>((state) => state.dmHub ?? HubInit)
 
   useEffect(() => {
+
+    //if (SignalRApi.connectionId) {
+     // setConnectionId(SignalRApi.connectionId)
+      // Example to subscribe a method
+      // SignalRApi.subscribe(HubMethodEnum.weather, true, (data) => {
+      //   console.log(`the data receive:`, data)
+      //   dispatch(receiveWeather(data as ErrorOr<WeatherForecast[]>))
+      // })
+    //}    
     dispatch(getWeatherAsync(true))
   }, [dispatch])
 
