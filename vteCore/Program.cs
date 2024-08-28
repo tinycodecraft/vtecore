@@ -304,7 +304,11 @@ app.UseSerilogRequestLogging(option =>
 });
 
 //HTTPS Redirection Middleware (UseHttpsRedirection) to redirect HTTP requests to HTTPS.
-app.UseHttpsRedirection();
+if(app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 
 //var options = new DefaultFilesOptions();
 //options.DefaultFileNames.Clear();
