@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.WebSockets;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Net6_Controller_And_VIte;
@@ -30,7 +31,7 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     ContentRootPath = Directory.GetCurrentDirectory(),
 
     //EnvironmentName =  Environments.Development,
-    //WebRootPath = "wwwroot"
+    WebRootPath = "ClientApp/dist"
 });
 
 //setting configurations
@@ -252,7 +253,7 @@ builder.Services.AddSpaStaticFiles(configuration =>
 
 //builder.Services.AddHttpsRedirection(options =>
 //{
-//    options.RedirectStatusCode = Status307TemporaryRedirect;
+//    options.RedirectStatusCode =307; //temporaryredirect
 //    options.HttpsPort = 5001;
 //});
 
@@ -304,7 +305,19 @@ app.UseSerilogRequestLogging(option =>
 //HTTPS Redirection Middleware (UseHttpsRedirection) to redirect HTTP requests to HTTPS.
 app.UseHttpsRedirection();
 
+//var options = new DefaultFilesOptions();
+//options.DefaultFileNames.Clear();
+//options.DefaultFileNames.Add("index.html");
+//app.UseDefaultFiles(options);
+
 app.UseStaticFiles();
+
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(
+//           Path.Combine(app.Environment.ContentRootPath, "ClientApp", "dist")),
+//    RequestPath = ""
+//});
 app.UseSpaStaticFiles();
 
 
@@ -329,5 +342,7 @@ app.UseSpa(spa =>
     if (app.Environment.IsDevelopment())
         spa.UseViteDevelopmentServer(sourcePath: "ClientApp");
 });
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
