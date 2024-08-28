@@ -31,6 +31,7 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     ContentRootPath = Directory.GetCurrentDirectory(),
 
     //EnvironmentName =  Environments.Development,
+    //this must be applied if root path request to return index.html
     WebRootPath = "ClientApp/dist"
 });
 
