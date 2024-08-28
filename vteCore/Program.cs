@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Spreadsheet;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.WebSockets;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Net6_Controller_And_VIte;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
 using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -14,9 +16,6 @@ using vteCore.Extensions;
 using vteCore.Middleware;
 using vteCore.Shared;
 using vteCore.Woker;
-
-
-
 var corsPolicyName = "AllowAll";
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
@@ -242,6 +241,21 @@ builder.Services.AddSpaStaticFiles(configuration =>
     configuration.RootPath = "ClientApp/dist";
 });
 
+//builder.Services.AddHsts(options =>
+//{
+//    options.Preload = true;
+//    options.IncludeSubDomains = true;
+//    options.MaxAge = TimeSpan.FromDays(60);
+//    options.ExcludedHosts.Add("example.com");
+//    options.ExcludedHosts.Add("www.example.com");
+//});
+
+//builder.Services.AddHttpsRedirection(options =>
+//{
+//    options.RedirectStatusCode = Status307TemporaryRedirect;
+//    options.HttpsPort = 5001;
+//});
+
 
 var app = builder.Build();
 
@@ -249,7 +263,9 @@ var app = builder.Build();
 if(app.Environment.IsDevelopment())
 {
     app.UseApiExceptionHandling();
-    
+    //HSTS Middleware(UseHsts) to send HTTP Strict Transport Security Protocol (HSTS) headers to clients.
+    //app.UseHsts();
+
 }
 else
 {
@@ -285,6 +301,7 @@ app.UseSerilogRequestLogging(option =>
     };
 });
 
+//HTTPS Redirection Middleware (UseHttpsRedirection) to redirect HTTP requests to HTTPS.
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
