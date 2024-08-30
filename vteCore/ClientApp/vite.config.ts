@@ -14,6 +14,9 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     server: {
+      watch: {
+        usePolling: true,
+      },
       proxy: {
         '/test': {
           target: 'https://demo.dataverse.org/api',

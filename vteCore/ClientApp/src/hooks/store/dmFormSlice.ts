@@ -137,6 +137,7 @@ export const exportUserAsync = createAsyncThunk('dmForm/exportUserAsync', async(
     dmHub: { token: accessToken, refreshToken: renewToken, userName },
   } = (getState as () => RootState)()
   console.log(`change password async thunk! with token ${accessToken} + renew ${renewToken}`)
+  console.log('test update code in export')
   
   try{
 
